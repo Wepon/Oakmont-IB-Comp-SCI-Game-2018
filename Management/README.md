@@ -5,6 +5,17 @@ This is the location to place files or links to the files such as:
 * Project Gantt Charts/Slip Charts
 * Personal Gantt Charts/Slip Charts
 
+## Game Idea As of Current
+
+Super Smash Bros Style Fighter Game
+* The Art team will need to be big
+  * Lots of Characters and Maps to Draw and Animate
+* Focus very little on NPC and AI, as the aim is for multplayer
+* Possible Controller support?
+* Character Development Nonexistent unless a story mode is made
+  * Highly Unlikely due to time restraints
+* Music and map deisgn must be well done
+
 ## Possible Positions and Possible Description:
 * Graphic Design
   * Creation of Graphics for the GUI - basically an Art Team
