@@ -1,4 +1,4 @@
-# Art Folder
+# Art Folder:space_invader:
 
 For the art created, please place the images within this folder.
 For the Art:
