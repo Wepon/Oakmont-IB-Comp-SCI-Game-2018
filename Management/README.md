@@ -5,7 +5,7 @@ This is the location to place files or links to the files such as:
 * Project Gantt Charts/Slip Charts
 * Personal Gantt Charts/Slip Charts
 
-# Possible Positions and Possible Description:
+## Possible Positions and Possible Description:
 * Graphic Design
   * Creation of Graphics for the GUI - basically an Art Team
 * Music Design
