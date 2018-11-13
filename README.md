@@ -8,7 +8,7 @@ This is a location for the Class to place files that multiple people require for
 * https://libgdx.badlogicgames.com/
 * https://libgdx.info/
 
-* GUI dev
+* GUI Development
   * UI and Actors - https://libgdx.info/user-interface-basics-and-actors-scene2d/
   * Basic Screens - https://libgdx.info/basic_screen/
   * Multiplexing - https://libgdx.info/multiplexing/
