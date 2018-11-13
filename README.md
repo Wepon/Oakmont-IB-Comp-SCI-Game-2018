@@ -1,4 +1,4 @@
-# Oakmont IB Comp SCI Game 2018
+# Oakmont IB Comp SCI Game 2018:video_game:
 This is a location for the Class to place files that multiple people require for the Project.
 
 ## Links for the Proposed Game Library (libGDX - Java game development library):
