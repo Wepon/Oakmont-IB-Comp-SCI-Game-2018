@@ -1,6 +1,9 @@
 # Oakmont IB Comp SCI Game 2018:video_game:
 This is a location for the Class to place files that multiple people require for the Project.
 
+## Game Concept
+The game will eb a multiplayer fighting game with a wide array of playable characters. Plan is to have one per person in the class as well as Odell and Quincer
+
 ## Links for the Proposed Game Library (libGDX - Java game development library):
 * https://libgdx.badlogicgames.com/
 * https://libgdx.info/
