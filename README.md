@@ -3,8 +3,8 @@ This is a location for the Class to place files that multiple people require for
 
 ## Links for the Proposed Game Library (libGDX - Java game development library):
 
-* ( make sure gradle is installed before hand)
-  * -To install gradle, click tools on netbeans and then plugins, go to available plugins, search gradle then download
+* (make sure gradle is installed before hand)
+  * To install gradle, click tools on netbeans and then plugins, go to available plugins, search gradle then download
 * https://libgdx.badlogicgames.com/
 * https://libgdx.info/
 
