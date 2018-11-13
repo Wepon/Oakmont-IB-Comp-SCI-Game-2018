@@ -1,4 +1,4 @@
-# Project Management Location
+# Project Management Files
 
 This is the location to place files or links to the files such as
 - Current UMLS
