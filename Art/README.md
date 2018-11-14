@@ -10,3 +10,11 @@ For the Art:
 * 3D Models
   * All is same format and compatible with the game engine
   * make sure they are rendered in a size comparable to the other models - some modeling programs have built in scaling features to fix this
+## Sprites Needed per character
+* Walking
+* Crouching
+* Jumping
+* Forward Attack
+* Forward Special
+* Up Special
+* Damage Animation
