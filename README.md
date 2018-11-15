@@ -9,6 +9,7 @@ The game will eb a multiplayer fighting game with a wide array of playable chara
 * https://libgdx.info/
 * MAKE SURE GRADLE IS INSTALLED BEFORE HAND
   * To install gradle, click tools on netbeans and then plugins, go to available plugins, search gradle then download
+* MAKE SURE TO DOWNLOAD THE SETUP JAR FILE
 * GUI Development
   * UI and Actors - https://libgdx.info/user-interface-basics-and-actors-scene2d/
   * Basic Screens - https://libgdx.info/basic_screen/
