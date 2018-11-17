@@ -7,6 +7,8 @@ For the Art:
   * Be careful about size of files
     * The Size matters heavily - 256x256 is DIFFERENT from 1920x1080 pixels
   * The art style needs to be heavily similar - use the same tools so the art cant be distunguished who drew it
+  * libGDX requires all sprite and image dimensions to be powers of 2
+    *2, 4, 8, 16, 32, 64...
 * 3D Models
   * All is same format and compatible with the game engine
   * make sure they are rendered in a size comparable to the other models - some modeling programs have built in scaling features to fix this
