@@ -13,6 +13,7 @@ public class Player extends Object {
     Controller controller = null;
     //0 left analog X; 1 left analog Y; 2 right analog X; 3 right analog Y; 4 a; 5 b; 6 x; 7 y; 8 z; 9 right trigger; 10 left trigger; 11 d-pad; 12 start
     double[] input = new double[13];
+    double heldJump = 0;
     //
     String directionL = null;
     String directionR = null;
@@ -47,7 +48,13 @@ public class Player extends Object {
                 return 0;
             }
         }
-        System.out.println("no controller found");
+        if (controllerType.contains("MAYFLASH")) {
+            if (controller.getButton(12) == true || controller.getButton(13) == true || controller.getButton(14) == true || controller.getButton(15) == true) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
         return 0;
     }
 
@@ -59,11 +66,18 @@ public class Player extends Object {
         }
         playerInput(horizontal_input);
         // vertical movement
-        if ((this.input[6] == 1 || this.input[7] == 1) && this.grounded == true) {
-            jump(50);
+        if ((this.input[6] == 1 || this.input[7] == 1) && this.jumpsLeft > 0 && this.heldJump == 0) {
+            jump(35);
+            this.jumpsLeft--;
+            this.heldJump = 1;
+        }
+        if(this.input[6] == 0 && this.input[7] == 0){
+            this.heldJump = 0;
         }
         //interpret player action
-        
+        if(this.directionL == "S" && this.input[4] == 1 && this.jumpsLeft < 2){ // Down Air
+            System.out.println("down air");
+        }
     }
 
     public String getDirection(double x, double y){
@@ -97,35 +111,7 @@ public class Player extends Object {
         if(angle >= 22.5 && angle <= 67.5){
             return "SW"; 
         }
-        
-//        if(x >= .25 && y <=.1 && y >=-.1){
-//            return "E";
-//        }
-//        if(x <= -.25 && y <=.1 && y >=-.1){
-//            return "W";
-//        }
-//        if(y >= .25 && x <=.1 && x >=-.1){
-//            return "S";
-//        }
-//        if(y <= -.25 && x <=.1 && x >=-.1){
-//            return "N";
-//        }
-//        if(x >= .25 && y >= .25){
-//           return "SE"; 
-//        }
-//        if(x <= -.25 && y >= .25){
-//           return "SW"; 
-//        }
-//        if(x >= .25 && y <= -.25){
-//           return "NE";
-//        }
-//        if(x <= -.25 && y <= -.25){
-//            return "NW";
-//        }
-//        if(x <= .25 && y <= .25){
-//            return "C"; // center
-//        }
-        return "error";
+        return "error with getDirection()";
     }
     
     public void inputUpdate() {
@@ -139,7 +125,7 @@ public class Player extends Object {
             this.directionL = getDirection(this.input[0], this.input[1]);
             this.directionR = getDirection(this.input[2], this.input[3]);
             // System.out.println(this.directionR);
-            this.input[4] = booleanToInt(controller.getButton(0));
+            this.input[4] = booleanToInt(controller.getButton(0)); //A
             this.input[5] = booleanToInt(controller.getButton(1));
             this.input[6] = booleanToInt(controller.getButton(2));
             this.input[7] = booleanToInt(controller.getButton(3));
@@ -148,11 +134,26 @@ public class Player extends Object {
             this.input[10] = booleanToInt(controller.getButton(6));
             this.input[11] = checkDPad();// currently not responding
             this.input[12] = booleanToInt(controller.getButton(11));
-            // System.out.println(this.input[11]);
         }
         if (controllerType.contains("MAYFLASH")) {
             // needs development
-            System.out.println(controller.getButton(0));
+            this.input[0] = controller.getAxis(0); // left x
+            this.input[1] = controller.getAxis(1); // left y
+            this.input[2] = controller.getAxis(5); // right x
+            this.input[3] = controller.getAxis(2); // right y
+            this.directionL = getDirection(this.input[0], this.input[1]);
+            this.directionR = getDirection(this.input[2], this.input[3]);
+            // System.out.println(this.directionR);
+            this.input[4] = booleanToInt(controller.getButton(1));
+            this.input[5] = booleanToInt(controller.getButton(2));
+            this.input[6] = booleanToInt(controller.getButton(0));
+            this.input[7] = booleanToInt(controller.getButton(3));
+            this.input[8] = booleanToInt(controller.getButton(7));
+            this.input[9] = booleanToInt(controller.getButton(5));
+            this.input[10] = booleanToInt(controller.getButton(4));
+            this.input[11] = checkDPad();// currently not responding
+            this.input[12] = booleanToInt(controller.getButton(11));
+            
         }
     }
 }

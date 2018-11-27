@@ -24,7 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MyGdxGame extends ApplicationAdapter implements ControllerListener {
-
+    
     Player player1 = new Player();
     // Player player2 = new Player();
     // Player player3 = new Player();
@@ -33,12 +33,21 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
     SpriteBatch batch;
     Texture img;
     TextureRegion[] animationFrames;
-    Animation animation;
-    
+    Animation<TextureRegion> animation;
+    float elapsedTime;
     @Override
     public void create() {
         batch = new SpriteBatch();
-        img = new Texture("yoshi.png");
+        img = new Texture("penguin.png");
+        
+        TextureRegion[][] tmpFrames = TextureRegion.split(img,20,18);
+        
+        animationFrames = new TextureRegion[4];
+        int index = 0;
+        for(int i = 0; i < 4; i++){
+           animationFrames[index++] = tmpFrames[0][i];
+        }
+        animation = new Animation(1f/12f,animationFrames);
         // controller listener
         ControllerListener listener = this;
         Controllers.addListener(listener);
@@ -51,6 +60,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
 
     @Override
     public void render() {
+        elapsedTime += Gdx.graphics.getDeltaTime();
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
@@ -60,7 +70,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         player1.playerAction();
         player1.physicsUpdate();
         // draw all players
-        batch.draw(img, Math.round(player1.x), Math.round(player1.y));
+        batch.draw(animation.getKeyFrame(elapsedTime,true), Math.round(player1.x), Math.round(player1.y));
         batch.end();
     }
 

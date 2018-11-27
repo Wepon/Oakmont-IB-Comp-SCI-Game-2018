@@ -14,12 +14,12 @@ public class Object {
     double vy = 0;
     double ay = 0;
 
-    boolean grounded = false;
+    int jumpsLeft = 0;
     //These values are change able for each character
     double MaxFall = -100;
     double MaxRun = 20;
-    double ObjA = 6;
-    double weight = 4;
+    double ObjA = 4;
+    double weight = 3;
     double g = -4.8;
 
     public void physicsUpdate() {
@@ -35,7 +35,7 @@ public class Object {
         this.x += this.vx;
         this.y += this.vy;
 
-        if (this.grounded) {
+        if (this.jumpsLeft == 2) {
             this.vx = this.vx / 3;
         }
 
@@ -43,14 +43,12 @@ public class Object {
             this.y = 0;
             this.vy = 0;
             this.ay = 0;
-            this.grounded = true;
-        } else {
-            this.grounded = false;
+            this.jumpsLeft = 2;
         }
     }
 
     public void playerInput(float input) {
-        if (this.grounded) {
+        if (this.jumpsLeft == 2) {
             this.ax = input * this.ObjA;
         } else {
             this.ax = input * this.ObjA / 3; // friction could be adjusted (only on ground)
@@ -74,7 +72,7 @@ public class Object {
     }
 
     public void jump(float force) {
-        this.vy += force;
+        this.vy = force;
     }
 
     public void addForce(float force, float angle) {
