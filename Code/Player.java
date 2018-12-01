@@ -4,11 +4,17 @@ import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.Controllers;
 
 /**
- * @author Dillon Marquard
+ * @author Dillon & Cole Marquard
  */
 public class Player extends Object {
 
-    Character character = null;
+    public Player(Character c,int StartX, int StartY){
+    super(StartX, StartY, c.MaxFall, c.MaxRun, c.ObjA, c.weight, c.Jumps, c.g, c.Width);
+    this.character = c;
+}
+    
+    
+    public Character character = null;
     String controllerType = null;
     Controller controller = null;
     //0 left analog X; 1 left analog Y; 2 right analog X; 3 right analog Y; 4 a; 5 b; 6 x; 7 y; 8 z; 9 right trigger; 10 left trigger; 11 d-pad; 12 start
@@ -17,6 +23,8 @@ public class Player extends Object {
     //
     String directionL = null;
     String directionR = null;
+    int frame = 0;
+    
     enum moveSet {
         
         }
@@ -66,8 +74,10 @@ public class Player extends Object {
         }
         playerInput(horizontal_input);
         // vertical movement
+        //System.out.println(this.jumpsLeft);
         if ((this.input[6] == 1 || this.input[7] == 1) && this.jumpsLeft > 0 && this.heldJump == 0) {
-            jump(35);
+            // System.out.println("jump ed");
+            jump(30);
             this.jumpsLeft--;
             this.heldJump = 1;
         }
@@ -76,7 +86,7 @@ public class Player extends Object {
         }
         //interpret player action
         if(this.directionL == "S" && this.input[4] == 1 && this.jumpsLeft < 2){ // Down Air
-            System.out.println("down air");
+            // System.out.println("down air");
         }
     }
 
