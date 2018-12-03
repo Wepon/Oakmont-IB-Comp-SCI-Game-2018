@@ -29,25 +29,30 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MyGdxGame extends ApplicationAdapter implements ControllerListener {
-    Player player1 = new Player(new Character(),500,200);
+
+    Player player1 = new Player(new Character(), 500, 200);
+    Player player2 = new Player(new Character(), 700, 200);
     GStage stage = new GStage();
-    // Player player2 = new Player();
-    // Player player3 = new Player();
-    // Player player4 = new Player();
     Player[] Pe = {player1};
-    
-    public World World  = new World(Pe , stage);
+
+    public World World = new World(Pe, stage);
     SpriteBatch batch;
     Texture img;
+    //
+    Texture sword;
+    Sprite spritesword;
+    //
     Texture floor;
     TextureRegion[] animationFrames;
     Animation animation;
-    
+
     @Override
     public void create() {
         batch = new SpriteBatch();
         // img = new Texture("penguinsolo.png");
         floor = new Texture("brick.png");
+        sword = new Texture("penguinsword.png");
+        spritesword = new Sprite(sword,16,39);
         // controller listener
         ControllerListener listener = this;
         Controllers.addListener(listener);
@@ -57,8 +62,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
 //        player3.addController(Controllers.getControllers().get(2));
 //        player4.addController(Controllers.getControllers().get(3));
         //
-        
-        
+
     }
 
     @Override
@@ -69,24 +73,24 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         // update current inputs for all players
         World.WorldStep();
         // draw all players
-        for(int i = 0; i < World.Stage.Grounds.length; i++){
-            for(int j = 0; j < World.Stage.Grounds[i].W / 67; j++){
-                batch.draw(floor, (int)World.Stage.Grounds[i].x + (j * 67), (int)World.Stage.Grounds[i].y - 67);
+        for (int i = 0; i < World.Stage.Grounds.length; i++) {
+            for (int j = 0; j < World.Stage.Grounds[i].W / 67; j++) {
+                batch.draw(floor, (int) World.Stage.Grounds[i].x + (j * 67), (int) World.Stage.Grounds[i].y - 67);
             }
         }
-        //batch.draw(floor, (int)World.Stage.Grounds[0].x, (int)World.Stage.Grounds[0].y);
         
-        // Sprite sprite = new Sprite(img);
-        // sprite.flip(false, false);
-        System.out.println(World.PlayerHitBoxes[0].x);
-        System.out.println(World.PlayerHitBoxes[0].y);
-        batch.draw(World.Players[0].character.getAnimation(World.Players[0].facingRight), Math.round(World.Players[0].x), Math.round(World.Players[0].y), 50,50);
-        Hitbox h = new Hitbox(650,72,100,90,50);
-        World.MoveHitBoxes[0] = h;
-        // System.out.println(World.Players[0].vy);
+        // System.out.println(World.PlayerHitBoxes[0].x);
+        // System.out.println(World.PlayerHitBoxes[0].y);
+        batch.draw(World.Players[0].character.getAnimation(World.Players[0].facingRight), Math.round(World.Players[0].x), Math.round(World.Players[0].y), 50, 50);
+        
+//        for(int i = 0; i < World.MoveHitBoxes.length; i++){
+//            if(World.MoveHitBoxes[i] != null){
+//                batch.draw(spritesword, World.MoveHitBoxes[i].x, World.MoveHitBoxes[i].y,30,50);
+//            }
+//        }
         batch.end();
     }
-    
+
     @Override
     public void dispose() {
         batch.dispose();
@@ -141,7 +145,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
 
     //   @Override
     //    public void resize(int width, int height) {
-     //           viewport.update(width, height, true);
-     //           batch.setProjectionMatrix(camera.combined);
+    //           viewport.update(width, height, true);
+    //           batch.setProjectionMatrix(camera.combined);
 //}
 }

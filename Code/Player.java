@@ -8,12 +8,11 @@ import com.badlogic.gdx.controllers.Controllers;
  */
 public class Player extends Object {
 
-    public Player(Character c,int StartX, int StartY){
-    super(StartX, StartY, c.MaxFall, c.MaxRun, c.ObjA, c.weight, c.Jumps, c.g, c.Width);
-    this.character = c;
-}
-    
-    
+    public Player(Character c, int StartX, int StartY) {
+        super(StartX, StartY, c.MaxFall, c.MaxRun, c.ObjA, c.weight, c.Jumps, c.g, c.Width);
+        this.character = c;
+    }
+
     public Character character = null;
     String controllerType = null;
     Controller controller = null;
@@ -23,12 +22,14 @@ public class Player extends Object {
     //
     String directionL = null;
     String directionR = null;
-    int frame = 0;
+    int actionFrame = 0;
+    // state of character action
+    int currentAction;
     
     enum moveSet {
-        
-        }
-    
+
+    }
+
     public String controllerTypeUpdate() {
         return controller.getName();
     }
@@ -66,64 +67,91 @@ public class Player extends Object {
         return 0;
     }
 
-    public void playerAction() {
+    public Hitbox playerAction() {
         // horizontal movement
         float horizontal_input = (float) this.input[0];
         if (Math.abs(horizontal_input) < .1) {
             horizontal_input = 0;
         }
         playerInput(horizontal_input);
-        // vertical movement
-        //System.out.println(this.jumpsLeft);
         if ((this.input[6] == 1 || this.input[7] == 1) && this.jumpsLeft > 0 && this.heldJump == 0) {
-            // System.out.println("jump ed");
             jump(30);
             this.jumpsLeft--;
             this.heldJump = 1;
         }
-        if(this.input[6] == 0 && this.input[7] == 0){
+        if (this.input[6] == 0 && this.input[7] == 0) {
             this.heldJump = 0;
         }
         //interpret player action
-        if(this.directionL == "S" && this.input[4] == 1 && this.jumpsLeft < 2){ // Down Air
-            // System.out.println("down air");
+        if ((((this.directionL == "S" && this.input[4] == 1) || this.directionR == "S") && this.jumpsLeft < this.Jumps && this.actionFrame == 0)  || this.currentAction == 1) { // Down Air
+            System.out.println("down air");
+            this.currentAction = 1;
+            if (this.actionFrame < 20) {
+                this.actionFrame += 1;
+                return (new Hitbox((int) this.x + 20, (int) this.y - 40, 20, 270, 50, this));
+            }
         }
+        if(((((this.directionL == "E" && this.facingRight && this.input[4] == 1) || (this.directionL == "W" && this.facingRight != true && this.input[4] == 1)) || ((this.directionR == "W" && this.facingRight != true) || (this.directionR == "E" && this.facingRight))) && this.jumpsLeft < this.Jumps) || this.currentAction == 2){ // Forward Air              
+            System.out.println("forward air");
+            this.currentAction = 2;
+             if (this.actionFrame < 20) {
+                this.actionFrame += 1;
+                return (new Hitbox((int) this.x + 20, (int) this.y - 40, 20, 270, 50, this));
+             }
+             resetFrameNum();
+        }
+        if(((((this.directionL == "E" && this.facingRight != true && this.input[4] == 1) || (this.directionL == "W" && this.facingRight && this.input[4] == 1)) || ((this.directionR == "W" && this.facingRight) || (this.directionR == "E" && this.facingRight != true))) && this.jumpsLeft < this.Jumps) || this.currentAction == 3){ // Back Air              
+            System.out.println("back air");
+            this.currentAction = 3;
+            if (this.actionFrame < 20) {
+                this.actionFrame += 1;
+                return (new Hitbox((int) this.x + 20, (int) this.y - 40, 20, 270, 50, this));
+             }
+            resetFrameNum();
+        }
+        resetFrameNum();
+        return null;
     }
 
-    public String getDirection(double x, double y){
+    public void resetFrameNum() {
+        System.out.println("reset");
+        this.actionFrame = 0;
+        this.currentAction = 0;
+    }
+
+    public String getDirection(double x, double y) {
         double angle = Math.atan2(y, x);
-        angle = (Math.toDegrees(-angle)+180);
-        //System.out.println(angle);
-        if(x <= .1 && y <= .1 && x > -.1 && y > -.1){
+        angle = (Math.toDegrees(-angle) + 180);
+        if (x <= .1 && y <= .1 && x > -.1 && y > -.1) {
             return "C"; // center
         }
-        if(angle <= 292.5 && angle >= 247.5){
-            return "N"; 
+        if (angle <= 292.5 && angle >= 247.5) {
+            return "N";
         }
-        if(angle <= 112.5 && angle >= 67.5){
-            return "S"; 
+        if (angle <= 112.5 && angle >= 67.5) {
+            return "S";
         }
-        if(angle <= 202.5 && angle >= 157.5){
-            return "E"; 
+        if (angle <= 202.5 && angle >= 157.5) {
+            return "E";
         }
-        if(angle <= 22.5 || angle >= 337.5){
-            return "W"; 
+        if (angle <= 22.5 || angle >= 337.5) {
+            return "W";
         }
-        if(angle <= 247.5 && angle >= 202.5){
-            return "NE"; 
+        if (angle <= 247.5 && angle >= 202.5) {
+            return "NE";
         }
-        if(angle <= 337.5 && angle >= 292.5){
-            return "NW"; 
+        if (angle <= 337.5 && angle >= 292.5) {
+            return "NW";
         }
-        if(angle <= 157.5 && angle >= 112.5){
-            return "SE"; 
+        if (angle <= 157.5 && angle >= 112.5) {
+            return "SE";
         }
-        if(angle >= 22.5 && angle <= 67.5){
-            return "SW"; 
+        if (angle >= 22.5 && angle <= 67.5) {
+            return "SW";
         }
-        return "error with getDirection()";
+        return null;
     }
-    
+
     public void inputUpdate() {
         controllerType = controllerTypeUpdate();
         // only xbox controllers work for now
@@ -163,7 +191,7 @@ public class Player extends Object {
             this.input[10] = booleanToInt(controller.getButton(4));
             this.input[11] = checkDPad();// currently not responding
             this.input[12] = booleanToInt(controller.getButton(11));
-            
+
         }
     }
 }
