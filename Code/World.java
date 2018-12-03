@@ -72,9 +72,16 @@ public class World {
         }
     }
 
-    public void addMove(Hitbox h) {
-        MoveHitBoxes[MoveSize] = h;
-        MoveSize += 1;
+    public void addMove(Hitbox[] h) {
+        if(h == null){
+            return;
+        }
+        for(int x = 0; x < h.length; x++){
+            
+                MoveHitBoxes[MoveSize] = h[x];
+                MoveSize += 1;
+            }
+        }
     }
 
-}
+

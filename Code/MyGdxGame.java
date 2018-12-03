@@ -51,8 +51,8 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         batch = new SpriteBatch();
         // img = new Texture("penguinsolo.png");
         floor = new Texture("brick.png");
-        sword = new Texture("penguinsword.png");
-        spritesword = new Sprite(sword,16,39);
+        sword = new Texture("hitbox.png");
+        spritesword = new Sprite(sword);
         // controller listener
         ControllerListener listener = this;
         Controllers.addListener(listener);
@@ -81,13 +81,13 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         
         // System.out.println(World.PlayerHitBoxes[0].x);
         // System.out.println(World.PlayerHitBoxes[0].y);
-        batch.draw(World.Players[0].character.getAnimation(World.Players[0].facingRight), Math.round(World.Players[0].x), Math.round(World.Players[0].y), 50, 50);
+        batch.draw(World.Players[0].character.getAnimation(World.Players[0].facingRight), Math.round(World.Players[0].x), Math.round(World.Players[0].y), (float)World.Players[0].character.Width, (float)World.Players[0].character.Height);
         
-//        for(int i = 0; i < World.MoveHitBoxes.length; i++){
-//            if(World.MoveHitBoxes[i] != null){
-//                batch.draw(spritesword, World.MoveHitBoxes[i].x, World.MoveHitBoxes[i].y,30,50);
-//            }
-//        }
+        for(int i = 0; i < World.MoveHitBoxes.length; i++){
+            if(World.MoveHitBoxes[i] != null){
+                batch.draw(spritesword, (int)World.MoveHitBoxes[i].x - (int)World.MoveHitBoxes[i].r, (int)World.MoveHitBoxes[i].y - (int)World.MoveHitBoxes[i].r,(int)World.MoveHitBoxes[i].r*2, (float) World.MoveHitBoxes[i].r*2);
+            }
+        }
         batch.end();
     }
 

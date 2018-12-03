@@ -67,7 +67,7 @@ public class Player extends Object {
         return 0;
     }
 
-    public Hitbox playerAction() {
+    public Hitbox[] playerAction() {
         // horizontal movement
         float horizontal_input = (float) this.input[0];
         if (Math.abs(horizontal_input) < .1) {
@@ -83,31 +83,86 @@ public class Player extends Object {
             this.heldJump = 0;
         }
         //interpret player action
-        if ((((this.directionL == "S" && this.input[4] == 1) || this.directionR == "S") && this.jumpsLeft < this.Jumps && this.actionFrame == 0)  || this.currentAction == 1) { // Down Air
+        if ((((this.directionL == "S" && this.input[4] == 1) || this.directionR == "S") && this.jumpsLeft < this.Jumps && this.actionFrame == 0)  || (this.currentAction == 1 && this.jumpsLeft < this.Jumps)) { // Down Air
             System.out.println("down air");
             this.currentAction = 1;
             if (this.actionFrame < 20) {
                 this.actionFrame += 1;
-                return (new Hitbox((int) this.x + 20, (int) this.y - 40, 20, 270, 50, this));
+                return character.getHitbox(this.facingRight,this.x,this.y,this.currentAction,this.actionFrame,this);
             }
         }
-        if(((((this.directionL == "E" && this.facingRight && this.input[4] == 1) || (this.directionL == "W" && this.facingRight != true && this.input[4] == 1)) || ((this.directionR == "W" && this.facingRight != true) || (this.directionR == "E" && this.facingRight))) && this.jumpsLeft < this.Jumps) || this.currentAction == 2){ // Forward Air              
+        if(((((this.directionL == "E" && this.facingRight && this.input[4] == 1) || (this.directionL == "W" && this.facingRight != true && this.input[4] == 1)) || ((this.directionR == "W" && this.facingRight != true) || (this.directionR == "E" && this.facingRight))) && this.jumpsLeft < this.Jumps && this.actionFrame == 0) || (this.currentAction == 2 && this.jumpsLeft < this.Jumps)){ // Forward Air              
             System.out.println("forward air");
             this.currentAction = 2;
              if (this.actionFrame < 20) {
                 this.actionFrame += 1;
-                return (new Hitbox((int) this.x + 20, (int) this.y - 40, 20, 270, 50, this));
+                return character.getHitbox(this.facingRight,this.x,this.y,this.currentAction,this.actionFrame,this);
              }
-             resetFrameNum();
         }
-        if(((((this.directionL == "E" && this.facingRight != true && this.input[4] == 1) || (this.directionL == "W" && this.facingRight && this.input[4] == 1)) || ((this.directionR == "W" && this.facingRight) || (this.directionR == "E" && this.facingRight != true))) && this.jumpsLeft < this.Jumps) || this.currentAction == 3){ // Back Air              
+        if(((((this.directionL == "E" && this.facingRight != true && this.input[4] == 1) || (this.directionL == "W" && this.facingRight && this.input[4] == 1)) || ((this.directionR == "W" && this.facingRight) || (this.directionR == "E" && this.facingRight != true))) && this.jumpsLeft < this.Jumps && this.actionFrame == 0) || (this.currentAction == 3 && this.jumpsLeft < this.Jumps)){ // Back Air              
             System.out.println("back air");
             this.currentAction = 3;
             if (this.actionFrame < 20) {
                 this.actionFrame += 1;
-                return (new Hitbox((int) this.x + 20, (int) this.y - 40, 20, 270, 50, this));
+                return character.getHitbox(this.facingRight,this.x,this.y,this.currentAction,this.actionFrame,this);
              }
-            resetFrameNum();
+        }
+        if((((this.directionL == "N" && this.input[4] == 1) || this.directionR == "N") && this.jumpsLeft < this.Jumps && this.actionFrame == 0)  || (this.currentAction == 4 && this.jumpsLeft < this.Jumps)){ // Up Air
+            this.currentAction = 4;
+            System.out.println("up air");
+            if (this.actionFrame < 20) {
+                this.actionFrame += 1;
+                return character.getHitbox(this.facingRight,this.x,this.y,this.currentAction,this.actionFrame,this);
+             }
+        }
+        if((this.input[4] == 1 && this.jumpsLeft < this.Jumps && this.actionFrame == 0) || (this.currentAction == 5 && this.jumpsLeft < this.Jumps)){ //Neutral Air
+            this.currentAction = 5;
+            System.out.println("neutral air");
+            if (this.actionFrame < 20) {
+                this.actionFrame += 1;
+                return character.getHitbox(this.facingRight,this.x,this.y,this.currentAction,this.actionFrame,this);
+             }
+        }
+        //
+        if ((((this.directionL == "S" && this.input[4] == 1) || this.directionR == "S") && this.jumpsLeft == this.Jumps && this.actionFrame == 0)  || (this.currentAction == 6 && this.jumpsLeft == this.Jumps)) { // Down Smash
+            System.out.println("down smash");
+            this.currentAction = 6;
+            if (this.actionFrame < 20) {
+                this.actionFrame += 1;
+                return character.getHitbox(this.facingRight,this.x,this.y,this.currentAction,this.actionFrame,this);
+            }
+        }
+        if(((((this.directionL == "E" && this.facingRight && this.input[4] == 1) || (this.directionL == "W" && this.facingRight != true && this.input[4] == 1)) || ((this.directionR == "W" && this.facingRight != true) || (this.directionR == "E" && this.facingRight))) && this.jumpsLeft == this.Jumps && this.actionFrame == 0) || (this.currentAction == 7 && this.jumpsLeft == this.Jumps)){ // Forward Smash              
+            System.out.println("forward smash");
+            this.currentAction = 7;
+             if (this.actionFrame < 20) {
+                this.actionFrame += 1;
+                return character.getHitbox(this.facingRight,this.x,this.y,this.currentAction,this.actionFrame,this);
+             }
+        }
+        if(((((this.directionL == "E" && this.facingRight != true && this.input[4] == 1) || (this.directionL == "W" && this.facingRight && this.input[4] == 1)) || ((this.directionR == "W" && this.facingRight) || (this.directionR == "E" && this.facingRight != true))) && this.jumpsLeft == this.Jumps && this.actionFrame == 0) || (this.currentAction == 8 && this.jumpsLeft == this.Jumps)){ // Back Smash              
+            System.out.println("back smash");
+            this.currentAction = 8;
+            if (this.actionFrame < 20) {
+                this.actionFrame += 1;
+                return character.getHitbox(this.facingRight,this.x,this.y,this.currentAction,this.actionFrame,this);
+             }
+        }
+        if((((this.directionL == "N" && this.input[4] == 1) || this.directionR == "N") && this.jumpsLeft == this.Jumps && this.actionFrame == 0)  || (this.currentAction == 9 && this.jumpsLeft == this.Jumps)){ // Up Smash
+            this.currentAction = 9;
+            System.out.println("up smash");
+            if (this.actionFrame < 20) {
+                this.actionFrame += 1;
+                return character.getHitbox(this.facingRight,this.x,this.y,this.currentAction,this.actionFrame,this);
+             }
+        }
+        if(this.input[4] == 1 || this.currentAction == 10){
+            this.currentAction = 10;
+            System.out.println("jab");
+            if (this.actionFrame < 8) {
+                this.actionFrame += 1;
+                return character.getHitbox(this.facingRight,this.x,this.y,this.currentAction,this.actionFrame,this);
+             }
         }
         resetFrameNum();
         return null;
