@@ -81,7 +81,7 @@ public class Character {
         if (action == 5) {
             if (frame < 10) {
                 Hitbox[] Harr = new Hitbox[1];
-                Harr[0] = new Hitbox(x + (p.character.Width / 2), y + (p.character.Height / 2), 100, 270, 130, p);
+                Harr[0] = new Hitbox(x + (p.character.Width / 2), y + (p.character.Height / 2), 30, 270, 130, p);
                 return Harr;
             }
             if(frame < 20 && frame >= 10){

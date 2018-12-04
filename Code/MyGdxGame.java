@@ -17,6 +17,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -27,6 +28,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Object;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static javafx.scene.text.Font.font;
 
 public class MyGdxGame extends ApplicationAdapter implements ControllerListener {
 
@@ -34,7 +36,12 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
     Player player2 = new Player(new Character(), 700, 200);
     GStage stage = new GStage();
     Player[] Pe = {player1};
+    //
+    SpriteBatch spriteBatch;
+    BitmapFont font;
 
+
+    
     public World World = new World(Pe, stage);
     SpriteBatch batch;
     Texture img;
@@ -53,6 +60,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         floor = new Texture("brick.png");
         circle = new Texture("hitbox.png");
         hitbox = new Sprite(circle);
+        font = new BitmapFont();
         // controller listener
         ControllerListener listener = this;
         Controllers.addListener(listener);
@@ -80,6 +88,10 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         }
         //draw players
         batch.draw(World.Players[0].character.getAnimation(World.Players[0].facingRight, World.Players[0].currentAction, World.Players[0].actionFrame, World.Players[0]), Math.round(World.Players[0].x), Math.round(World.Players[0].y), (float) World.Players[0].character.Width, (float) World.Players[0].character.Height);
+        // draw health
+        for(int i = 0; i < World.Players.length; i++){
+            font.draw(batch, "" + (float)(Math.round(World.Players[i].health*100f)), 67 + 67*i, 30);
+        }
         // draw hitboxes
         for (int i = 0; i < World.MoveHitBoxes.length; i++) {
             if (World.MoveHitBoxes[i] != null) {

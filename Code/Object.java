@@ -46,13 +46,10 @@ public class Object {
     }
 
     public void physicsUpdate() {
-
-        this.vy += this.g + this.ay;
-
         this.vx += this.ax;
 
-        if (this.vy < this.MaxFall) {
-            this.vy = this.MaxFall;
+        if (this.vy > this.MaxFall) {
+            this.vy += this.g + this.ay;
         }
 
         if (passThrough() != -69 && this.vy < 0) {
@@ -98,7 +95,7 @@ public class Object {
                 this.facingRight = false;
             }
         }
-        if (this.jumpsLeft == 2) {
+        if (this.jumpsLeft == this.Jumps) {
             this.ax = input * this.ObjA;
         } else {
             this.ax = input * this.ObjA / 3; // friction could be adjusted (only on ground)
@@ -130,7 +127,7 @@ public class Object {
         double a = Math.toRadians((double) angle);
         this.vy = (Math.sin(a) * force / this.weight) * (this.health + .1);    // allows for the physics of moves to be applied to the body
         this.vx = (Math.cos(a) * force / this.weight) * (this.health + .1);
-        this.health += force / 100;
+        this.health += force / 10000;
         this.g = this.savedg;
     }
 
