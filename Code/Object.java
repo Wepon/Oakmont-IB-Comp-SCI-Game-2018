@@ -28,7 +28,7 @@ public class Object {
     double g = -4.8;
     double savedg = -4.8;
     public boolean facingRight = false;
-    
+
     public double health = 0.0;
 
     public Object(double x, double y, double MF, double MR, double a, double W, int Jump, double g, double width) {
@@ -74,7 +74,6 @@ public class Object {
             this.vy = 0;
             this.ay = 0;
             this.jumpsLeft = this.Jumps;
-            this.g = 0;
         }
 
     }
@@ -94,7 +93,7 @@ public class Object {
         if (this.Grounded() != null) {
             if (input > 0) {
                 this.facingRight = true;
-            } 
+            }
             if (input < 0) {
                 this.facingRight = false;
             }
@@ -119,7 +118,6 @@ public class Object {
                 this.ax = 0;
             }
         }
-
     }
 
     public void jump(float force) {

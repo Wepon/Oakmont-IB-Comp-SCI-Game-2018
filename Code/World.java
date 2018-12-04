@@ -17,27 +17,11 @@ public class World {
         this.Players = p;
         this.Stage = S;
         this.Players[0].SetStage(S);
-        for (int i = 0; i < p.length; i++) {
-            for (int j = 0; j < p[i].character.HitBoxes.length; j++) {
-                Players[i].character.HitBoxes[j].addPlayer(p[i]);
-                Players[i].character.HitBoxes[j].moveHitbox((int) Players[i].x + (int) Players[i].character.Width / 2, ((int) Players[i].y + (int) Players[i].character.Height / 4) * (j + 1));
-            }
-        }
+
     }
 
     public void WorldStep() {
-        for (int i = 0; i < Players.length; i++) {
-            for (int j = 0; j < Players[i].character.HitBoxes.length; j++) {
-                Players[i].character.HitBoxes[j].addPlayer(Players[i]);
-                Players[i].character.HitBoxes[j].moveHitbox((int) Players[i].x + (int) Players[i].character.Width / 2, ((int) Players[i].y + (int) Players[i].character.Height / 4) * (j + 1));
-            }
-        }
-
-        for (Player Player : this.Players) {
-            for (int x = 0; x < Player.character.HitBoxes.length; x++) {
-                PlayerHitBoxes[count++] = Player.character.HitBoxes[x];
-            }
-        }
+        CheckPhysicsCollisions();
         for (int i = 0; i < MoveHitBoxes.length; i++) {
             MoveHitBoxes[i] = null;
         }
@@ -45,19 +29,21 @@ public class World {
         MoveSize = 0;
         count = 0;
 
+        for (int x = 0; x < this.Players.length; x++) {
+            this.Players[x].physicsUpdate();
+        }
         for (Player Player : this.Players) {
             Player.inputUpdate();
         }
         for (int x = 0; x < this.Players.length; x++) {
             addMove(this.Players[x].playerAction());
         }
-
-        CheckPhysicsCollisions();
-
-        for (int x = 0; x < this.Players.length; x++) {
-            this.Players[x].physicsUpdate();
+        for (int i = 0; i < this.Players.length; i++) {
+            Hitbox[] h = this.Players[i].character.playerHitbox(this.Players[i]);
+            for (int j = 0; j < h.length; j++) {
+                PlayerHitBoxes[count++] = h[j];
+            }
         }
-
     }
 
     public void CheckPhysicsCollisions() {
@@ -73,15 +59,12 @@ public class World {
     }
 
     public void addMove(Hitbox[] h) {
-        if(h == null){
+        if (h == null) {
             return;
         }
-        for(int x = 0; x < h.length; x++){
-            
-                MoveHitBoxes[MoveSize] = h[x];
-                MoveSize += 1;
-            }
+        for (int x = 0; x < h.length; x++) {
+            MoveHitBoxes[MoveSize] = h[x];
+            MoveSize += 1;
         }
     }
-
-
+}
