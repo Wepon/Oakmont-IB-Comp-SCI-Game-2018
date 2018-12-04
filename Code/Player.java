@@ -216,6 +216,10 @@ public class Player extends Object {
             this.input[10] = booleanToInt(controller.getButton(6));
             this.input[11] = checkDPad();// currently not responding
             this.input[12] = booleanToInt(controller.getButton(11));
+            if(this.input[10]==1){
+                this.x = 300;
+                this.y = 100;
+            }
         }
         if (controllerType.contains("MAYFLASH")) {
             // needs development

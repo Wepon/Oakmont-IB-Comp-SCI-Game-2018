@@ -16,8 +16,9 @@ public class World {
     public World(Player[] p, GStage S) {
         this.Players = p;
         this.Stage = S;
-        this.Players[0].SetStage(S);
-
+        for (Player P : this.Players) {
+            P.SetStage(S);
+        }
     }
 
     public void WorldStep() {

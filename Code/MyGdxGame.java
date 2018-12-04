@@ -35,19 +35,18 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
     Player player1 = new Player(new Character(), 500, 200);
     Player player2 = new Player(new Character(), 700, 200);
     GStage stage = new GStage();
-    Player[] Pe = {player1};
+    Player[] Pe = {player1, player2};
     //
     SpriteBatch spriteBatch;
     BitmapFont font;
 
-
-    
     public World World = new World(Pe, stage);
     SpriteBatch batch;
     Texture img;
     //
     Texture circle;
     Sprite hitbox;
+    Texture Backroud;
     //
     Texture floor;
     TextureRegion[] animationFrames;
@@ -55,18 +54,20 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
 
     @Override
     public void create() {
+        Backroud = new Texture("Mario_Bros_Map.jpg");
         batch = new SpriteBatch();
         // img = new Texture("penguinsolo.png");
         floor = new Texture("brick.png");
         circle = new Texture("hitbox.png");
         hitbox = new Sprite(circle);
         font = new BitmapFont();
+        font.getData().setScale(5);
         // controller listener
         ControllerListener listener = this;
         Controllers.addListener(listener);
         // player settings
         player1.addController(Controllers.getControllers().get(0));
-//        player2.addController(Controllers.getControllers().get(1));
+        player2.addController(Controllers.getControllers().get(1));
 //        player3.addController(Controllers.getControllers().get(2));
 //        player4.addController(Controllers.getControllers().get(3));
         //
@@ -78,6 +79,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
+        batch.draw(Backroud, 0, -50,1920,1080);
         // update current inputs for all players
         World.WorldStep();
         // draw all players
@@ -87,10 +89,12 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
             }
         }
         //draw players
-        batch.draw(World.Players[0].character.getAnimation(World.Players[0].facingRight, World.Players[0].currentAction, World.Players[0].actionFrame, World.Players[0]), Math.round(World.Players[0].x), Math.round(World.Players[0].y), (float) World.Players[0].character.Width, (float) World.Players[0].character.Height);
+        for (int i = 0; i < World.Players.length; i++) {
+            batch.draw(World.Players[i].character.getAnimation(World.Players[i].facingRight, World.Players[i].currentAction, World.Players[i].actionFrame, World.Players[i]), Math.round(World.Players[i].x), Math.round(World.Players[i].y), (float) World.Players[i].character.Width, (float) World.Players[i].character.Height);
+        }
         // draw health
-        for(int i = 0; i < World.Players.length; i++){
-            font.draw(batch, "" + (float)(Math.round(World.Players[i].health*100f)), 67 + 67*i, 30);
+        for (int i = 0; i < World.Players.length; i++) {
+            font.draw(batch, "" + (float) (Math.round(World.Players[i].health * 100f)), 100 + 150 * i, 800);
         }
         // draw hitboxes
         for (int i = 0; i < World.MoveHitBoxes.length; i++) {

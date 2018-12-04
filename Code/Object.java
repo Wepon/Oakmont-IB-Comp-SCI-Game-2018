@@ -59,7 +59,7 @@ public class Object {
         }
         this.x += this.vx;
 
-        if (this.jumpsLeft == this.Jumps) {
+        if (this.jumpsLeft == this.Jumps && this.Grounded() != null) {
             this.vx = this.vx / 3;
         }
         if (this.Grounded() == null) {
@@ -125,9 +125,9 @@ public class Object {
 
     public void addForce(float force, int angle) {
         double a = Math.toRadians((double) angle);
-        this.vy = (Math.sin(a) * force / this.weight) * (this.health + .1);    // allows for the physics of moves to be applied to the body
-        this.vx = (Math.cos(a) * force / this.weight) * (this.health + .1);
-        this.health += force / 10000;
+        this.vy = (Math.sin(a) * force / this.weight) * (this.health + .1)*10;    // allows for the physics of moves to be applied to the body
+        this.vx = (Math.cos(a) * force / this.weight) * (this.health + .1)*10;
+        this.health += force / 1000;
         this.g = this.savedg;
     }
 
