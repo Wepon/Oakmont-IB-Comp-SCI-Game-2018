@@ -16,7 +16,7 @@ public class Character {
     double MaxRun = 10;
     double ObjA = 4;
     double weight = 3;
-    double g = -2;
+    double g = -1.4;
 
     double Height = 50;
     double Width = 50;
@@ -45,28 +45,28 @@ public class Character {
         }
         if (action == 2) {
             if (frame < 10) {
-                if(facingRight){
+                if (facingRight) {
                     Hitbox[] Harr = new Hitbox[1];
-                    Harr[0] = new Hitbox(x + (p.character.Width/2) + 45, y + (p.character.Height / 2), 30, 20, 30, p);
+                    Harr[0] = new Hitbox(x + (p.character.Width / 2) + 45, y + (p.character.Height / 2), 30, 20, 30, p);
                     return Harr;
                 }
-                if(facingRight == false){
+                if (facingRight == false) {
                     Hitbox[] Harr = new Hitbox[1];
-                    Harr[0] = new Hitbox(x + (p.character.Width/2) - 45, y + (p.character.Height / 2), 30, 160, 30, p);
+                    Harr[0] = new Hitbox(x + (p.character.Width / 2) - 45, y + (p.character.Height / 2), 30, 160, 30, p);
                     return Harr;
                 }
             }
         }
         if (action == 3) {
             if (frame < 10) {
-                if(facingRight == false){
+                if (facingRight == false) {
                     Hitbox[] Harr = new Hitbox[1];
-                    Harr[0] = new Hitbox(x + (p.character.Width/2) + 45, y + (p.character.Height / 2), 30, 20, 30, p);
+                    Harr[0] = new Hitbox(x + (p.character.Width / 2) + 45, y + (p.character.Height / 2), 30, 20, 30, p);
                     return Harr;
                 }
-                if(facingRight){
+                if (facingRight) {
                     Hitbox[] Harr = new Hitbox[1];
-                    Harr[0] = new Hitbox(x + (p.character.Width/2) - 45, y + (p.character.Height / 2), 30, 160, 30, p);
+                    Harr[0] = new Hitbox(x + (p.character.Width / 2) - 45, y + (p.character.Height / 2), 30, 160, 30, p);
                     return Harr;
                 }
             }
@@ -81,17 +81,17 @@ public class Character {
         if (action == 5) {
             if (frame < 10) {
                 Hitbox[] Harr = new Hitbox[1];
-                Harr[0] = new Hitbox(x + (p.character.Width / 2), y + (p.character.Height / 2), 30, 270, 130, p);
+                Harr[0] = new Hitbox(x + (p.character.Width / 2), y + (p.character.Height / 2), 30, 90, 130, p);
                 return Harr;
             }
-            if(frame < 20 && frame >= 10){
+            if (frame < 20 && frame >= 10) {
                 Hitbox[] Harr = new Hitbox[1];
-                Harr[0] = new Hitbox(x + (p.character.Width / 2), y + (p.character.Height / 2), 200, 270, 130, p);
+                Harr[0] = new Hitbox(x + (p.character.Width / 2), y + (p.character.Height / 2), 200, 90, 130, p);
                 return Harr;
             }
-            if(frame < 30 && frame >= 20){
+            if (frame < 30 && frame >= 20) {
                 Hitbox[] Harr = new Hitbox[1];
-                Harr[0] = new Hitbox(x + (p.character.Width / 2), y + (p.character.Height / 2), 300, 270, 130, p);
+                Harr[0] = new Hitbox(x + (p.character.Width / 2), y + (p.character.Height / 2), 300, 90, 130, p);
                 return Harr;
             }
         }
@@ -105,28 +105,28 @@ public class Character {
         }
         if (action == 7) {
             if (frame < 10) {
-                if(facingRight){
+                if (facingRight) {
                     Hitbox[] Harr = new Hitbox[1];
-                    Harr[0] = new Hitbox(x + (p.character.Width/2) + 45, y + (p.character.Height / 2), 30, 20, 30, p);
+                    Harr[0] = new Hitbox(x + (p.character.Width / 2) + 45, y + (p.character.Height / 2), 30, 20, 30, p);
                     return Harr;
                 }
-                if(facingRight == false){
+                if (facingRight == false) {
                     Hitbox[] Harr = new Hitbox[1];
-                    Harr[0] = new Hitbox(x + (p.character.Width/2) - 45, y + (p.character.Height / 2), 30, 160, 30, p);
+                    Harr[0] = new Hitbox(x + (p.character.Width / 2) - 45, y + (p.character.Height / 2), 30, 160, 30, p);
                     return Harr;
                 }
             }
         }
         if (action == 8) {
             if (frame < 10) {
-                if(facingRight == false){
+                if (facingRight == false) {
                     Hitbox[] Harr = new Hitbox[1];
-                    Harr[0] = new Hitbox(x + (p.character.Width/2) + 45, y + (p.character.Height / 2), 30, 20, 30, p);
+                    Harr[0] = new Hitbox(x + (p.character.Width / 2) + 45, y + (p.character.Height / 2), 30, 20, 30, p);
                     return Harr;
                 }
-                if(facingRight){
+                if (facingRight) {
                     Hitbox[] Harr = new Hitbox[1];
-                    Harr[0] = new Hitbox(x + (p.character.Width/2) - 45, y + (p.character.Height / 2), 30, 160, 30, p);
+                    Harr[0] = new Hitbox(x + (p.character.Width / 2) - 45, y + (p.character.Height / 2), 30, 160, 30, p);
                     return Harr;
                 }
             }
@@ -140,14 +140,14 @@ public class Character {
         }
         if (action == 10) {
             if (frame < 10) {
-                if(facingRight){
+                if (facingRight) {
                     Hitbox[] Harr = new Hitbox[1];
-                    Harr[0] = new Hitbox(x + (p.character.Width/2) + 35, y + (p.character.Height / 2), 20, 20, 10, p);
+                    Harr[0] = new Hitbox(x + (p.character.Width / 2) + 35, y + (p.character.Height / 2), 20, 20, 10, p);
                     return Harr;
                 }
-                if(facingRight == false){
+                if (facingRight == false) {
                     Hitbox[] Harr = new Hitbox[1];
-                    Harr[0] = new Hitbox(x + (p.character.Width/2) - 35, y + (p.character.Height / 2), 20, 160, 10, p);
+                    Harr[0] = new Hitbox(x + (p.character.Width / 2) - 35, y + (p.character.Height / 2), 20, 160, 10, p);
                     return Harr;
                 }
             }
@@ -156,10 +156,23 @@ public class Character {
         return null;
     }
 
-    public Hitbox[] playerHitbox(Player p){
+    public Hitbox[] playerHitbox(Player p) {
         Hitbox[] hb = new Hitbox[2];
         hb[0] = new Hitbox(p.x + (p.character.Width / 2), p.y + 10, 20, 0, 0, p);
         hb[1] = new Hitbox(p.x + (p.character.Width / 2), p.y + 30, 15, 0, 0, p);
         return hb;
+    }
+
+    public Hitbox ledgeHitbox(Player p) {
+        if(p.canGrabLedge && (p.jumpsLeft < p.Jumps || p.onLedge)){
+            if (p.facingRight) {
+                return new Hitbox(p.x + p.character.Width, p.y + p.character.Height, 20, 0, 0, p);
+            }
+            if (p.facingRight != true) {
+                return new Hitbox(p.x, p.y + p.character.Height, 20, 0, 0, p);
+            }
+            return null;
+        }
+        return null;
     }
 }

@@ -28,8 +28,16 @@ public class Object {
     double g = -4.8;
     double savedg = -4.8;
     public boolean facingRight = false;
-
+    // ledges
+    public boolean onLedge = false;
+    public boolean canGrabLedge = true;
+    public int ledgeCooldown = 0;
+    public int ledgeCooldownLength = 20;
+    // health
     public double health = 0.0;
+    public int stock = 3;
+    // dont touch :P
+    public double lastInput;
 
     public Object(double x, double y, double MF, double MR, double a, double W, int Jump, double g, double width) {
         this.x = x;
@@ -62,7 +70,7 @@ public class Object {
         if (this.jumpsLeft == this.Jumps && this.Grounded() != null) {
             this.vx = this.vx / 3;
         }
-        if (this.Grounded() == null) {
+        if (this.Grounded() == null && this.onLedge == false) {
             this.g = this.savedg;
         }
         if (this.Grounded() != null && this.vy <= 0) {
@@ -72,7 +80,8 @@ public class Object {
             this.ay = 0;
             this.jumpsLeft = this.Jumps;
         }
-
+        this.lastInput = 0;
+        this.g = this.savedg;
     }
 
     public double passThrough() {
@@ -87,6 +96,7 @@ public class Object {
     }
 
     public void playerInput(float input) {
+        this.lastInput = input;
         if (this.Grounded() != null) {
             if (input > 0) {
                 this.facingRight = true;
@@ -120,13 +130,14 @@ public class Object {
     public void jump(float force) {
         this.vy = force;
         this.g = this.savedg;
+        
         // System.out.println("Jumped");
     }
 
     public void addForce(float force, int angle) {
         double a = Math.toRadians((double) angle);
-        this.vy = (Math.sin(a) * force / this.weight) * (this.health + .1)*10;    // allows for the physics of moves to be applied to the body
-        this.vx = (Math.cos(a) * force / this.weight) * (this.health + .1)*10;
+        this.vy = (Math.sin(a) * force / this.weight) * (this.health + .1) * 10;    // allows for the physics of moves to be applied to the body
+        this.vx = (Math.cos(a) * force / this.weight) * (this.health + .1) * 10;
         this.health += force / 1000;
         this.g = this.savedg;
     }

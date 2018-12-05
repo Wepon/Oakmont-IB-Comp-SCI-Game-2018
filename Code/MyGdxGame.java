@@ -33,9 +33,9 @@ import static javafx.scene.text.Font.font;
 public class MyGdxGame extends ApplicationAdapter implements ControllerListener {
 
     Player player1 = new Player(new Character(), 500, 200);
-    Player player2 = new Player(new Character(), 700, 200);
+    // Player player2 = new Player(new Character(), 700, 200);
     GStage stage = new GStage();
-    Player[] Pe = {player1, player2};
+    Player[] Pe = {player1};//, player2};
     //
     SpriteBatch spriteBatch;
     BitmapFont font;
@@ -54,7 +54,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
 
     @Override
     public void create() {
-        Backroud = new Texture("Mario_Bros_Map.jpg");
+        // Backroud = new Texture("Mario_Bros_Map.jpg");
         batch = new SpriteBatch();
         // img = new Texture("penguinsolo.png");
         floor = new Texture("brick.png");
@@ -67,7 +67,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         Controllers.addListener(listener);
         // player settings
         player1.addController(Controllers.getControllers().get(0));
-        player2.addController(Controllers.getControllers().get(1));
+        // player2.addController(Controllers.getControllers().get(1));
 //        player3.addController(Controllers.getControllers().get(2));
 //        player4.addController(Controllers.getControllers().get(3));
         //
@@ -79,7 +79,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.draw(Backroud, 0, -50,1920,1080);
+        // batch.draw(Backroud, 0, -50,1920,1080);
         // update current inputs for all players
         World.WorldStep();
         // draw all players
@@ -100,6 +100,16 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         for (int i = 0; i < World.MoveHitBoxes.length; i++) {
             if (World.MoveHitBoxes[i] != null) {
                 batch.draw(hitbox, (int) World.MoveHitBoxes[i].x - (int) World.MoveHitBoxes[i].r, (int) World.MoveHitBoxes[i].y - (int) World.MoveHitBoxes[i].r, (int) World.MoveHitBoxes[i].r * 2, (float) World.MoveHitBoxes[i].r * 2);
+            }
+        }
+        for (int i = 0; i < World.GrabHitBoxes.length; i++) {
+            if (World.GrabHitBoxes[i] != null) {
+                batch.draw(hitbox, (int) World.GrabHitBoxes[i].x - (int) World.GrabHitBoxes[i].r, (int) World.GrabHitBoxes[i].y - (int) World.GrabHitBoxes[i].r, (int) World.GrabHitBoxes[i].r * 2, (float) World.GrabHitBoxes[i].r * 2);
+            }
+        }
+        for (int i = 0; i < World.Stage.Ledges.length; i++) {
+            if (World.Stage.Ledges[i] != null) {
+                batch.draw(hitbox, (int) World.Stage.Ledges[i].x - (int) World.Stage.Ledges[i].r, (int) World.Stage.Ledges[i].y - (int) World.Stage.Ledges[i].r, (int) World.Stage.Ledges[i].r * 2, (float) World.Stage.Ledges[i].r * 2);
             }
         }
         // draw player hitboxes
