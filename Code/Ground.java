@@ -10,12 +10,14 @@ public class Ground {
     public double y = 0;
     public double H = 5;
     public double W = 5;
-
-    public Ground(int x, int y, int Height, int Width) {
+    public boolean hasLedge;
+            
+    public Ground(int x, int y, int Height, int Width, boolean ledge) {
         this.x = x;
         this.y = y;
         this.H = Height;
         this.W = Width;
+        this.hasLedge = ledge;
     }
 
     public boolean IsGrounded(double x, double y, double width) {

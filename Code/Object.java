@@ -37,7 +37,6 @@ public class Object {
     public double health = 0.0;
     public int stock = 3;
     // dont touch :P
-    public double lastInput;
 
     public Object(double x, double y, double MF, double MR, double a, double W, int Jump, double g, double width) {
         this.x = x;
@@ -80,7 +79,6 @@ public class Object {
             this.ay = 0;
             this.jumpsLeft = this.Jumps;
         }
-        this.lastInput = 0;
         this.g = this.savedg;
     }
 
@@ -96,7 +94,6 @@ public class Object {
     }
 
     public void playerInput(float input) {
-        this.lastInput = input;
         if (this.Grounded() != null) {
             if (input > 0) {
                 this.facingRight = true;

@@ -25,7 +25,7 @@ public class Player extends Object {
     int actionFrame = 0;
     // state of character action
     int currentAction;
-
+    int idleFrame = 0;
     enum moveSet {
 
     }
@@ -68,15 +68,18 @@ public class Player extends Object {
     }
 
     public Hitbox[] playerAction() {
-
+        
         // horizontal movement
         float horizontal_input = (float) this.input[0];
-        if (Math.abs(horizontal_input) < .1) {
+        if (Math.abs(horizontal_input) < .10) {
             horizontal_input = 0;
         }
         playerInput(horizontal_input);
-        if (this.input[1] > .1 && this.onLedge && this.canGrabLedge) {
-            jump(-10);
+        if (this.input[1] > .1 && this.onLedge && this.canGrabLedge || (this.directionL != "C" && this.onLedge)) {
+            if(this.directionL == "N" && this.jumpsLeft > 0){
+                jump(25);
+                this.jumpsLeft--;
+            }
             if (this.onLedge && this.canGrabLedge) {
                 this.canGrabLedge = false;
                 this.onLedge = false;
@@ -175,6 +178,13 @@ public class Player extends Object {
             }
         }
         resetFrameNum();
+        this.idleFrame++;
+        if(this.idleFrame == 4){
+            this.idleFrame = 0;
+        }
+        
+        
+        
         return null;
     }
 

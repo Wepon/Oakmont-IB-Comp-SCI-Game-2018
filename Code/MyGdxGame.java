@@ -102,22 +102,22 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
                 batch.draw(hitbox, (int) World.MoveHitBoxes[i].x - (int) World.MoveHitBoxes[i].r, (int) World.MoveHitBoxes[i].y - (int) World.MoveHitBoxes[i].r, (int) World.MoveHitBoxes[i].r * 2, (float) World.MoveHitBoxes[i].r * 2);
             }
         }
-        for (int i = 0; i < World.GrabHitBoxes.length; i++) {
-            if (World.GrabHitBoxes[i] != null) {
-                batch.draw(hitbox, (int) World.GrabHitBoxes[i].x - (int) World.GrabHitBoxes[i].r, (int) World.GrabHitBoxes[i].y - (int) World.GrabHitBoxes[i].r, (int) World.GrabHitBoxes[i].r * 2, (float) World.GrabHitBoxes[i].r * 2);
-            }
-        }
-        for (int i = 0; i < World.Stage.Ledges.length; i++) {
-            if (World.Stage.Ledges[i] != null) {
-                batch.draw(hitbox, (int) World.Stage.Ledges[i].x - (int) World.Stage.Ledges[i].r, (int) World.Stage.Ledges[i].y - (int) World.Stage.Ledges[i].r, (int) World.Stage.Ledges[i].r * 2, (float) World.Stage.Ledges[i].r * 2);
-            }
-        }
-        // draw player hitboxes
-        for (int i = 0; i < World.PlayerHitBoxes.length; i++) {
-            if (World.PlayerHitBoxes[i] != null) {
-                batch.draw(hitbox, (int) World.PlayerHitBoxes[i].x - (int) World.PlayerHitBoxes[i].r, (int) World.PlayerHitBoxes[i].y - (int) World.PlayerHitBoxes[i].r, (int) World.PlayerHitBoxes[i].r * 2, (float) World.PlayerHitBoxes[i].r * 2);
-            }
-        }
+//        for (int i = 0; i < World.GrabHitBoxes.length; i++) {
+//            if (World.GrabHitBoxes[i] != null) {
+//                batch.draw(hitbox, (int) World.GrabHitBoxes[i].x - (int) World.GrabHitBoxes[i].r, (int) World.GrabHitBoxes[i].y - (int) World.GrabHitBoxes[i].r, (int) World.GrabHitBoxes[i].r * 2, (float) World.GrabHitBoxes[i].r * 2);
+//            }
+//        }
+//        for (int i = 0; i < World.Stage.Ledges.length; i++) {
+//            if (World.Stage.Ledges[i] != null) {
+//                batch.draw(hitbox, (int) World.Stage.Ledges[i].x - (int) World.Stage.Ledges[i].r, (int) World.Stage.Ledges[i].y - (int) World.Stage.Ledges[i].r, (int) World.Stage.Ledges[i].r * 2, (float) World.Stage.Ledges[i].r * 2);
+//            }
+//        }
+//        // draw player hitboxes
+//        for (int i = 0; i < World.PlayerHitBoxes.length; i++) {
+//            if (World.PlayerHitBoxes[i] != null) {
+//                batch.draw(hitbox, (int) World.PlayerHitBoxes[i].x - (int) World.PlayerHitBoxes[i].r, (int) World.PlayerHitBoxes[i].y - (int) World.PlayerHitBoxes[i].r, (int) World.PlayerHitBoxes[i].r * 2, (float) World.PlayerHitBoxes[i].r * 2);
+//            }
+//        }
         batch.end();
     }
 

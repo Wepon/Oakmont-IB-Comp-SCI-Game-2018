@@ -76,8 +76,10 @@ public class World {
     public void checkLedgeGrab() {
         for (Hitbox h : this.GrabHitBoxes) {
             for (Hitbox h2 : this.Stage.Ledges) {
-                if (h == null || h2 == null || h.player.lastInput != 0) {
+                if (h == null || h2 == null  || (h2.player != null && h.player != h2.player)) {
                     return;
+                } else {
+                    h2.addPlayer(null);
                 }
                 if (h.hitboxCollision(h2) != null) {
                     // System.out.println("grab ledge");
@@ -92,9 +94,10 @@ public class World {
                     h.player.vy = 0;
                     h.player.vx = 0;
                     h.player.g = 0;
+                    h2.addPlayer(h.player);
                     h.player.onLedge = true;
                     h.player.jumpsLeft = h.player.Jumps;
-                }
+                } 
             }
         }
     }

@@ -4,6 +4,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasSprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
  *
@@ -21,14 +24,28 @@ public class Character {
     double Height = 50;
     double Width = 50;
     public Hitbox[] HitBoxes = new Hitbox[2];
-
+    //
+    SpriteBatch batch;
+    Texture img;
+    TextureRegion[] animationFrames;
+    Animation animation;
+    Sprite sprite;
+    
     boolean facedRight = false;
 
     public Sprite getAnimation(boolean facingRight, int action, int frame, Player p) {
-        Texture img = new Texture("penguin.png");
-        Sprite sprite = new Sprite(img, 20, 18);
+        batch = new SpriteBatch();
+        img = new Texture("penguin.png");
+        TextureRegion[][] tmpFrames = TextureRegion.split(img, 20, 18);
+        if(Math.abs(p.ax) > 0 && p.jumpsLeft == p.Jumps){
+            sprite = new Sprite(tmpFrames[0][p.idleFrame]);
+        }
+        else {
+            sprite = new Sprite(tmpFrames[0][0]);
+        }
         //interpret current player frame
         // auto flip sprite in correct direction
+        // sprite.flip(true, false); // enable if sprite initially faces right : disable if sprite initially faces left
         if (facingRight == true) {
             sprite.flip(true, false);
         }
