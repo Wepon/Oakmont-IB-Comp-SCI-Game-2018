@@ -1,7 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.controllers.Controller;
-import com.badlogic.gdx.controllers.Controllers;
+//import com.badlogic.gdx.controllers.Controllers;
 
 /**
  * @author Dillon & Cole Marquard
@@ -17,7 +17,7 @@ public class Player extends Object {
     String controllerType = null;
     Controller controller = null;
     //0 left analog X; 1 left analog Y; 2 right analog X; 3 right analog Y; 4 a; 5 b; 6 x; 7 y; 8 z; 9 right trigger; 10 left trigger; 11 d-pad; 12 start
-    double[] input = new double[13];
+    double[] input = new double[14];
     double heldJump = 0;
     //
     String directionL = null;
@@ -248,10 +248,7 @@ public class Player extends Object {
             this.input[10] = booleanToInt(controller.getButton(6));
             this.input[11] = checkDPad();// currently not responding
             this.input[12] = booleanToInt(controller.getButton(11));
-            if (this.input[10] == 1) {
-                this.x = Stage.RespawnLoc[0];
-                this.y = Stage.RespawnLoc[1];
-            }
+            this.input[13] = booleanToInt(controller.getButton(7));
         }
         if (controllerType.contains("MAYFLASH")) {
             // needs development

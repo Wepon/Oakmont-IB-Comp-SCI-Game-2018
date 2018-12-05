@@ -26,7 +26,7 @@ public class Character {
     public Hitbox[] HitBoxes = new Hitbox[2];
     //
     SpriteBatch batch;
-    Texture img;
+    public static Texture img;
     TextureRegion[] animationFrames;
     Animation animation;
     Sprite sprite;
