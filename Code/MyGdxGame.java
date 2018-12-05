@@ -2,19 +2,11 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.ControllerListener;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.controllers.PovDirection;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -22,20 +14,13 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.Object;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import static javafx.scene.text.Font.font;
 
 public class MyGdxGame extends ApplicationAdapter implements ControllerListener {
 
     Player player1 = new Player(new Character(), 500, 200);
-    // Player player2 = new Player(new Character(), 700, 200);
+    Player player2 = new Player(new Character(), 700, 200);
     GStage stage = new GStage();
-    Player[] Pe = {player1};//, player2};
+    Player[] Pe = {player1, player2};
     //
     SpriteBatch spriteBatch;
     BitmapFont font;
@@ -67,7 +52,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         Controllers.addListener(listener);
         // player settings
         player1.addController(Controllers.getControllers().get(0));
-        // player2.addController(Controllers.getControllers().get(1));
+        player2.addController(Controllers.getControllers().get(1));
 //        player3.addController(Controllers.getControllers().get(2));
 //        player4.addController(Controllers.getControllers().get(3));
         //
@@ -76,7 +61,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
 
     @Override
     public void render() {
-        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClearColor(0, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         // batch.draw(Backroud, 0, -50,1920,1080);
@@ -89,12 +74,12 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
             }
         }
         //draw players
-        for (int i = 0; i < World.Players.length; i++) {
-            batch.draw(World.Players[i].character.getAnimation(World.Players[i].facingRight, World.Players[i].currentAction, World.Players[i].actionFrame, World.Players[i]), Math.round(World.Players[i].x), Math.round(World.Players[i].y), (float) World.Players[i].character.Width, (float) World.Players[i].character.Height);
+        for (Player Player : World.Players) {
+            batch.draw(Player.character.getAnimation(Player.facingRight, Player.currentAction, Player.actionFrame, Player), Math.round(Player.x), Math.round(Player.y), (float) Player.character.Width, (float) Player.character.Height);
         }
         // draw health
         for (int i = 0; i < World.Players.length; i++) {
-            font.draw(batch, "" + (float) (Math.round(World.Players[i].health * 100f)), 100 + 150 * i, 800);
+            font.draw(batch, "" + (float) (Math.round(World.Players[i].health * 100f)), 100 + 300 * i, 800);
         }
         // draw hitboxes
         for (int i = 0; i < World.MoveHitBoxes.length; i++) {
@@ -107,7 +92,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
 //                batch.draw(hitbox, (int) World.GrabHitBoxes[i].x - (int) World.GrabHitBoxes[i].r, (int) World.GrabHitBoxes[i].y - (int) World.GrabHitBoxes[i].r, (int) World.GrabHitBoxes[i].r * 2, (float) World.GrabHitBoxes[i].r * 2);
 //            }
 //        }
-//        for (int i = 0; i < World.Stage.Ledges.length; i++) {
+//       for (int i = 0; i < World.Stage.Ledges.length; i++) {
 //            if (World.Stage.Ledges[i] != null) {
 //                batch.draw(hitbox, (int) World.Stage.Ledges[i].x - (int) World.Stage.Ledges[i].r, (int) World.Stage.Ledges[i].y - (int) World.Stage.Ledges[i].r, (int) World.Stage.Ledges[i].r * 2, (float) World.Stage.Ledges[i].r * 2);
 //            }

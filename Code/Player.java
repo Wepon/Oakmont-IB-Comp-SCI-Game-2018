@@ -26,6 +26,7 @@ public class Player extends Object {
     // state of character action
     int currentAction;
     int idleFrame = 0;
+     
     enum moveSet {
 
     }

@@ -103,17 +103,18 @@ public class World {
     }
 
     public void checkDeath() {
-        for (int i = 0; i < Players.length; i++) {
-            if (Players[i].x > 1800 || Players[i].x < -400 || Players[i].y < -400 || Players[i].y > 1200) {
-                Players[i].stock--;
-                // make it choose from spawn point in the gstage class 
-                Players[i].x = Stage.RespawnLoc[0];
-                Players[i].y = Stage.RespawnLoc[1];;
-                Players[i].vx = 0;
-                Players[i].vy = 0;
-                Players[i].ax = 0;
-                Players[i].ay = 0;
-
+        for (Player Player : Players) {
+            if (Player.x > 1800 || Player.x < -400 || Player.y < -400 || Player.y > 1200) {
+                Player.stock--;
+                // make it choose from spawn point in the gstage class
+                Player.x = Stage.RespawnLoc[0];
+                Player.y = Stage.RespawnLoc[1];
+                
+                Player.vx = 0;
+                Player.vy = 0;
+                Player.ax = 0;
+                Player.ay = 0;
+                Player.health = 0;
             }
         }
 
