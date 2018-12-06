@@ -226,7 +226,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
             for (int i = 0; i < World.Players.length; i++) {
                 font.getData().setScale(3);
                 font.setColor(0, 0, 0, 255);
-                font.draw(batch, "Lives: " + World.Players[i].stock, 100 + 300 * i, 650);
+                font.draw(batch, "Lives: " + World.Players[i].stock, 100 + 300 * i, 675);
             }
 //            // draw hitboxes
 //            for (int i = 0; i < World.MoveHitBoxes.length; i++) {
