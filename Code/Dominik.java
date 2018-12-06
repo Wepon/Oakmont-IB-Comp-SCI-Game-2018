@@ -28,7 +28,7 @@ public class Dominik extends Character {
     double Width = 50;
     public Hitbox[] HitBoxes = new Hitbox[2];
     
-     SpriteBatch batch;
+    SpriteBatch batch;
     Texture img;
     TextureRegion[] animationFrames;
     Animation animation;

@@ -13,7 +13,8 @@ public class World {
     public Hitbox[] MoveHitBoxes = new Hitbox[26];
     public GStage Stage = null;
     public Hitbox[] GrabHitBoxes = new Hitbox[4];
-
+    public boolean runGame = true;
+    
     public World(Player[] p, GStage S) {
         this.Players = p;
         this.Stage = S;
@@ -23,32 +24,38 @@ public class World {
     }
 
     public void WorldStep() {
-        checkDeath();
-        CheckPhysicsCollisions();
-        checkLedgeGrab();
-        for (int i = 0; i < MoveHitBoxes.length; i++) {
-            MoveHitBoxes[i] = null;
-        }
+        if (this.runGame) {
+            checkDeath();
+            CheckPhysicsCollisions();
+            checkLedgeGrab();
+            for (int i = 0; i < MoveHitBoxes.length; i++) {
+                MoveHitBoxes[i] = null;
+            }
 
-        MoveSize = 0;
-        count = 0;
+            MoveSize = 0;
+            count = 0;
 
-        for (int x = 0; x < this.Players.length; x++) {
-            this.Players[x].physicsUpdate();
-        }
-        for (Player Player : this.Players) {
-            Player.inputUpdate();
-        }
-        for (int x = 0; x < this.Players.length; x++) {
-            addMove(this.Players[x].playerAction());
-        }
-        for (int i = 0; i < this.Players.length; i++) {
-            Hitbox[] h = this.Players[i].character.playerHitbox(this.Players[i]);
-            GrabHitBoxes[i] = this.Players[i].character.ledgeHitbox(this.Players[i]);
-            for (int j = 0; j < h.length; j++) {
-                PlayerHitBoxes[count++] = h[j];
+            for (int x = 0; x < this.Players.length; x++) {
+                this.Players[x].physicsUpdate();
+            }
+
+            for (Player Player : this.Players) {
+                Player.inputUpdate();
+
+            }
+            for (int x = 0; x < this.Players.length; x++) {
+                addMove(this.Players[x].playerAction());
+
+            }
+            for (int i = 0; i < this.Players.length; i++) {
+                Hitbox[] h = this.Players[i].character.playerHitbox(this.Players[i]);
+                GrabHitBoxes[i] = this.Players[i].character.ledgeHitbox(this.Players[i]);
+                for (int j = 0; j < h.length; j++) {
+                    PlayerHitBoxes[count++] = h[j];
+                }
             }
         }
+
     }
 
     public void CheckPhysicsCollisions() {
@@ -76,7 +83,7 @@ public class World {
     public void checkLedgeGrab() {
         for (Hitbox h : this.GrabHitBoxes) {
             for (Hitbox h2 : this.Stage.Ledges) {
-                if (h == null || h2 == null  || (h2.player != null && h.player != h2.player)) {
+                if (h == null || h2 == null || (h2.player != null && h.player != h2.player)) {
                     return;
                 } else {
                     h2.addPlayer(null);
@@ -97,7 +104,7 @@ public class World {
                     h2.addPlayer(h.player);
                     h.player.onLedge = true;
                     h.player.jumpsLeft = h.player.Jumps;
-                } 
+                }
             }
         }
     }
@@ -109,7 +116,7 @@ public class World {
                 // make it choose from spawn point in the gstage class
                 Player.x = Stage.RespawnLoc[0];
                 Player.y = Stage.RespawnLoc[1];
-                
+
                 Player.vx = 0;
                 Player.vy = 0;
                 Player.ax = 0;
@@ -119,4 +126,6 @@ public class World {
         }
 
     }
+
+    
 }

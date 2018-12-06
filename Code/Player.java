@@ -26,18 +26,23 @@ public class Player extends Object {
     // state of character action
     int currentAction;
     int idleFrame = 0;
-     
+
     enum moveSet {
 
     }
 
     public String controllerTypeUpdate() {
-        return controller.getName();
+        if (this.controller != null) {
+            return controller.getName();
+        }
+        return null;
     }
 
     public void addController(Controller c) {
-        this.controller = c;
-        System.out.println(c);
+        if (c.getName() != null) {
+            this.controller = c;
+        }
+        // System.out.println(c);
     }
 
     public int booleanToInt(boolean bool) {
@@ -69,7 +74,7 @@ public class Player extends Object {
     }
 
     public Hitbox[] playerAction() {
-        
+
         // horizontal movement
         float horizontal_input = (float) this.input[0];
         if (Math.abs(horizontal_input) < .10) {
@@ -77,7 +82,7 @@ public class Player extends Object {
         }
         playerInput(horizontal_input);
         if (this.input[1] > .1 && this.onLedge && this.canGrabLedge || (this.directionL != "C" && this.onLedge)) {
-            if(this.directionL == "N" && this.jumpsLeft > 0){
+            if (this.directionL == "N" && this.jumpsLeft > 0) {
                 jump(25);
                 this.jumpsLeft--;
             }
@@ -180,13 +185,12 @@ public class Player extends Object {
         }
         resetFrameNum();
         this.idleFrame++;
-        if(this.idleFrame == 4){
+        if (this.idleFrame == 4) {
             this.idleFrame = 0;
         }
-        
-        
-        
+
         return null;
+
     }
 
     public void resetFrameNum() {
@@ -229,46 +233,47 @@ public class Player extends Object {
     }
 
     public void inputUpdate() {
-        controllerType = controllerTypeUpdate();
-        // only xbox controllers work for now
-        if (controllerType.contains("Xbox")) {
-            this.input[0] = controller.getAxis(1); // left x
-            this.input[1] = controller.getAxis(0); // left y
-            this.input[2] = controller.getAxis(3); // right x
-            this.input[3] = controller.getAxis(2); // right y
-            this.directionL = getDirection(this.input[0], this.input[1]);
-            this.directionR = getDirection(this.input[2], this.input[3]);
-            // System.out.println(this.directionR);
-            this.input[4] = booleanToInt(controller.getButton(0)); //A
-            this.input[5] = booleanToInt(controller.getButton(1));
-            this.input[6] = booleanToInt(controller.getButton(2));
-            this.input[7] = booleanToInt(controller.getButton(3));
-            this.input[8] = booleanToInt(controller.getButton(5));
-            this.input[9] = booleanToInt(controller.getButton(7));
-            this.input[10] = booleanToInt(controller.getButton(6));
-            this.input[11] = checkDPad();// currently not responding
-            this.input[12] = booleanToInt(controller.getButton(11));
-            this.input[13] = booleanToInt(controller.getButton(7));
-        }
-        if (controllerType.contains("MAYFLASH")) {
-            // needs development
-            this.input[0] = controller.getAxis(0); // left x
-            this.input[1] = controller.getAxis(1); // left y
-            this.input[2] = controller.getAxis(5); // right x
-            this.input[3] = controller.getAxis(2); // right y
-            this.directionL = getDirection(this.input[0], this.input[1]);
-            this.directionR = getDirection(this.input[2], this.input[3]);
-            // System.out.println(this.directionR);
-            this.input[4] = booleanToInt(controller.getButton(1));
-            this.input[5] = booleanToInt(controller.getButton(2));
-            this.input[6] = booleanToInt(controller.getButton(0));
-            this.input[7] = booleanToInt(controller.getButton(3));
-            this.input[8] = booleanToInt(controller.getButton(7));
-            this.input[9] = booleanToInt(controller.getButton(5));
-            this.input[10] = booleanToInt(controller.getButton(4));
-            this.input[11] = checkDPad();// currently not responding
-            this.input[12] = booleanToInt(controller.getButton(11));
+        if (this.controller != null) {
+            controllerType = controllerTypeUpdate();
+            if (controllerType.contains("Xbox")) {
+                this.input[0] = controller.getAxis(1); // left x
+                this.input[1] = controller.getAxis(0); // left y
+                this.input[2] = controller.getAxis(3); // right x
+                this.input[3] = controller.getAxis(2); // right y
+                this.directionL = getDirection(this.input[0], this.input[1]);
+                this.directionR = getDirection(this.input[2], this.input[3]);
+                // System.out.println(this.directionR);
+                this.input[4] = booleanToInt(controller.getButton(0)); //A
+                this.input[5] = booleanToInt(controller.getButton(1));
+                this.input[6] = booleanToInt(controller.getButton(2));
+                this.input[7] = booleanToInt(controller.getButton(3));
+                this.input[8] = booleanToInt(controller.getButton(5));
+                this.input[9] = booleanToInt(controller.getButton(7));
+                this.input[10] = booleanToInt(controller.getButton(6));
+                this.input[11] = checkDPad();// currently not responding
+                this.input[12] = booleanToInt(controller.getButton(11));
+                this.input[13] = booleanToInt(controller.getButton(7));
+            }
+            if (controllerType.contains("MAYFLASH")) {
+                // needs development
+                this.input[0] = controller.getAxis(0); // left x
+                this.input[1] = controller.getAxis(1); // left y
+                this.input[2] = controller.getAxis(5); // right x
+                this.input[3] = controller.getAxis(2); // right y
+                this.directionL = getDirection(this.input[0], this.input[1]);
+                this.directionR = getDirection(this.input[2], this.input[3]);
+                // System.out.println(this.directionR);
+                this.input[4] = booleanToInt(controller.getButton(1));
+                this.input[5] = booleanToInt(controller.getButton(2));
+                this.input[6] = booleanToInt(controller.getButton(0));
+                this.input[7] = booleanToInt(controller.getButton(3));
+                this.input[8] = booleanToInt(controller.getButton(7));
+                this.input[9] = booleanToInt(controller.getButton(5));
+                this.input[10] = booleanToInt(controller.getButton(4));
+                this.input[11] = checkDPad();// currently not responding
+                this.input[12] = booleanToInt(controller.getButton(11));
 
+            }
         }
     }
 }
