@@ -30,7 +30,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
     //
     SpriteBatch spriteBatch;
     BitmapFont font;
-    public World World = new World(Pe, stage);
+    public World World = new World(Pe, stage, this);
     SpriteBatch batch;
     Texture img;
     //
@@ -49,7 +49,8 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
     public Hitbox[] CharactersHitboxes = new Hitbox[18];
     //
     private int controllerindex;
-    private int numOfPlayers = 1;
+    public int numOfPlayers = 1;
+    private Object fontstock;
     
     @Override
     public void create() {
@@ -66,6 +67,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         hitbox = new Sprite(circle);
         font = new BitmapFont();
         font.getData().setScale(5);
+        
         t = new CharacterSelect();
         // controller listener
         ControllerListener listener = this;
@@ -92,7 +94,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         Gdx.gl.glClearColor(0, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        this.numOfPlayers = getNumOfPlayers();
+        
         if(this.numOfPlayers == 1){
             player1.addController(Controllers.getControllers().get(0));
         // 
@@ -114,12 +116,13 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
             player4.addController(Controllers.getControllers().get(3));
         }
         if (this.gamestate == 0) {
+            this.numOfPlayers = getNumOfPlayers();
             batch.draw(selectionscreen, 0, 0, 1600, 800);
             for (Player p : Pe) {
                 p.inputUpdate();
                 t.selectMovement(p);
                 if (p.input[13] == 1) {
-                    this.World = new World(numOfPlayersArr(), stage);
+                    this.World = new World(numOfPlayersArr(), stage, this);
                     for(Player p2: Pe){
                         for(int index = 0; index < this.CharactersHitboxes.length; index++){
                             if(new Hitbox(p2.x, p2.y, 30, 0, 0, p2, 0).hitboxCollision(this.CharactersHitboxes[index]) != null){
@@ -208,7 +211,15 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
             }
             // draw health
             for (int i = 0; i < World.Players.length; i++) {
-                font.draw(batch, "" + (float) (Math.round(World.Players[i].health * 100f)), 100 + 300 * i, 800);
+                font.getData().setScale(5);
+                font.setColor(0, 0, 0, 255);
+                font.draw(batch, (float) (Math.round(World.Players[i].health * 100f)) + "%" , 100 + 300 * i, 750);
+            }
+            // draw stock (under health)
+            for (int i = 0; i < World.Players.length; i++) {
+                font.getData().setScale(3);
+                font.setColor(0, 0, 0, 255);
+                font.draw(batch, "Lives: " + World.Players[i].stock, 100 + 300 * i, 650);
             }
 //            // draw hitboxes
 //            for (int i = 0; i < World.MoveHitBoxes.length; i++) {
@@ -278,24 +289,23 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         return arr;
     }
     
-    public void pauseGame() {
-        World.runGame = true;
-    }
-
-    public void resumeGame() {
+    public void pauseGame(World World) {
         World.runGame = false;
         font.draw(batch, "Please Reconnect Controller" , 800 , 400);
     }
+
+    public void resumeGame(World World) {
+        World.runGame = true;
+    }
+    
     
 // ignore garbage below
-    
+    @Override
     public void connected(Controller controller) {
-        resumeGame();
     }
 
     @Override
     public void disconnected(Controller controller) {
-        pauseGame();
     }
 
     @Override

@@ -33,7 +33,7 @@ public class Player extends Object {
 
     public String controllerTypeUpdate() {
         if (this.controller != null) {
-            return controller.getName();
+            return this.controller.getName();
         }
         return null;
     }

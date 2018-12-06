@@ -1,10 +1,12 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.controllers.Controllers;
+
 /**
  *
  * @author colem_000
  */
-public class World {
+public class World{
 
     public Player[] Players = null;
     int count = 0;
@@ -14,13 +16,16 @@ public class World {
     public GStage Stage = null;
     public Hitbox[] GrabHitBoxes = new Hitbox[4];
     public boolean runGame = true;
+    public MyGdxGame game;
     
-    public World(Player[] p, GStage S) {
+    public World(Player[] p, GStage S, MyGdxGame game) {
         this.Players = p;
         this.Stage = S;
         for (Player P : this.Players) {
             P.SetStage(S);
         }
+        //
+        this.game = game;
     }
 
     public void WorldStep() {
@@ -55,7 +60,6 @@ public class World {
                 }
             }
         }
-
     }
 
     public void CheckPhysicsCollisions() {
@@ -89,7 +93,6 @@ public class World {
                     h2.addPlayer(null);
                 }
                 if (h.hitboxCollision(h2) != null) {
-                    // System.out.println("grab ledge");
                     if (h.player.facingRight) {
                         h.player.x = h2.x - h.player.character.Width;
                         h.player.y = h2.y - h.player.character.Height;
@@ -113,7 +116,7 @@ public class World {
         for (Player Player : Players) {
             if (Player.x > 1800 || Player.x < -400 || Player.y < -400 || Player.y > 1200) {
                 Player.stock--;
-                // make it choose from spawn point in the gstage class
+                // Takes the xy coords of the Stage's respawn 
                 Player.x = Stage.RespawnLoc[0];
                 Player.y = Stage.RespawnLoc[1];
 
