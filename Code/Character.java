@@ -26,7 +26,6 @@ public class Character {
     double Width = 50;
     public Hitbox[] HitBoxes = new Hitbox[2];
     //
-    SpriteBatch batch;
     public static Texture img;
     TextureRegion[] animationFrames;
     Animation animation;
@@ -35,7 +34,7 @@ public class Character {
     boolean facedRight = false;
 
     public Sprite getAnimation(boolean facingRight, int action, int frame, Player p) {
-        batch = new SpriteBatch();
+        
         img = new Texture("penguin.png");
         TextureRegion[][] tmpFrames = TextureRegion.split(img, 20, 18);
         if(Math.abs(p.ax) > 0 && p.jumpsLeft == p.Jumps){

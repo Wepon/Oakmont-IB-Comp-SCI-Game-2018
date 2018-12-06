@@ -23,7 +23,7 @@ public class CharacterSelect {
     
     public Sprite getAnimation(Player p) {
         batch = new SpriteBatch();
-        img = new Texture("selectcoin.png");
+        img = new Texture("hitbox.png");
         sprite = new Sprite(img);
         return sprite;
     }
