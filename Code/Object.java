@@ -1,5 +1,8 @@
 package com.mygdx.game;
 
+import com.mygdx.game.GStage;
+import com.mygdx.game.Ground;
+
 /**
  *
  * @author colem_000

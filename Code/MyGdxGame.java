@@ -42,6 +42,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
     Texture floor;
     TextureRegion[] animationFrames;
     Animation animation;
+    int Keyboard  = 1 ;
     //
     public int gamestate = 0;
     int[] characters = new int[18];
@@ -49,7 +50,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
     public Hitbox[] CharactersHitboxes = new Hitbox[18];
     //
     private int controllerindex;
-    public int numOfPlayers = 1;
+    public int numOfPlayers = 0;
     private Object fontstock;
     
     @Override
@@ -94,7 +95,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         Gdx.gl.glClearColor(0, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        
+        System.out.println(this.numOfPlayers);
         if(this.numOfPlayers == 1){
             player1.addController(Controllers.getControllers().get(0));
         // 
@@ -173,7 +174,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
                                     p2.character = new Nima();
                                 }
                                 if(index == 15){
-                                    p2.character = new MatthewC();
+                                    p2.character = new AndrewC();
                                 }
                                 if(index == 16){
                                     p2.character = new Salmon();
@@ -265,29 +266,24 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
     }
 
     public int getNumOfPlayers(){
-        int num = 0;
-        for(int i = 0; i < Controllers.getControllers().size; i++){
-            if(Controllers.getControllers().get(i) != null){
-                num++;
-            }
-        }
-        return num;
+        return Controllers.getControllers().size;
     }
     public Player[] numOfPlayersArr(){
-        Player[] arr = new Player[this.numOfPlayers];
-        if(this.numOfPlayers == 1){
+        int Playerss = this.numOfPlayers + Keyboard;
+        Player[] arr = new Player[Playerss];
+        if(Playerss == 1){
             arr[0] = player1;
         }
-        if(this.numOfPlayers == 2){
+        if(Playerss == 2){
             arr[0] = player1;
             arr[1] = player2;
         }
-        if(this.numOfPlayers == 3){
+        if(Playerss== 3){
             arr[0] = player1;
             arr[1] = player2;
             arr[2] = player3;
         }
-        if(this.numOfPlayers == 4){
+        if(Playerss == 4){
             arr[0] = player1;
             arr[1] = player2;
             arr[2] = player3;

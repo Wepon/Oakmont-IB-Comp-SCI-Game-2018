@@ -9,9 +9,10 @@ package com.mygdx.game;
  *
  * @author User
  */
-public class David extends Character {
+public class AndrewC extends Character {
 
-    public David() {
+    public AndrewC() {
+        this.name = "MatthewC";
     }
     
 }

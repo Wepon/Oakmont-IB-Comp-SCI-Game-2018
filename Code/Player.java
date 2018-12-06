@@ -1,6 +1,9 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.controllers.Controller;
+import com.mygdx.game.Hitbox;
 //import com.badlogic.gdx.controllers.Controllers;
 
 /**
@@ -274,6 +277,52 @@ public class Player extends Object {
                 this.input[12] = booleanToInt(controller.getButton(11));
 
             }
+        } else {
+            if (Gdx.input.isKeyPressed(Input.Keys.W)) this.input[1] = -1;
+            if (Gdx.input.isKeyPressed(Input.Keys.A)) this.input[0] = -1;
+            if (Gdx.input.isKeyPressed(Input.Keys.S)) this.input[1] = 1;
+            if (Gdx.input.isKeyPressed(Input.Keys.D)) this.input[0] = 1; 
+            if(Gdx.input.isKeyPressed(Input.Keys.S)!= true && Gdx.input.isKeyPressed(Input.Keys.W)!= true){
+                this.input[1] = 0;
+            }
+            if(Gdx.input.isKeyPressed(Input.Keys.A)!= true && Gdx.input.isKeyPressed(Input.Keys.D)!= true){
+                this.input[0] = 0;
+            } 
+            
+            if (Gdx.input.isKeyPressed(Input.Keys.UP)) this.input[3] = -1;
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) this.input[2] = -1;
+            if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) this.input[3] = 1;
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) this.input[2] = 1;
+            
+            if(Gdx.input.isKeyPressed(Input.Keys.DOWN)!= true && Gdx.input.isKeyPressed(Input.Keys.UP)!= true){
+                this.input[3] = 0;
+            }
+            if(Gdx.input.isKeyPressed(Input.Keys.LEFT)!= true && Gdx.input.isKeyPressed(Input.Keys.RIGHT)!= true){
+                this.input[2] = 0;
+            }
+            this.directionL = getDirection(this.input[0], this.input[1]);
+            this.directionR = getDirection(this.input[2], this.input[3]);
+            
+            
+            
+            
+            if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) this.input[13] = 1;
+            
+            if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+                this.input[6] = 1;
+                this.input[7] = 1;
+            
+            }else{
+                this.input[6] = 0;
+                this.input[7] = 0;
+            }
+            Gdx.input.isKeyPressed(Input.Keys.UP);
+            Gdx.input.isKeyPressed(Input.Keys.DOWN);
+            Gdx.input.isKeyPressed(Input.Keys.TAB);
+            Gdx.input.isKeyPressed(Input.Keys.ESCAPE);
+            
+            double mToPX = Gdx.input.getX() - x;
+            double mToPY = Gdx.input.getY() - y;
         }
     }
 }

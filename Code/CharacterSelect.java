@@ -15,14 +15,10 @@ public class CharacterSelect {
     double Height = 50;
     double Width = 50;
     //
-    SpriteBatch batch;
     public static Texture img;
-    TextureRegion[] animationFrames;
-    Animation animation;
     Sprite sprite;
     
     public Sprite getAnimation(Player p) {
-        batch = new SpriteBatch();
         img = new Texture("hitbox.png");
         sprite = new Sprite(img);
         return sprite;
