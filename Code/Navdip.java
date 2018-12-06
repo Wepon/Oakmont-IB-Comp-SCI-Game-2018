@@ -12,6 +12,7 @@ package com.mygdx.game;
 public class Navdip extends Character {
 
     public Navdip() {
+        this.name = "Navdip";
     }
     
 }

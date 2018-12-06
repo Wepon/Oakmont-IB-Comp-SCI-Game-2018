@@ -10,8 +10,9 @@ package com.mygdx.game;
  * @author User
  */
 public class Dillon extends Character {
-
+    
     public Dillon() {
+        this.name = "Dillon";
     }
     
 }

@@ -17,6 +17,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  */
 public class Dominik extends Character {
     
+    public Dominik(){
+        this.name = "Dominik";
+    }
     int Jumps = 2;
     double MaxFall = -40;
     double MaxRun = 10;

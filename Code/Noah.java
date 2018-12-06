@@ -12,6 +12,7 @@ package com.mygdx.game;
 public class Noah extends Character {
 
     public Noah() {
+        this.name = "Noah";
     }
     
 }

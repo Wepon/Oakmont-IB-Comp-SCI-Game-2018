@@ -12,6 +12,7 @@ package com.mygdx.game;
 public class Nickzod extends Character {
 
     public Nickzod() {
+        this.name = "Nickzod";
     }
     
 }

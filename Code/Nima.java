@@ -12,6 +12,7 @@ package com.mygdx.game;
 public class Nima extends Character {
 
     public Nima() {
+        this.name = "Nima";
     }
     
 }

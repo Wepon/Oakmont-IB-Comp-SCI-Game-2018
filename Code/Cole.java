@@ -12,6 +12,7 @@ package com.mygdx.game;
 public class Cole extends Character {
 
     public Cole() {
+        this.name = "Cole";
     }
     
 }

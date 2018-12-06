@@ -12,6 +12,7 @@ package com.mygdx.game;
 public class Matthew extends Character {
 
     public Matthew() {
+        this.name = "Matthew";
     }
     
 }

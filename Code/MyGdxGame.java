@@ -134,6 +134,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
                                 }
                                 if(index == 2){
                                     p2.character = new Dillon();
+                                    System.out.println("Selected Dillon");
                                 }
                                 if(index == 3){
                                     p2.character = new Cole();
@@ -208,6 +209,12 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
             //draw players
             for (Player Player : World.Players) {
                 batch.draw(Player.character.getAnimation(Player.facingRight, Player.currentAction, Player.actionFrame, Player), Math.round(Player.x), Math.round(Player.y), (float) Player.character.Width, (float) Player.character.Height);
+            }
+            // draw name
+            for (int i = 0; i < World.Players.length; i++) {
+                font.getData().setScale(3);
+                font.setColor(0, 0, 0, 255);
+                font.draw(batch, World.Players[i].character.name, 100 + 300 * i, 800);
             }
             // draw health
             for (int i = 0; i < World.Players.length; i++) {

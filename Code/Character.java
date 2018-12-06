@@ -13,7 +13,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  * @author colem_000
  */
 public class Character {
-
+    
+    String name = "Character";
     int Jumps = 2;
     double MaxFall = -40;
     double MaxRun = 10;
