@@ -84,7 +84,7 @@ public class Player extends Object {
             horizontal_input = 0;
         }
         playerInput(horizontal_input);
-        if (this.input[1] > .1 && this.onLedge && this.canGrabLedge || (this.directionL != "C" && this.onLedge)) {
+        if (this.input[1] > .1 && this.onLedge && this.canGrabLedge) {
             if (this.directionL == "N" && this.jumpsLeft > 0) {
                 jump(25);
                 this.jumpsLeft--;

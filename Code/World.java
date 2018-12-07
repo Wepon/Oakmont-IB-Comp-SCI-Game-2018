@@ -7,14 +7,14 @@ import com.badlogic.gdx.controllers.Controllers;
  * @author colem_000
  */
 public class World{
-
+    public Hitbox[] GrabHitBoxes;
     public Player[] Players = null;
     int count = 0;
     public int MoveSize = 0;
     public Hitbox[] PlayerHitBoxes = new Hitbox[26];
     public Hitbox[] MoveHitBoxes = new Hitbox[26];
     public GStage Stage = null;
-    public Hitbox[] GrabHitBoxes = new Hitbox[4];
+    
     public boolean runGame = true;
     public MyGdxGame game;
     
@@ -26,10 +26,11 @@ public class World{
         }
         //
         this.game = game;
+        GrabHitBoxes = new Hitbox[this.Players.length];
+        //System.out.println(this.Players.length);
     }
 
     public void WorldStep() {
-        if (this.runGame) {
             checkDeath();
             CheckPhysicsCollisions();
             checkLedgeGrab();
@@ -58,8 +59,8 @@ public class World{
                 for (int j = 0; j < h.length; j++) {
                     PlayerHitBoxes[count++] = h[j];
                 }
-            }
-        }
+           }
+        
     }
 
     public void CheckPhysicsCollisions() {
@@ -86,12 +87,22 @@ public class World{
 
     public void checkLedgeGrab() {
         for (Hitbox h : this.GrabHitBoxes) {
+            if(h == null){
+                continue;
+            }
             for (Hitbox h2 : this.Stage.Ledges) {
-                if (h == null || h2 == null || (h2.player != null && h.player != h2.player)) {
-                    return;
-                } else {
-                    h2.addPlayer(null);
+                if (h == this.GrabHitBoxes[1]){
                 }
+                if(h2 == null || h == null){
+                    continue;
+                    //System.out.println(h2.player);
+                }
+                if (h == this.GrabHitBoxes[1]){
+                }
+                if (h == null || h2 == null || (h2.player != null)) {
+                    continue;
+                }
+                
                 if (h.hitboxCollision(h2) != null) {
                     if (h.player.facingRight) {
                         h.player.x = h2.x - h.player.character.Width;
@@ -107,6 +118,9 @@ public class World{
                     h2.addPlayer(h.player);
                     h.player.onLedge = true;
                     h.player.jumpsLeft = h.player.Jumps;
+                }
+                if(h.hitboxCollision(h2) == null){
+                    h2.addPlayer(null);
                 }
             }
         }

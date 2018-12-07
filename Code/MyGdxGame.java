@@ -50,7 +50,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
     public Hitbox[] CharactersHitboxes = new Hitbox[18];
     //
     private int controllerindex;
-    public int numOfPlayers = 0;
+    public int numOfPlayers = 1;
     private Object fontstock;
     
     @Override
@@ -92,10 +92,11 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
 
     @Override
     public void render() {
+        
         Gdx.gl.glClearColor(0, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        System.out.println(this.numOfPlayers);
+        // System.out.println(this.numOfPlayers);
         if(this.numOfPlayers == 1){
             player1.addController(Controllers.getControllers().get(0));
         // 
@@ -135,7 +136,6 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
                                 }
                                 if(index == 2){
                                     p2.character = new Dillon();
-                                    System.out.println("Selected Dillon");
                                 }
                                 if(index == 3){
                                     p2.character = new Cole();
@@ -201,6 +201,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         // update current inputs for all players
         if (this.gamestate == 1) {
             World.WorldStep();
+            
             // draw all players
             for (int i = 0; i < World.Stage.Grounds.length; i++) {
                 for (int j = 0; j < World.Stage.Grounds[i].W / 67; j++) {
@@ -230,27 +231,27 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
                 font.draw(batch, "Lives: " + World.Players[i].stock, 100 + 300 * i, 675);
             }
 //            // draw hitboxes
-//            for (int i = 0; i < World.MoveHitBoxes.length; i++) {
-//                if (World.MoveHitBoxes[i] != null) {
-//                    batch.draw(hitbox, (int) World.MoveHitBoxes[i].x - (int) World.MoveHitBoxes[i].r, (int) World.MoveHitBoxes[i].y - (int) World.MoveHitBoxes[i].r, (int) World.MoveHitBoxes[i].r * 2, (float) World.MoveHitBoxes[i].r * 2);
-//                }
-//            }
-//            for (int i = 0; i < World.GrabHitBoxes.length; i++) {
-//                if (World.GrabHitBoxes[i] != null) {
-//                    batch.draw(hitbox, (int) World.GrabHitBoxes[i].x - (int) World.GrabHitBoxes[i].r, (int) World.GrabHitBoxes[i].y - (int) World.GrabHitBoxes[i].r, (int) World.GrabHitBoxes[i].r * 2, (float) World.GrabHitBoxes[i].r * 2);
-//                }
-//            }
-//            for (int i = 0; i < World.Stage.Ledges.length; i++) {
-//                if (World.Stage.Ledges[i] != null) {
-//                    batch.draw(hitbox, (int) World.Stage.Ledges[i].x - (int) World.Stage.Ledges[i].r, (int) World.Stage.Ledges[i].y - (int) World.Stage.Ledges[i].r, (int) World.Stage.Ledges[i].r * 2, (float) World.Stage.Ledges[i].r * 2);
-//                }
-//            }
-//            // draw player hitboxes
-//            for (int i = 0; i < World.PlayerHitBoxes.length; i++) {
-//                if (World.PlayerHitBoxes[i] != null) {
-//                    batch.draw(hitbox, (int) World.PlayerHitBoxes[i].x - (int) World.PlayerHitBoxes[i].r, (int) World.PlayerHitBoxes[i].y - (int) World.PlayerHitBoxes[i].r, (int) World.PlayerHitBoxes[i].r * 2, (float) World.PlayerHitBoxes[i].r * 2);
-//                }
-//            }
+            for (int i = 0; i < World.MoveHitBoxes.length; i++) {
+                if (World.MoveHitBoxes[i] != null) {
+                    batch.draw(hitbox, (int) World.MoveHitBoxes[i].x - (int) World.MoveHitBoxes[i].r, (int) World.MoveHitBoxes[i].y - (int) World.MoveHitBoxes[i].r, (int) World.MoveHitBoxes[i].r * 2, (float) World.MoveHitBoxes[i].r * 2);
+                }
+            }
+            for (int i = 0; i < World.GrabHitBoxes.length; i++) {
+                if (World.GrabHitBoxes[i] != null) {
+                    batch.draw(hitbox, (int) World.GrabHitBoxes[i].x - (int) World.GrabHitBoxes[i].r, (int) World.GrabHitBoxes[i].y - (int) World.GrabHitBoxes[i].r, (int) World.GrabHitBoxes[i].r * 2, (float) World.GrabHitBoxes[i].r * 2);
+                }
+            }
+            for (int i = 0; i < World.Stage.Ledges.length; i++) {
+                if (World.Stage.Ledges[i] != null) {
+                    batch.draw(hitbox, (int) World.Stage.Ledges[i].x - (int) World.Stage.Ledges[i].r, (int) World.Stage.Ledges[i].y - (int) World.Stage.Ledges[i].r, (int) World.Stage.Ledges[i].r * 2, (float) World.Stage.Ledges[i].r * 2);
+                }
+            }
+            // draw player hitboxes
+            for (int i = 0; i < World.PlayerHitBoxes.length; i++) {
+                if (World.PlayerHitBoxes[i] != null) {
+                    batch.draw(hitbox, (int) World.PlayerHitBoxes[i].x - (int) World.PlayerHitBoxes[i].r, (int) World.PlayerHitBoxes[i].y - (int) World.PlayerHitBoxes[i].r, (int) World.PlayerHitBoxes[i].r * 2, (float) World.PlayerHitBoxes[i].r * 2);
+                }
+            }
         }
         batch.end();
     }
@@ -275,6 +276,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
             arr[0] = player1;
         }
         if(Playerss == 2){
+            System.out.println("2 players");
             arr[0] = player1;
             arr[1] = player2;
         }

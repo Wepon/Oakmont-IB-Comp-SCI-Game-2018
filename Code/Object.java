@@ -35,7 +35,7 @@ public class Object {
     public boolean onLedge = false;
     public boolean canGrabLedge = true;
     public int ledgeCooldown = 0;
-    public int ledgeCooldownLength = 20;
+    public int ledgeCooldownLength = 50;
     // health
     public double health = 0.0;
     public int stock = 3;
@@ -98,10 +98,10 @@ public class Object {
 
     public void playerInput(float input) {
         if (this.Grounded() != null) {
-            if (input > 0) {
+            if (input > .1) {
                 this.facingRight = true;
             }
-            if (input < 0) {
+            if (input <= -.1) {
                 this.facingRight = false;
             }
         }

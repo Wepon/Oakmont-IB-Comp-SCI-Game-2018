@@ -19,8 +19,8 @@ class GStage {
         int ledgecount = 0;
         for (int i = 0; i < numOfGrounds; i++) {
             if(this.Grounds[i].hasLedge){
-                Ledges[ledgecount] = new Hitbox(this.Grounds[i].x - 1, this.Grounds[i].y + this.Grounds[i].H, 35, 0, 0, null, 1);
-                Ledges[ledgecount + 1] = new Hitbox(this.Grounds[i].x + this.Grounds[i].W + 1, this.Grounds[i].y + this.Grounds[i].H, 35, 0, 0, null, 2);
+                Ledges[ledgecount] = new Hitbox(this.Grounds[i].x - 1, this.Grounds[i].y + this.Grounds[i].H, 50, 0, 0, null, 1);
+                Ledges[ledgecount + 1] = new Hitbox(this.Grounds[i].x + this.Grounds[i].W + 1, this.Grounds[i].y + this.Grounds[i].H, 50, 0, 0, null, 2);
                 ledgecount += 2;
             }
         }

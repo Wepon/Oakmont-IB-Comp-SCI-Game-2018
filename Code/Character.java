@@ -183,7 +183,7 @@ public class Character {
     }
 
     public Hitbox ledgeHitbox(Player p) {
-        if(p.canGrabLedge && (p.jumpsLeft < p.Jumps || p.onLedge)){
+        if(p.canGrabLedge && (p.Grounded() == null || p.onLedge)){
             if (p.facingRight) {
                 return new Hitbox(p.x + p.character.Width, p.y + p.character.Height, 20, 0, 0, p);
             }
