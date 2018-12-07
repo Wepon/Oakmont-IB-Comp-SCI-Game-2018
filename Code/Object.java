@@ -35,7 +35,7 @@ public class Object {
     public boolean onLedge = false;
     public boolean canGrabLedge = true;
     public int ledgeCooldown = 0;
-    public int ledgeCooldownLength = 50;
+    public int ledgeCooldownLength = 25;
     // health
     public double health = 0.0;
     public int stock = 3;

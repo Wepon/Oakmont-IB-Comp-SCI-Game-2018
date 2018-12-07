@@ -45,7 +45,6 @@ public class Player extends Object {
         if (c.getName() != null) {
             this.controller = c;
         }
-        // System.out.println(c);
     }
 
     public int booleanToInt(boolean bool) {
@@ -187,10 +186,6 @@ public class Player extends Object {
             }
         }
         resetFrameNum();
-        this.idleFrame++;
-        if (this.idleFrame == 4) {
-            this.idleFrame = 0;
-        }
 
         return null;
 

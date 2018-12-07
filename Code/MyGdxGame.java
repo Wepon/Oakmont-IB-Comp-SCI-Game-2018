@@ -40,7 +40,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
     Texture selectionscreen;
     //
     Texture floor;
-    TextureRegion[] animationFrames;
+    TextureRegion[][] tmp;
     Animation animation;
     int Keyboard  = 1 ;
     //
@@ -52,23 +52,38 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
     private int controllerindex;
     public int numOfPlayers = 1;
     private Object fontstock;
+    public int bgindex = 0;
+    //
+    public Animation<TextureRegion> bgAnimation;
+    public float stateTime;
     
     @Override
     public void create() {
-        Backroud = new Texture("Mario_Bros_Map.jpg");
+        Backroud = new Texture("FirstMap.png");
         epicMusic = Gdx.audio.newMusic(Gdx.files.internal("song.mp3"));
         epicMusic.setLooping(true);
         epicMusic.play();
         epicMusic.setVolume(50);
         batch = new SpriteBatch();
-        // img = new Texture("penguinsolo.png");
         floor = new Texture("brick.png");
         circle = new Texture("hitbox.png");
         selectionscreen = new Texture("IMG.png");
         hitbox = new Sprite(circle);
         font = new BitmapFont();
         font.getData().setScale(5);
-        
+        // Background Animation Frame Start
+        tmp = TextureRegion.split(Backroud, Backroud.getWidth() / 2, Backroud.getHeight() / 4);
+        TextureRegion[] bgFrames = new TextureRegion[8];
+		int index = 0;
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 2; j++) {
+				bgFrames[index++] = tmp[i][j];
+			}
+		}
+        bgAnimation = new Animation<TextureRegion>(0.13f, bgFrames);
+        stateTime = 0f;
+        // Background Animation Frame End
+        //Character Select
         t = new CharacterSelect();
         // controller listener
         ControllerListener listener = this;
@@ -96,7 +111,6 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         Gdx.gl.glClearColor(0, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        // System.out.println(this.numOfPlayers);
         if(this.numOfPlayers == 1){
             player1.addController(Controllers.getControllers().get(0));
         // 
@@ -194,13 +208,15 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
                         batch.draw(hitbox, (int) this.CharactersHitboxes[i].x - (int) this.CharactersHitboxes[i].r, (int) this.CharactersHitboxes[i].y - (int) this.CharactersHitboxes[i].r, (int) this.CharactersHitboxes[i].r * 2, (float) this.CharactersHitboxes[i].r * 2);
                     }
                 }
-                batch.draw(t.getAnimation(p), (int) p.x, (int) p.y, (int) t.Width, (int) t.Height);
+                batch.draw(t.getAnimation(p), (int) (p.x - (t.Height/2)), (int) (p.y - (t.Width/2)), (int) t.Width, (int) t.Height);
             }
         }
-        // batch.draw(Backroud, 0, -50,1920,1080);
+        
         // update current inputs for all players
         if (this.gamestate == 1) {
             World.WorldStep();
+            stateTime += Gdx.graphics.getDeltaTime();
+		batch.draw(bgAnimation.getKeyFrame(stateTime, true), 0, 0, 1600, 800);
             
             // draw all players
             for (int i = 0; i < World.Stage.Grounds.length; i++) {
@@ -210,7 +226,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
             }
             //draw players
             for (Player Player : World.Players) {
-                batch.draw(Player.character.getAnimation(Player.facingRight, Player.currentAction, Player.actionFrame, Player), Math.round(Player.x), Math.round(Player.y), (float) Player.character.Width, (float) Player.character.Height);
+                batch.draw(Player.character.getAnimation(Player.facingRight, Player.currentAction, this.stateTime, Player), Math.round(Player.x), Math.round(Player.y), (float) Player.character.Width, (float) Player.character.Height);
             }
             // draw name
             for (int i = 0; i < World.Players.length; i++) {
@@ -276,7 +292,6 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
             arr[0] = player1;
         }
         if(Playerss == 2){
-            System.out.println("2 players");
             arr[0] = player1;
             arr[1] = player2;
         }

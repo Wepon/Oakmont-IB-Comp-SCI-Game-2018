@@ -15,7 +15,7 @@ import com.mygdx.game.Hitbox;
  */
 public class Character {
     
-    String name = "Character";
+    String name = "Unknown";
     int Jumps = 2;
     double MaxFall = -40;
     double MaxRun = 10;
@@ -29,25 +29,65 @@ public class Character {
     //
     SpriteBatch batch;
     public static Texture img;
-    TextureRegion[] animationFrames;
-    Animation animation;
+    private TextureRegion[][] tmp;
+    private Animation<TextureRegion> walkAnimation;
+    private Animation<TextureRegion> jumpAnimation;
+    private Animation<TextureRegion> idleAnimation;
+    private Animation<TextureRegion> forwardAirAnimation;
+    private Animation<TextureRegion> downAirAnimation;
+    private Animation<TextureRegion> backAirAnimation;
+    private Animation<TextureRegion> neutralAirAnimation;
+    private Animation<TextureRegion> forwardSmashAnimation;
+    private Animation<TextureRegion> backSmashAnimation;
+    private Animation<TextureRegion> upSmashAnimation;
+    private Animation<TextureRegion> downSmashAnimation;
+    private Animation<TextureRegion> jabAnimation;
     Sprite sprite;
     
     boolean facedRight = false;
 
-    public Sprite getAnimation(boolean facingRight, int action, int frame, Player p) {
+    public Sprite getAnimation(boolean facingRight, int action, float stateTime, Player p) {
         batch = new SpriteBatch();
-        img = new Texture("penguin.png");
-        TextureRegion[][] tmpFrames = TextureRegion.split(img, 20, 18);
-        if(Math.abs(p.ax) > 0 && p.jumpsLeft == p.Jumps){
-            sprite = new Sprite(tmpFrames[0][p.idleFrame]);
+        img = new Texture(this.name + ".png");
+        //
+        tmp = TextureRegion.split(img, img.getWidth() / 25, img.getHeight());
+        TextureRegion[] walk = new TextureRegion[18];
+		int index = 0;
+		for (int i = 0; i < 1; i++) {
+			for (int j = 0; j < 18; j++) {
+				walk[index++] = tmp[i][j];
+			}
+		}
+        TextureRegion[] jump = new TextureRegion[7];
+		index = 0;
+		for (int i = 0; i < 1; i++) {
+			for (int j = 18; j < 25; j++) {
+				jump[index++] = tmp[i][j];
+			}
+		}
+        TextureRegion[] idle = new TextureRegion[3];
+        index = 0;
+        for (int i = 0; i < 1; i++) {
+                for (int j = 0; j < 3; j++) {
+                        idle[index++] = tmp[i][j];
+                }
         }
-        else {
-            sprite = new Sprite(tmpFrames[0][0]);
+        // interpret current animation being used
+        walkAnimation = new Animation<TextureRegion>(0.05f, walk);
+        jumpAnimation = new Animation<TextureRegion>(0.03f, jump);
+        idleAnimation = new Animation<TextureRegion>(0.185f, idle);
+        if(Math.abs(p.ax) > .1 && p.jumpsLeft == p.Jumps){
+            sprite = new Sprite(walkAnimation.getKeyFrame(stateTime, true));
+        }
+        if(Math.abs(p.vy) > 0 && action == 0){
+            sprite = new Sprite(jumpAnimation.getKeyFrame(stateTime, true));
+        }
+        if(Math.abs(p.ax) <= .1 && Math.abs(p.vy) == 0) {
+            sprite = new Sprite(idleAnimation.getKeyFrame(stateTime, true));
         }
         //interpret current player frame
         // auto flip sprite in correct direction
-        // sprite.flip(true, false); // enable if sprite initially faces right : disable if sprite initially faces left
+        sprite.flip(true, false); // enable if sprite initially faces right : disable if sprite initially faces left
         if (facingRight == true) {
             sprite.flip(true, false);
         }

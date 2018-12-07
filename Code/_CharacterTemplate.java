@@ -1,17 +1,21 @@
-//Class used as a template for specific character classes
-
 package com.mygdx.game;
 
-import com.mygdx.game.Character;
-import com.mygdx.game.Player;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasSprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.Hitbox;
 
-public class _CharacterTemplate extends Character {
+/**
+ *
+ * @author colem_000
+ */
+public class _CharacterTemplate {
+    
+    String name = "Unknown";
     int Jumps = 2;
     double MaxFall = -40;
     double MaxRun = 10;
@@ -24,20 +28,19 @@ public class _CharacterTemplate extends Character {
     public Hitbox[] HitBoxes = new Hitbox[2];
     //
     SpriteBatch batch;
-    Texture img;
+    public static Texture img;
     TextureRegion[] animationFrames;
     Animation animation;
     Sprite sprite;
     
     boolean facedRight = false;
 
-    @Override
-    public Sprite getAnimation(boolean facingRight, int action, int frame, Player p) {
+    public Sprite getAnimation(boolean facingRight, int action, float stateTime, Player p) {
         batch = new SpriteBatch();
         img = new Texture("penguin.png");
         TextureRegion[][] tmpFrames = TextureRegion.split(img, 20, 18);
-        if(Math.abs(p.ax) > 0 && p.jumpsLeft == p.Jumps){
-            sprite = new Sprite(tmpFrames[0][p.idleFrame]);
+        if(Math.abs(p.ax) > .1 && p.jumpsLeft == p.Jumps){
+            sprite = new Sprite(tmpFrames[0][0]);
         }
         else {
             sprite = new Sprite(tmpFrames[0][0]);
@@ -51,7 +54,6 @@ public class _CharacterTemplate extends Character {
         return sprite;
     }
 
-    @Override
     public Hitbox[] getHitbox(boolean facingRight, double x, double y, int action, int frame, Player p) {
         if (action == 1) {
             if (frame < 10) {
@@ -170,6 +172,26 @@ public class _CharacterTemplate extends Character {
             }
         }
         p.resetFrameNum();
+        return null;
+    }
+
+    public Hitbox[] playerHitbox(Player p) {
+        Hitbox[] hb = new Hitbox[2];
+        hb[0] = new Hitbox(p.x + (p.character.Width / 2), p.y + 10, 20, 0, 0, p);
+        hb[1] = new Hitbox(p.x + (p.character.Width / 2), p.y + 30, 15, 0, 0, p);
+        return hb;
+    }
+
+    public Hitbox ledgeHitbox(Player p) {
+        if(p.canGrabLedge && (p.Grounded() == null || p.onLedge)){
+            if (p.facingRight) {
+                return new Hitbox(p.x + p.character.Width, p.y + p.character.Height, 20, 0, 0, p);
+            }
+            if (p.facingRight != true) {
+                return new Hitbox(p.x, p.y + p.character.Height, 20, 0, 0, p);
+            }
+            return null;
+        }
         return null;
     }
 }

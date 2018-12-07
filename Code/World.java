@@ -6,7 +6,8 @@ import com.badlogic.gdx.controllers.Controllers;
  *
  * @author colem_000
  */
-public class World{
+public class World {
+
     public Hitbox[] GrabHitBoxes;
     public Player[] Players = null;
     int count = 0;
@@ -14,10 +15,10 @@ public class World{
     public Hitbox[] PlayerHitBoxes = new Hitbox[26];
     public Hitbox[] MoveHitBoxes = new Hitbox[26];
     public GStage Stage = null;
-    
+
     public boolean runGame = true;
     public MyGdxGame game;
-    
+
     public World(Player[] p, GStage S, MyGdxGame game) {
         this.Players = p;
         this.Stage = S;
@@ -31,36 +32,40 @@ public class World{
     }
 
     public void WorldStep() {
-            checkDeath();
-            CheckPhysicsCollisions();
-            checkLedgeGrab();
-            for (int i = 0; i < MoveHitBoxes.length; i++) {
-                MoveHitBoxes[i] = null;
+        checkDeath();
+        CheckPhysicsCollisions();
+        checkLedgeGrab();
+        for (int i = 0; i < MoveHitBoxes.length; i++) {
+            MoveHitBoxes[i] = null;
+        }
+
+        MoveSize = 0;
+        count = 0;
+
+        for (int x = 0; x < this.Players.length; x++) {
+            this.Players[x].physicsUpdate();
+        }
+
+        for (Player Player : this.Players) {
+            Player.inputUpdate();
+        }
+        for (Player Player : this.Players) {
+            if(Player.input[5] == 1){
+                game.gamestate = 0;
             }
+        }
+        for (int x = 0; x < this.Players.length; x++) {
+            addMove(this.Players[x].playerAction());
 
-            MoveSize = 0;
-            count = 0;
-
-            for (int x = 0; x < this.Players.length; x++) {
-                this.Players[x].physicsUpdate();
+        }
+        for (int i = 0; i < this.Players.length; i++) {
+            Hitbox[] h = this.Players[i].character.playerHitbox(this.Players[i]);
+            GrabHitBoxes[i] = this.Players[i].character.ledgeHitbox(this.Players[i]);
+            for (int j = 0; j < h.length; j++) {
+                PlayerHitBoxes[count++] = h[j];
             }
+        }
 
-            for (Player Player : this.Players) {
-                Player.inputUpdate();
-
-            }
-            for (int x = 0; x < this.Players.length; x++) {
-                addMove(this.Players[x].playerAction());
-
-            }
-            for (int i = 0; i < this.Players.length; i++) {
-                Hitbox[] h = this.Players[i].character.playerHitbox(this.Players[i]);
-                GrabHitBoxes[i] = this.Players[i].character.ledgeHitbox(this.Players[i]);
-                for (int j = 0; j < h.length; j++) {
-                    PlayerHitBoxes[count++] = h[j];
-                }
-           }
-        
     }
 
     public void CheckPhysicsCollisions() {
@@ -87,22 +92,11 @@ public class World{
 
     public void checkLedgeGrab() {
         for (Hitbox h : this.GrabHitBoxes) {
-            if(h == null){
-                continue;
-            }
             for (Hitbox h2 : this.Stage.Ledges) {
-                if (h == this.GrabHitBoxes[1]){
-                }
-                if(h2 == null || h == null){
-                    continue;
-                    //System.out.println(h2.player);
-                }
-                if (h == this.GrabHitBoxes[1]){
-                }
-                if (h == null || h2 == null || (h2.player != null)) {
+
+                if (h == null || h2 == null || (h2.player != null && h2.player != h.player)) {
                     continue;
                 }
-                
                 if (h.hitboxCollision(h2) != null) {
                     if (h.player.facingRight) {
                         h.player.x = h2.x - h.player.character.Width;
@@ -119,7 +113,7 @@ public class World{
                     h.player.onLedge = true;
                     h.player.jumpsLeft = h.player.Jumps;
                 }
-                if(h.hitboxCollision(h2) == null){
+                if (h.hitboxCollision(h2) == null) {
                     h2.addPlayer(null);
                 }
             }
@@ -144,5 +138,4 @@ public class World{
 
     }
 
-    
 }
