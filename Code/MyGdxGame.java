@@ -15,8 +15,12 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 public class MyGdxGame extends ApplicationAdapter implements ControllerListener {
+
+    public static Dimension screenSize;
 
     Music epicMusic;
 
@@ -24,7 +28,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
     Player player2 = new Player(new Character(), 0, 0, 2);
     Player player3 = new Player(new Character(), 0, 0, 3);
     Player player4 = new Player(new Character(), 0, 0, 4);
-    
+
     GStage stage = new GStage();
     Player[] Pe = {player1, player2, player3, player4};
     //
@@ -42,7 +46,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
     Texture floor;
     TextureRegion[][] tmp;
     Animation animation;
-    int Keyboard  = 1 ;
+    int Keyboard = 0;
     //
     public int gamestate = 0;
     int[] characters = new int[18];
@@ -50,15 +54,16 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
     public Hitbox[] CharactersHitboxes = new Hitbox[18];
     //
     private int controllerindex;
-    public int numOfPlayers = 1;
+    public int numOfPlayers = 2;
     private Object fontstock;
     public int bgindex = 0;
     //
     public Animation<TextureRegion> bgAnimation;
     public float stateTime;
-    
+
     @Override
     public void create() {
+        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         Backroud = new Texture("FirstMap.png");
         epicMusic = Gdx.audio.newMusic(Gdx.files.internal("song.mp3"));
         epicMusic.setLooping(true);
@@ -74,12 +79,12 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         // Background Animation Frame Start
         tmp = TextureRegion.split(Backroud, Backroud.getWidth() / 2, Backroud.getHeight() / 4);
         TextureRegion[] bgFrames = new TextureRegion[8];
-		int index = 0;
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 2; j++) {
-				bgFrames[index++] = tmp[i][j];
-			}
-		}
+        int index = 0;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 2; j++) {
+                bgFrames[index++] = tmp[i][j];
+            }
+        }
         bgAnimation = new Animation<TextureRegion>(0.13f, bgFrames);
         stateTime = 0f;
         // Background Animation Frame End
@@ -90,121 +95,120 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         Controllers.addListener(listener);
         // make character select screen hitboxes
         for (int j = 0; j < 3; j++) {
-            for (int i = (j * 6); i < this.CharactersHitboxes.length ; i++) {
+            for (int i = (j * 6); i < this.CharactersHitboxes.length; i++) {
                 this.CharactersHitboxes[i] = new Hitbox(360 + ((i % 6) * 160), 460 - (j * 80), 40, 0, 0);
             }
 
         }
         // player settings
-        
+
         // player1.addController(Controllers.getControllers().get(0));
         // player2.addController(Controllers.getControllers().get(1));
         // player3.addController(Controllers.getControllers().get(2));
         // player4.addController(Controllers.getControllers().get(3));
         //
-
     }
 
     @Override
     public void render() {
-        
+
         Gdx.gl.glClearColor(0, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        if(this.numOfPlayers == 1){
+        if (this.numOfPlayers == 1) {
             player1.addController(Controllers.getControllers().get(0));
-        // 
+            // 
         }
-        if(this.numOfPlayers == 2){
+        if (this.numOfPlayers == 2) {
             player1.addController(Controllers.getControllers().get(0));
             player2.addController(Controllers.getControllers().get(1));
-        
+
         }
-        if(this.numOfPlayers == 3){
+        if (this.numOfPlayers == 3) {
             player1.addController(Controllers.getControllers().get(0));
             player2.addController(Controllers.getControllers().get(1));
             player3.addController(Controllers.getControllers().get(2));
         }
-        if(this.numOfPlayers == 4){
+        if (this.numOfPlayers == 4) {
             player1.addController(Controllers.getControllers().get(0));
             player2.addController(Controllers.getControllers().get(1));
             player3.addController(Controllers.getControllers().get(2));
             player4.addController(Controllers.getControllers().get(3));
         }
         if (this.gamestate == 0) {
-            batch.draw(selectionscreen, 0, 0, 1600, 800);
+            batch.draw(selectionscreen, 0, 0, screenSize.width, screenSize.height);
             System.out.println(numOfPlayersArr().length);
             int count = 0;
             for (Player p : Pe) {
-                if(count++ > numOfPlayersArr().length-1){
+                if (count++ > numOfPlayersArr().length - 1) {
                     break;
                 }
-                
+
                 p.inputUpdate();
                 t.selectMovement(p);
-                batch.draw(t.getAnimation(p), (int) (p.x - (t.Height/2)), (int) (p.y - (t.Width/2)), (int) t.Width, (int) t.Height);
+                batch.draw(t.getAnimation(p), (int) (p.x - (t.Height / 2)), (int) (p.y - (t.Width / 2)), (int) t.Width, (int) t.Height);
                 if (p.input[13] == 1) {
                     this.World = new World(numOfPlayersArr(), stage, this);
-                    for(Player p2: Pe){
-                        for(int index = 0; index < this.CharactersHitboxes.length; index++){
-                            if(new Hitbox(p2.x, p2.y, 30, 0, 0, p2, 0).hitboxCollision(this.CharactersHitboxes[index]) != null){
-                                if(index == 0){                 
+                    for (Player p2 : Pe) {
+                        for (int index = 0; index < this.CharactersHitboxes.length; index++) {
+                            if (new Hitbox(p2.x, p2.y, 30, 0, 0, p2, 0).hitboxCollision(this.CharactersHitboxes[index]) != null) {
+                                if (index == 0) {
                                     p2.character = new Quincer();
                                 }
-                                if(index == 1){
+                                if (index == 1) {
                                     p2.character = new Odell();
                                 }
-                                if(index == 2){
+                                if (index == 2) {
                                     p2.character = new Dillon();
                                 }
-                                if(index == 3){
+                                if (index == 3) {
                                     p2.character = new Cole();
                                 }
-                                if(index == 4){
+                                if (index == 4) {
                                     p2.character = new Santi();
                                 }
-                                if(index == 5){
+                                if (index == 5) {
                                     p2.character = new Bradley();
                                 }
-                                if(index == 6){
+                                if (index == 6) {
                                     p2.character = new Arjun();
                                 }
-                                if(index == 7){
+                                if (index == 7) {
                                     p2.character = new Gavin();
                                 }
-                                if(index == 8){
+                                if (index == 8) {
                                     p2.character = new Noah();
                                 }
-                                if(index == 9){
+                                if (index == 9) {
                                     p2.character = new Matthew();
                                 }
-                                if(index == 10){
+                                if (index == 10) {
                                     p2.character = new Becca();
                                 }
-                                if(index == 11){
+                                if (index == 11) {
                                     p2.character = new Hunter();
                                 }
-                                if(index == 12){
+                                if (index == 12) {
                                     p2.character = new Navdip();
                                 }
-                                if(index == 13){
+                                if (index == 13) {
                                     p2.character = new Nickzod();
                                 }
-                                if(index == 14){
+                                if (index == 14) {
                                     p2.character = new Nima();
                                 }
-                                if(index == 15){
+                                if (index == 15) {
                                     p2.character = new AndrewC();
                                 }
-                                if(index == 16){
+                                if (index == 16) {
                                     p2.character = new Salmon();
                                 }
-                                if(index == 17){
+                                if (index == 17) {
                                     p2.character = new David();
                                 }
                             }
                         }
-                        
+
                     }
                     this.gamestate = 1;
                 }
@@ -214,16 +218,16 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
                         batch.draw(hitbox, (int) this.CharactersHitboxes[i].x - (int) this.CharactersHitboxes[i].r, (int) this.CharactersHitboxes[i].y - (int) this.CharactersHitboxes[i].r, (int) this.CharactersHitboxes[i].r * 2, (float) this.CharactersHitboxes[i].r * 2);
                     }
                 }
-                
+
             }
         }
-        
+
         // update current inputs for all players
         if (this.gamestate == 1) {
             World.WorldStep();
             stateTime += Gdx.graphics.getDeltaTime();
-		batch.draw(bgAnimation.getKeyFrame(stateTime, true), 0, 0, 1600, 800);
-            
+            batch.draw(bgAnimation.getKeyFrame(stateTime, true), 0, 0, screenSize.width, screenSize.height);
+
             // draw all players
             for (int i = 0; i < World.Stage.Grounds.length; i++) {
                 for (int j = 0; j < World.Stage.Grounds[i].W / 67; j++) {
@@ -244,7 +248,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
             for (int i = 0; i < World.Players.length; i++) {
                 font.getData().setScale(5);
                 font.setColor(255, 255, 255, 255);
-                font.draw(batch, (float) (Math.round(World.Players[i].health * 100f)) + "%" , 100 + 300 * i, 750);
+                font.draw(batch, (float) (Math.round(World.Players[i].health * 100f)) + "%", 100 + 300 * i, 750);
             }
             // draw stock (under health)
             for (int i = 0; i < World.Players.length; i++) {
@@ -286,28 +290,32 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         circle.dispose();
         epicMusic.dispose();
         Character.img.dispose();
+        Backroud.dispose();
+        selectionscreen.dispose();
+        //
     }
 
-    public int getNumOfPlayers(){
+    public int getNumOfPlayers() {
         return Controllers.getControllers().size;
     }
-    public Player[] numOfPlayersArr(){
+
+    public Player[] numOfPlayersArr() {
         int Playerss = 0;
         Playerss = this.numOfPlayers + Keyboard;
         Player[] arr = new Player[Playerss];
-        if(Playerss == 1){
+        if (Playerss == 1) {
             arr[0] = player1;
         }
-        if(Playerss == 2){
+        if (Playerss == 2) {
             arr[0] = player1;
             arr[1] = player2;
         }
-        if(Playerss== 3){
+        if (Playerss == 3) {
             arr[0] = player1;
             arr[1] = player2;
             arr[2] = player3;
         }
-        if(Playerss == 4){
+        if (Playerss == 4) {
             arr[0] = player1;
             arr[1] = player2;
             arr[2] = player3;
@@ -315,17 +323,16 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         }
         return arr;
     }
-    
+
     public void pauseGame(World World) {
         World.runGame = false;
-        font.draw(batch, "Please Reconnect Controller" , 800 , 400);
+        font.draw(batch, "Please Reconnect Controller", 800, 400);
     }
 
     public void resumeGame(World World) {
         World.runGame = true;
     }
-    
-    
+
 // ignore garbage below
     @Override
     public void connected(Controller controller) {

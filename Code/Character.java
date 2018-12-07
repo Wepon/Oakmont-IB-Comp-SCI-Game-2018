@@ -3,7 +3,6 @@ package com.mygdx.game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasSprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -28,27 +27,25 @@ public class Character {
     public Hitbox[] HitBoxes = new Hitbox[2];
     
     //
-    SpriteBatch batch;
     public static Texture img;
-    private TextureRegion[][] tmp;
-    private Animation<TextureRegion> walkAnimation;
-    private Animation<TextureRegion> jumpAnimation;
-    private Animation<TextureRegion> idleAnimation;
-    private Animation<TextureRegion> forwardAirAnimation;
-    private Animation<TextureRegion> downAirAnimation;
-    private Animation<TextureRegion> backAirAnimation;
-    private Animation<TextureRegion> neutralAirAnimation;
-    private Animation<TextureRegion> forwardSmashAnimation;
-    private Animation<TextureRegion> backSmashAnimation;
-    private Animation<TextureRegion> upSmashAnimation;
-    private Animation<TextureRegion> downSmashAnimation;
-    private Animation<TextureRegion> jabAnimation;
+    public static TextureRegion[][] tmp;
+    public static Animation<TextureRegion> walkAnimation;
+    public static Animation<TextureRegion> jumpAnimation;
+    public static Animation<TextureRegion> idleAnimation;
+    public static Animation<TextureRegion> forwardAirAnimation;
+    public static Animation<TextureRegion> downAirAnimation;
+    public static Animation<TextureRegion> backAirAnimation;
+    public static Animation<TextureRegion> neutralAirAnimation;
+    public static Animation<TextureRegion> forwardSmashAnimation;
+    public static Animation<TextureRegion> backSmashAnimation;
+    public static Animation<TextureRegion> upSmashAnimation;
+    public static Animation<TextureRegion> downSmashAnimation;
+    public static Animation<TextureRegion> jabAnimation;
     Sprite sprite;
     
     boolean facedRight = false;
 
     public Sprite getAnimation(boolean facingRight, int action, float stateTime, Player p) {
-        batch = new SpriteBatch();
         img = new Texture(this.name + ".png");
         //
         tmp = TextureRegion.split(img, img.getWidth() / 25, img.getHeight());
@@ -77,6 +74,7 @@ public class Character {
         walkAnimation = new Animation<TextureRegion>((float)Math.abs(.1f/p.vx), walk);
         jumpAnimation = new Animation<TextureRegion>(0.15f, jump);
         idleAnimation = new Animation<TextureRegion>(0.425f, idle);
+        sprite = new Sprite(walkAnimation.getKeyFrame(0));
         if(Math.abs(p.ax) > .1 && p.jumpsLeft == p.Jumps){
             sprite = new Sprite(walkAnimation.getKeyFrame(stateTime, true));
         }
@@ -217,9 +215,10 @@ public class Character {
     }
 
     public Hitbox[] playerHitbox(Player p) {
-        Hitbox[] hb = new Hitbox[2];
-        hb[0] = new Hitbox(p.x + (p.character.Width / 2), p.y + 10, 20, 0, 0, p);
-        hb[1] = new Hitbox(p.x + (p.character.Width / 2), p.y + 30, 15, 0, 0, p);
+        Hitbox[] hb = new Hitbox[3];
+        hb[0] = new Hitbox(p.x + (p.character.Width / 2), p.y + 10, 18, 0, 0, p);
+        hb[1] = new Hitbox(p.x + (p.character.Width / 2), p.y + 40, 18, 0, 0, p);
+        hb[2] = new Hitbox(p.x + (p.character.Width / 2), p.y + 70, 18, 0, 0, p);
         return hb;
     }
 
