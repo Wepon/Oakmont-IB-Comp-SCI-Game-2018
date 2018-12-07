@@ -23,9 +23,10 @@ public class Character {
     double weight = 3;
     double g = -1.4;
 
-    double Height = 50;
-    double Width = 50;
+    double Height = 92;
+    double Width = 75;
     public Hitbox[] HitBoxes = new Hitbox[2];
+    
     //
     SpriteBatch batch;
     public static Texture img;
@@ -51,10 +52,10 @@ public class Character {
         img = new Texture(this.name + ".png");
         //
         tmp = TextureRegion.split(img, img.getWidth() / 25, img.getHeight());
-        TextureRegion[] walk = new TextureRegion[18];
+        TextureRegion[] walk = new TextureRegion[14];
 		int index = 0;
 		for (int i = 0; i < 1; i++) {
-			for (int j = 0; j < 18; j++) {
+			for (int j = 0; j < 14; j++) {
 				walk[index++] = tmp[i][j];
 			}
 		}
@@ -73,14 +74,14 @@ public class Character {
                 }
         }
         // interpret current animation being used
-        walkAnimation = new Animation<TextureRegion>(0.05f, walk);
+        walkAnimation = new Animation<TextureRegion>((float)Math.abs(.1f/p.vx), walk);
         jumpAnimation = new Animation<TextureRegion>(0.03f, jump);
         idleAnimation = new Animation<TextureRegion>(0.185f, idle);
         if(Math.abs(p.ax) > .1 && p.jumpsLeft == p.Jumps){
             sprite = new Sprite(walkAnimation.getKeyFrame(stateTime, true));
         }
         if(Math.abs(p.vy) > 0 && action == 0){
-            sprite = new Sprite(jumpAnimation.getKeyFrame(stateTime, true));
+            sprite = new Sprite(jumpAnimation.getKeyFrame(stateTime));
         }
         if(Math.abs(p.ax) <= .1 && Math.abs(p.vy) == 0) {
             sprite = new Sprite(idleAnimation.getKeyFrame(stateTime, true));

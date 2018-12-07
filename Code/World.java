@@ -50,8 +50,13 @@ public class World {
             Player.inputUpdate();
         }
         for (Player Player : this.Players) {
-            if(Player.input[5] == 1){
+            if (Player.input[5] == 1) {
                 game.gamestate = 0;
+                for (Player p : this.Players) {
+                    p.x = 0;
+                    p.y = 0;
+                    p.stock = 3;
+                }
             }
         }
         for (int x = 0; x < this.Players.length; x++) {
@@ -96,7 +101,10 @@ public class World {
 
                 if (h == null || h2 == null || (h2.player != null && h2.player != h.player)) {
                     continue;
+                }else {
+                    h2.addPlayer(null);
                 }
+                
                 if (h.hitboxCollision(h2) != null) {
                     if (h.player.facingRight) {
                         h.player.x = h2.x - h.player.character.Width;
@@ -110,12 +118,11 @@ public class World {
                     h.player.vx = 0;
                     h.player.g = 0;
                     h2.addPlayer(h.player);
+                    h.ledge = h2;
                     h.player.onLedge = true;
                     h.player.jumpsLeft = h.player.Jumps;
                 }
-                if (h.hitboxCollision(h2) == null) {
-                    h2.addPlayer(null);
-                }
+
             }
         }
     }

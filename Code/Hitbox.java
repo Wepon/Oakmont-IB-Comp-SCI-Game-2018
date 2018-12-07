@@ -45,7 +45,7 @@ public class Hitbox {
     int force;
     Player player;
     int grabDireq = 0;
-
+    public Hitbox ledge = null;
     public void addPlayer(Player p) {
         this.player = p;
     }

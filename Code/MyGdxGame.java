@@ -90,7 +90,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         Controllers.addListener(listener);
         // make character select screen hitboxes
         for (int j = 0; j < 3; j++) {
-            for (int i = 0 + (j * 6); i < this.CharactersHitboxes.length ; i++) {
+            for (int i = (j * 6); i < this.CharactersHitboxes.length ; i++) {
                 this.CharactersHitboxes[i] = new Hitbox(360 + ((i % 6) * 160), 460 - (j * 80), 40, 0, 0);
             }
 
@@ -132,11 +132,17 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
             player4.addController(Controllers.getControllers().get(3));
         }
         if (this.gamestate == 0) {
-            this.numOfPlayers = getNumOfPlayers();
             batch.draw(selectionscreen, 0, 0, 1600, 800);
+            System.out.println(numOfPlayersArr().length);
+            int count = 0;
             for (Player p : Pe) {
+                if(count++ > numOfPlayersArr().length-1){
+                    break;
+                }
+                
                 p.inputUpdate();
                 t.selectMovement(p);
+                batch.draw(t.getAnimation(p), (int) (p.x - (t.Height/2)), (int) (p.y - (t.Width/2)), (int) t.Width, (int) t.Height);
                 if (p.input[13] == 1) {
                     this.World = new World(numOfPlayersArr(), stage, this);
                     for(Player p2: Pe){
@@ -208,7 +214,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
                         batch.draw(hitbox, (int) this.CharactersHitboxes[i].x - (int) this.CharactersHitboxes[i].r, (int) this.CharactersHitboxes[i].y - (int) this.CharactersHitboxes[i].r, (int) this.CharactersHitboxes[i].r * 2, (float) this.CharactersHitboxes[i].r * 2);
                     }
                 }
-                batch.draw(t.getAnimation(p), (int) (p.x - (t.Height/2)), (int) (p.y - (t.Width/2)), (int) t.Width, (int) t.Height);
+                
             }
         }
         
@@ -231,19 +237,19 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
             // draw name
             for (int i = 0; i < World.Players.length; i++) {
                 font.getData().setScale(3);
-                font.setColor(0, 0, 0, 255);
+                font.setColor(255, 255, 255, 255);
                 font.draw(batch, World.Players[i].character.name, 100 + 300 * i, 800);
             }
             // draw health
             for (int i = 0; i < World.Players.length; i++) {
                 font.getData().setScale(5);
-                font.setColor(0, 0, 0, 255);
+                font.setColor(255, 255, 255, 255);
                 font.draw(batch, (float) (Math.round(World.Players[i].health * 100f)) + "%" , 100 + 300 * i, 750);
             }
             // draw stock (under health)
             for (int i = 0; i < World.Players.length; i++) {
                 font.getData().setScale(3);
-                font.setColor(0, 0, 0, 255);
+                font.setColor(255, 255, 255, 255);
                 font.draw(batch, "Lives: " + World.Players[i].stock, 100 + 300 * i, 675);
             }
 //            // draw hitboxes
@@ -286,7 +292,8 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         return Controllers.getControllers().size;
     }
     public Player[] numOfPlayersArr(){
-        int Playerss = this.numOfPlayers + Keyboard;
+        int Playerss = 0;
+        Playerss = this.numOfPlayers + Keyboard;
         Player[] arr = new Player[Playerss];
         if(Playerss == 1){
             arr[0] = player1;
