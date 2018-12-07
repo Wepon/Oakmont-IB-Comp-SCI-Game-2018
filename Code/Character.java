@@ -75,13 +75,13 @@ public class Character {
         }
         // interpret current animation being used
         walkAnimation = new Animation<TextureRegion>((float)Math.abs(.1f/p.vx), walk);
-        jumpAnimation = new Animation<TextureRegion>(0.03f, jump);
-        idleAnimation = new Animation<TextureRegion>(0.185f, idle);
+        jumpAnimation = new Animation<TextureRegion>(0.15f, jump);
+        idleAnimation = new Animation<TextureRegion>(0.425f, idle);
         if(Math.abs(p.ax) > .1 && p.jumpsLeft == p.Jumps){
             sprite = new Sprite(walkAnimation.getKeyFrame(stateTime, true));
         }
         if(Math.abs(p.vy) > 0 && action == 0){
-            sprite = new Sprite(jumpAnimation.getKeyFrame(stateTime));
+            sprite = new Sprite(jumpAnimation.getKeyFrame(stateTime, true));
         }
         if(Math.abs(p.ax) <= .1 && Math.abs(p.vy) == 0) {
             sprite = new Sprite(idleAnimation.getKeyFrame(stateTime, true));
