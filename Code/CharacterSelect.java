@@ -19,7 +19,7 @@ public class CharacterSelect {
     Sprite sprite;
     
     public Sprite getAnimation(Player p) {
-        img = new Texture("selectcoin.png");
+        img = new Texture("selectcoin" + p.playernum + ".png");
         sprite = new Sprite(img);
         return sprite;
     }

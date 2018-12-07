@@ -20,10 +20,10 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
 
     Music epicMusic;
 
-    Player player1 = new Player(new Character(), 0, 0);
-    Player player2 = new Player(new Character(), 0, 0);
-    Player player3 = new Player(new Character(), 0, 0);
-    Player player4 = new Player(new Character(), 0, 0);
+    Player player1 = new Player(new Character(), 0, 0, 1);
+    Player player2 = new Player(new Character(), 0, 0, 2);
+    Player player3 = new Player(new Character(), 0, 0, 3);
+    Player player4 = new Player(new Character(), 0, 0, 4);
     
     GStage stage = new GStage();
     Player[] Pe = {player1, player2, player3, player4};

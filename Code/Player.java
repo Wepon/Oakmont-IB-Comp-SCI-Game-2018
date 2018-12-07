@@ -11,9 +11,10 @@ import com.mygdx.game.Hitbox;
  */
 public class Player extends Object {
 
-    public Player(Character c, int StartX, int StartY) {
+    public Player(Character c, int StartX, int StartY, int Playernum) {
         super(StartX, StartY, c.MaxFall, c.MaxRun, c.ObjA, c.weight, c.Jumps, c.g, c.Width);
         this.character = c;
+        this.playernum = Playernum;
     }
 
     public Character character = null;
@@ -29,7 +30,8 @@ public class Player extends Object {
     // state of character action
     int currentAction;
     int idleFrame = 0;
-
+    public int playernum;
+    
     enum moveSet {
 
     }
