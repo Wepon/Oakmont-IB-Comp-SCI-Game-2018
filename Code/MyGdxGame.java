@@ -96,7 +96,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         // make character select screen hitboxes
         for (int j = 0; j < 3; j++) {
             for (int i = (j * 6); i < this.CharactersHitboxes.length; i++) {
-                this.CharactersHitboxes[i] = new Hitbox(360 + ((i % 6) * 160), 460 - (j * 80), 40, 0, 0);
+                this.CharactersHitboxes[i] = new Hitbox((2.75 * this.screenSize.width / 12) + ((i % 6) * (1.2 * this.screenSize.width / 12)), (3.5 * this.screenSize.height / 6) - (j * (.65 * this.screenSize.height / 6)), 55, 0, 0);
             }
 
         }
