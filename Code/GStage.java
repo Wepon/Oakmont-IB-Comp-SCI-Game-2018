@@ -9,13 +9,22 @@ class GStage {
     int numOfGrounds = 3;
     Ground[] Grounds = new Ground[numOfGrounds];
     public Hitbox[] Ledges = new Hitbox[numOfGrounds * 2];
-    public int[] RespawnLoc = new int[2];
+    public int[][] RespawnLoc = new int[4][2];
+    
     public GStage() {
-        this.Grounds[2] = new Ground(402, 335, 1, 268, false);
-        this.Grounds[1] = new Ground(804, 335, 1, 268, false);
+        this.Grounds[2] = new Ground(402, 402, 1, 268, false);
+        this.Grounds[1] = new Ground(804, 402, 1, 268, false);
         this.Grounds[0] = new Ground(335, 134, 1, 938, true);
-        this.RespawnLoc[0] = 500;
-        this.RespawnLoc[1] = 200;
+        //
+        this.RespawnLoc[0][0] = 300;
+        this.RespawnLoc[0][1] = 300;
+        this.RespawnLoc[1][0] = 500;
+        this.RespawnLoc[1][1] = 300;
+        this.RespawnLoc[2][0] = 800;
+        this.RespawnLoc[2][1] = 300;
+        this.RespawnLoc[3][0] = 1000;
+        this.RespawnLoc[3][1] = 300;
+        
         int ledgecount = 0;
         for (int i = 0; i < numOfGrounds; i++) {
             if(this.Grounds[i].hasLedge){

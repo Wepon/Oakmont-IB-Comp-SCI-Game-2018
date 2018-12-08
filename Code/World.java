@@ -18,6 +18,7 @@ public class World {
 
     public boolean runGame = true;
     public MyGdxGame game;
+    private int othersum;
 
     public World(Player[] p, GStage S, MyGdxGame game) {
         this.Players = p;
@@ -49,13 +50,26 @@ public class World {
         for (Player Player : this.Players) {
             Player.inputUpdate();
         }
+        for(Player pself: this.Players){
+            this.othersum = 0;
+            for(Player pcheck2: this.Players){
+                if(pself.playernum != pcheck2.playernum && pcheck2.stock > -1){
+                    this.othersum += pcheck2.stock;
+                }
+            }
+            if(pself.stock > 0 && this.othersum == 0){
+                    this.game.gamestate = 2;
+                }
+        }
+        
         for (Player Player : this.Players) {
-            if (Player.input[5] == 1) {
+            if (Player.input[14] == 1) {
                 game.gamestate = 0;
                 for (Player p : this.Players) {
+                    p.stock = 3;
                     p.x = 0;
                     p.y = 0;
-                    p.stock = 3;
+                    this.game.gamestate = 0;
                 }
             }
         }
@@ -79,6 +93,7 @@ public class World {
                 if (Player != null && Move != null) {
                     if (Player.hitboxCollision(Move) != null) {
                         Player.player.addForce(Move.force, Move.angle);
+                        break;
                     }
                 }
             }
@@ -132,8 +147,8 @@ public class World {
             if (Player.x > 1800 || Player.x < -400 || Player.y < -400 || Player.y > 1200) {
                 Player.stock--;
                 // Takes the xy coords of the Stage's respawn 
-                Player.x = Stage.RespawnLoc[0];
-                Player.y = Stage.RespawnLoc[1];
+                Player.x = Stage.RespawnLoc[Player.playernum-1][0];
+                Player.y = Stage.RespawnLoc[Player.playernum-1][1];
 
                 Player.vx = 0;
                 Player.vy = 0;

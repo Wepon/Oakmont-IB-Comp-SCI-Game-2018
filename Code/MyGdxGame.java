@@ -46,7 +46,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
     Texture floor;
     TextureRegion[][] tmp;
     Animation animation;
-    int Keyboard = 0;
+    int Keyboard = 1;
     //
     public int gamestate = 0;
     int[] characters = new int[18];
@@ -54,12 +54,13 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
     public Hitbox[] CharactersHitboxes = new Hitbox[18];
     //
     private int controllerindex;
-    public int numOfPlayers = 2;
+    public int numOfPlayers = 1;
     private Object fontstock;
     public int bgindex = 0;
     //
     public Animation<TextureRegion> bgAnimation;
     public float stateTime;
+    public int NUMOFSTOCKS = 3;
 
     @Override
     public void create() {
@@ -67,8 +68,6 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         Backroud = new Texture("FirstMap.png");
         epicMusic = Gdx.audio.newMusic(Gdx.files.internal("song.mp3"));
         epicMusic.setLooping(true);
-        epicMusic.play();
-        epicMusic.setVolume(50);
         batch = new SpriteBatch();
         floor = new Texture("brick.png");
         circle = new Texture("hitbox.png");
@@ -115,6 +114,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         Gdx.gl.glClearColor(0, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
+        epicMusic.pause();
         if (this.numOfPlayers == 1) {
             player1.addController(Controllers.getControllers().get(0));
             // 
@@ -146,72 +146,96 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
 
                 p.inputUpdate();
                 t.selectMovement(p);
-                batch.draw(t.getAnimation(p), (int) (p.x - (t.Height / 2)), (int) (p.y - (t.Width / 2)), (int) t.Width, (int) t.Height);
+                batch.draw(t.getAnimation(p), (int) (p.x - (t.Width / 2)), (int) (p.y - (t.Height / 2)), (int) t.Width, (int) t.Height);
                 if (p.input[13] == 1) {
+                    p.stock = this.NUMOFSTOCKS;
                     this.World = new World(numOfPlayersArr(), stage, this);
                     for (Player p2 : Pe) {
                         for (int index = 0; index < this.CharactersHitboxes.length; index++) {
                             if (new Hitbox(p2.x, p2.y, 30, 0, 0, p2, 0).hitboxCollision(this.CharactersHitboxes[index]) != null) {
                                 if (index == 0) {
                                     p2.character = new Quincer();
+                                    continue;
                                 }
                                 if (index == 1) {
                                     p2.character = new Odell();
+                                    continue;
                                 }
                                 if (index == 2) {
                                     p2.character = new Dillon();
+                                    continue;
                                 }
                                 if (index == 3) {
                                     p2.character = new Cole();
+                                    continue;
                                 }
                                 if (index == 4) {
                                     p2.character = new Santi();
+                                    continue;
                                 }
                                 if (index == 5) {
                                     p2.character = new Bradley();
+                                    continue;
                                 }
                                 if (index == 6) {
                                     p2.character = new Arjun();
+                                    continue;
                                 }
                                 if (index == 7) {
                                     p2.character = new Gavin();
+                                    continue;
                                 }
                                 if (index == 8) {
                                     p2.character = new Noah();
+                                    continue;
                                 }
                                 if (index == 9) {
                                     p2.character = new Matthew();
+                                    continue;
                                 }
                                 if (index == 10) {
                                     p2.character = new Becca();
+                                    continue;
                                 }
                                 if (index == 11) {
                                     p2.character = new Hunter();
+                                    continue;
                                 }
                                 if (index == 12) {
                                     p2.character = new Navdip();
+                                    continue;
                                 }
                                 if (index == 13) {
                                     p2.character = new Nickzod();
+                                    continue;
                                 }
                                 if (index == 14) {
                                     p2.character = new Nima();
+                                    continue;
                                 }
                                 if (index == 15) {
                                     p2.character = new AndrewC();
+                                    continue;
                                 }
                                 if (index == 16) {
                                     p2.character = new Salmon();
+                                    continue;
                                 }
                                 if (index == 17) {
                                     p2.character = new David();
+                                    continue;
                                 }
                             }
                         }
-
                     }
                     this.gamestate = 1;
+                    for (Player pl : this.World.Players) {
+                        pl.stock = this.NUMOFSTOCKS;
+                        pl.x = World.Stage.RespawnLoc[pl.playernum - 1][0];
+                        pl.y = World.Stage.RespawnLoc[pl.playernum - 1][1];
+                    }
                 }
+
                 // draw hitboxes
                 for (int i = 0; i < this.CharactersHitboxes.length; i++) {
                     if (this.CharactersHitboxes[i] != null) {
@@ -224,6 +248,8 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
 
         // update current inputs for all players
         if (this.gamestate == 1) {
+            epicMusic.play();
+            epicMusic.setVolume(50);
             World.WorldStep();
             stateTime += Gdx.graphics.getDeltaTime();
             batch.draw(bgAnimation.getKeyFrame(stateTime, true), 0, 0, screenSize.width, screenSize.height);
@@ -279,6 +305,28 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
                 }
             }
         }
+        if (this.gamestate == 2) {
+            for (Player p : this.World.Players) {
+                if (p.stock > 0) {
+                    font.getData().setScale(5);
+                    font.setColor(0, 0, 0, 255);
+                    font.draw(batch, "Player " + p.playernum + " Wins", 3 * screenSize.width / 8, screenSize.height / 2);
+                    break;
+                }
+
+            }
+            font.getData().setScale(2);
+            font.setColor(0, 0, 0, 255);
+            font.draw(batch, "Press Back to return to selection screen", screenSize.width / 2, screenSize.height / 6);
+            for (Player p1 : this.World.Players) {
+                p1.inputUpdate();
+                if (p1.input[14] == 1) {
+                    this.gamestate = 0;
+                }
+            }
+
+        }
+        System.out.println(this.gamestate);
         batch.end();
     }
 

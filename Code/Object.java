@@ -138,7 +138,7 @@ public class Object {
         double a = Math.toRadians((double) angle);
         this.vy = (Math.sin(a) * force / this.weight) * (this.health + .1) * 10;    // allows for the physics of moves to be applied to the body
         this.vx = (Math.cos(a) * force / this.weight) * (this.health + .1) * 10;
-        this.health += force / 1000;
+        this.health += force / 3500;
         this.g = this.savedg;
     }
 

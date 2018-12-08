@@ -21,7 +21,7 @@ public class Player extends Object {
     String controllerType = null;
     Controller controller = null;
     //0 left analog X; 1 left analog Y; 2 right analog X; 3 right analog Y; 4 a; 5 b; 6 x; 7 y; 8 z; 9 right trigger; 10 left trigger; 11 d-pad; 12 start
-    double[] input = new double[14];
+    double[] input = new double[15];
     double heldJump = 0;
     //
     String directionL = null;
@@ -248,31 +248,15 @@ public class Player extends Object {
                 this.input[6] = booleanToInt(controller.getButton(2));
                 this.input[7] = booleanToInt(controller.getButton(3));
                 this.input[8] = booleanToInt(controller.getButton(5));
-                this.input[9] = booleanToInt(controller.getButton(7));
-                this.input[10] = booleanToInt(controller.getButton(6));
+                this.input[9] = booleanToInt(controller.getButton(10));
+                this.input[10] = booleanToInt(controller.getButton(10));
                 this.input[11] = checkDPad();// currently not responding
                 this.input[12] = booleanToInt(controller.getButton(11));
                 this.input[13] = booleanToInt(controller.getButton(7));
+                this.input[14] = booleanToInt(controller.getButton(6));
             }
             if (controllerType.contains("MAYFLASH")) {
                 // needs development
-                this.input[0] = controller.getAxis(0); // left x
-                this.input[1] = controller.getAxis(1); // left y
-                this.input[2] = controller.getAxis(5); // right x
-                this.input[3] = controller.getAxis(2); // right y
-                this.directionL = getDirection(this.input[0], this.input[1]);
-                this.directionR = getDirection(this.input[2], this.input[3]);
-                // System.out.println(this.directionR);
-                this.input[4] = booleanToInt(controller.getButton(1));
-                this.input[5] = booleanToInt(controller.getButton(2));
-                this.input[6] = booleanToInt(controller.getButton(0));
-                this.input[7] = booleanToInt(controller.getButton(3));
-                this.input[8] = booleanToInt(controller.getButton(7));
-                this.input[9] = booleanToInt(controller.getButton(5));
-                this.input[10] = booleanToInt(controller.getButton(4));
-                this.input[11] = checkDPad();// currently not responding
-                this.input[12] = booleanToInt(controller.getButton(11));
-
             }
         } else {
             if (Gdx.input.isKeyPressed(Input.Keys.W)) this.input[1] = -1;

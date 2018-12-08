@@ -95,10 +95,10 @@ public class Character {
 
     public Hitbox[] getHitbox(boolean facingRight, double x, double y, int action, int frame, Player p) {
         if (action == 1) {
-            if(frame < 5){
+            if(frame < 12){
                 return null;
             }
-            if (frame < 10 && frame >= 5 ) {
+            if (frame < 18) {
                 Hitbox[] Harr = new Hitbox[1];
                 Harr[0] = new Hitbox(x + (p.character.Width / 2), y - 40, 30, 270, 30, p);
                 return Harr;
