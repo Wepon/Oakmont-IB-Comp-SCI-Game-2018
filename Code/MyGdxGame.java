@@ -317,7 +317,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
             }
             font.getData().setScale(2);
             font.setColor(0, 0, 0, 255);
-            font.draw(batch, "Press Back to return to selection screen", screenSize.width / 2, screenSize.height / 6);
+            font.draw(batch, "Press Back to return", screenSize.width / 2, screenSize.height / 6);
             for (Player p1 : this.World.Players) {
                 p1.inputUpdate();
                 p1.x = 0;
