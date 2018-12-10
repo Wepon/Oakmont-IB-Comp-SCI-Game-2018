@@ -46,7 +46,9 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
     Texture floor;
     TextureRegion[][] tmp;
     Animation animation;
+    //
     int Keyboard = 1;
+    public int numOfPlayers = 1;
     //
     public int gamestate = 0;
     int[] characters = new int[18];
@@ -54,7 +56,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
     public Hitbox[] CharactersHitboxes = new Hitbox[18];
     //
     private int controllerindex;
-    public int numOfPlayers = 1;
+    
     private Object fontstock;
     public int bgindex = 0;
     //
@@ -137,7 +139,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         }
         if (this.gamestate == 0) {
             batch.draw(selectionscreen, 0, 0, screenSize.width, screenSize.height);
-            System.out.println(numOfPlayersArr().length);
+            // System.out.println(numOfPlayersArr().length);
             int count = 0;
             for (Player p : Pe) {
                 if (count++ > numOfPlayersArr().length - 1) {
@@ -155,75 +157,75 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
                             if (new Hitbox(p2.x, p2.y, 30, 0, 0, p2, 0).hitboxCollision(this.CharactersHitboxes[index]) != null) {
                                 if (index == 0) {
                                     p2.character = new Quincer();
-                                    continue;
+                                    break;
                                 }
                                 if (index == 1) {
                                     p2.character = new Odell();
-                                    continue;
+                                    break;
                                 }
                                 if (index == 2) {
                                     p2.character = new Dillon();
-                                    continue;
+                                    break;
                                 }
                                 if (index == 3) {
                                     p2.character = new Cole();
-                                    continue;
+                                    break;
                                 }
                                 if (index == 4) {
                                     p2.character = new Santi();
-                                    continue;
+                                    break;
                                 }
                                 if (index == 5) {
                                     p2.character = new Bradley();
-                                    continue;
+                                    break;
                                 }
                                 if (index == 6) {
                                     p2.character = new Arjun();
-                                    continue;
+                                    break;
                                 }
                                 if (index == 7) {
                                     p2.character = new Gavin();
-                                    continue;
+                                    break;
                                 }
                                 if (index == 8) {
                                     p2.character = new Noah();
-                                    continue;
+                                    break;
                                 }
                                 if (index == 9) {
                                     p2.character = new Matthew();
-                                    continue;
+                                    break;
                                 }
                                 if (index == 10) {
                                     p2.character = new Becca();
-                                    continue;
+                                    break;
                                 }
                                 if (index == 11) {
                                     p2.character = new Hunter();
-                                    continue;
+                                    break;
                                 }
                                 if (index == 12) {
                                     p2.character = new Navdip();
-                                    continue;
+                                    break;
                                 }
                                 if (index == 13) {
                                     p2.character = new Nickzod();
-                                    continue;
+                                    break;
                                 }
                                 if (index == 14) {
                                     p2.character = new Nima();
-                                    continue;
+                                    break;
                                 }
                                 if (index == 15) {
                                     p2.character = new AndrewC();
-                                    continue;
+                                    break;
                                 }
                                 if (index == 16) {
                                     p2.character = new Salmon();
-                                    continue;
+                                    break;
                                 }
                                 if (index == 17) {
                                     p2.character = new David();
-                                    continue;
+                                    break;
                                 }
                             }
                         }
@@ -324,11 +326,12 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
                 p1.y = 0;
                 if (p1.input[14] == 1) {
                     this.gamestate = 0;
+                    break;
                 }
             }
 
         }
-        System.out.println(this.gamestate);
+        // System.out.println(this.gamestate);
         batch.end();
     }
 
@@ -342,6 +345,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         Character.img.dispose();
         Backroud.dispose();
         selectionscreen.dispose();
+        font.dispose();
         //
     }
 

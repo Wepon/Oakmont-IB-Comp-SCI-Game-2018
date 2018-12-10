@@ -57,19 +57,18 @@ public class World {
                     this.othersum += pcheck2.stock;
                 }
             }
-            if(pself.stock > 0 && this.othersum == 0){
+            if(pself.stock > 0 && this.othersum == 0 && this.game.gamestate == 1){
                     this.game.gamestate = 2;
                 }
         }
         
         for (Player Player : this.Players) {
             if (Player.input[14] == 1) {
-                game.gamestate = 0;
+                this.game.gamestate = 0;
                 for (Player p : this.Players) {
                     p.stock = 3;
                     p.x = 0;
                     p.y = 0;
-                    this.game.gamestate = 0;
                 }
             }
         }
