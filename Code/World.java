@@ -17,7 +17,7 @@ public class World {
     public GStage Stage = null;
 
     public boolean runGame = true;
-    public MyGdxGame game;
+    public static MyGdxGame game;
     private int othersum;
 
     public World(Player[] p, GStage S, MyGdxGame game) {
@@ -59,16 +59,18 @@ public class World {
             }
             if(pself.stock > 0 && this.othersum == 0 && this.game.gamestate == 1){
                     this.game.gamestate = 2;
+                    break;
                 }
         }
         
         for (Player Player : this.Players) {
             if (Player.input[14] == 1) {
-                this.game.gamestate = 0;
+                
                 for (Player p : this.Players) {
                     p.stock = 3;
                     p.x = 0;
                     p.y = 0;
+                    this.game.gamestate = 0;
                 }
             }
         }

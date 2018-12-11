@@ -47,13 +47,13 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
     TextureRegion[][] tmp;
     Animation animation;
     //
-    int Keyboard = 1;
-    public int numOfPlayers = 1;
+    int Keyboard = 2;
+    public int numOfPlayers = 0;
     //
     public int gamestate = 0;
-    int[] characters = new int[18];
+    int[] characters = new int[19];
     CharacterSelect t;
-    public Hitbox[] CharactersHitboxes = new Hitbox[18];
+    public Hitbox[] CharactersHitboxes = new Hitbox[19];
     //
     private int controllerindex;
     
@@ -95,9 +95,10 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         ControllerListener listener = this;
         Controllers.addListener(listener);
         // make character select screen hitboxes
+        this.CharactersHitboxes[0] = new Hitbox(3.25 * (this.screenSize.width / 6), 4.3 * (this.screenSize.height / 5), 100, 0 , 0);
         for (int j = 0; j < 3; j++) {
-            for (int i = (j * 6); i < this.CharactersHitboxes.length; i++) {
-                this.CharactersHitboxes[i] = new Hitbox((2.75 * this.screenSize.width / 12) + ((i % 6) * (1.2 * this.screenSize.width / 12)), (3.5 * this.screenSize.height / 6) - (j * (.65 * this.screenSize.height / 6)), 55, 0, 0);
+            for (int i = (j * 6); i < this.CharactersHitboxes.length - 1; i++) {
+                this.CharactersHitboxes[i + 1] = new Hitbox((2.75 * this.screenSize.width / 12) + ((i % 6) * (1.2 * this.screenSize.width / 12)), (3.5 * this.screenSize.height / 6) - (j * (.65 * this.screenSize.height / 6)), 55, 0, 0);
             }
 
         }
@@ -112,7 +113,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
 
     @Override
     public void render() {
-
+        System.out.println(gamestate);
         Gdx.gl.glClearColor(0, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
@@ -150,6 +151,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
                 t.selectMovement(p);
                 batch.draw(t.getAnimation(p), (int) (p.x - (t.Width / 2)), (int) (p.y - (t.Height / 2)), (int) t.Width, (int) t.Height);
                 if (p.input[13] == 1) {
+                    // p.input[13] = 0;
                     p.stock = this.NUMOFSTOCKS;
                     this.World = new World(numOfPlayersArr(), stage, this);
                     for (Player p2 : Pe) {
@@ -225,6 +227,10 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
                                 }
                                 if (index == 17) {
                                     p2.character = new David();
+                                    break;
+                                }
+                                if(index == 18) {
+                                    p2.character = new Dominik();
                                     break;
                                 }
                             }
@@ -320,13 +326,12 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
             font.getData().setScale(2);
             font.setColor(0, 0, 0, 255);
             font.draw(batch, "Press Back to return", screenSize.width / 2, screenSize.height / 6);
-            for (Player p1 : this.World.Players) {
-                p1.inputUpdate();
-                p1.x = 0;
-                p1.y = 0;
-                if (p1.input[14] == 1) {
+            for (Player play : this.World.Players) {
+                play.inputUpdate();
+                play.x = 0;
+                play.y = 0;
+                if (play.input[14] == 1) {
                     this.gamestate = 0;
-                    break;
                 }
             }
 

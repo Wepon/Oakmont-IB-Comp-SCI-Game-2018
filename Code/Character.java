@@ -14,7 +14,7 @@ import com.mygdx.game.Hitbox;
  */
 public class Character {
     
-    String name = "Unknown";
+    String name = "Odell";
     int Jumps = 2;
     double MaxFall = -40;
     double MaxRun = 10;

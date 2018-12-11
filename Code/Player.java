@@ -285,13 +285,16 @@ public class Player extends Object {
             this.directionR = getDirection(this.input[2], this.input[3]);
             if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
                 this.input[14] = 1;
-            }
-            if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE) != true){
+            } else {
                 this.input[14] = 0;
             }
             
             
-            if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) this.input[13] = 1;
+            if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){
+                this.input[13] = 1;
+            }else{
+                this.input[13] = 0;
+            }
             
             if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
                 this.input[6] = 1;
