@@ -2,8 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.controllers.Controllers;
 
-/**
- *
+/*
  * @author colem_000
  */
 public class World {
@@ -148,9 +147,8 @@ public class World {
             if (Player.x > 1800 || Player.x < -400 || Player.y < -400 || Player.y > 1200) {
                 Player.stock--;
                 // Takes the xy coords of the Stage's respawn 
-                Player.x = Stage.RespawnLoc[Player.playernum-1][0];
+                Player.x = Stage.RespawnLoc[Player.playernum-1][0]; // difference of one between array starting index and playernumber 
                 Player.y = Stage.RespawnLoc[Player.playernum-1][1];
-
                 Player.vx = 0;
                 Player.vy = 0;
                 Player.ax = 0;

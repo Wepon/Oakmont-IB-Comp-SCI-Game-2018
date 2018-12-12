@@ -14,14 +14,14 @@ import com.mygdx.game.Hitbox;
  */
 public class Character {
     
-    String name = "Odell";
-    int Jumps = 2;
+    String name = "Unknown";
+    public int Jumps = 2;
     double MaxFall = -40;
     double MaxRun = 10;
     double ObjA = 4;
     double weight = 3;
     double g = -1.4;
-
+    int jumpEnergy = 35;
     double Height = 92;
     double Width = 75;
     public Hitbox[] HitBoxes = new Hitbox[2];

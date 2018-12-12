@@ -87,7 +87,7 @@ public class Player extends Object {
         playerInput(horizontal_input);
         if (this.input[1] > .1 && this.onLedge && this.canGrabLedge) {
             if (this.directionL == "N" && this.jumpsLeft > 0) {
-                jump(25);
+                jump(this.character.jumpEnergy);
                 this.jumpsLeft--;
             }
             if (this.onLedge && this.canGrabLedge) {
@@ -103,7 +103,7 @@ public class Player extends Object {
             this.canGrabLedge = true;
         }
         if ((this.input[6] == 1 || this.input[7] == 1) && this.jumpsLeft > 0 && this.heldJump == 0) {
-            jump(25);
+            jump(this.character.jumpEnergy);
             if (this.onLedge && this.canGrabLedge) {
                 this.canGrabLedge = false;
                 this.onLedge = false;
@@ -313,4 +313,16 @@ public class Player extends Object {
             double mToPY = Gdx.input.getY() - y;
         }
     }
+    public void giveCharacter(Character C){
+        this.MaxFall = C.MaxFall;
+        this.MaxRun = C.MaxRun;
+        this.ObjA = C.ObjA;
+        this.weight = C.weight;
+        this.Jumps = C.Jumps;
+        this.g = C.g;
+        this.width = C.Width;
+        this.character = C;
+        this.savedg = C.g;
+    }
+
 }

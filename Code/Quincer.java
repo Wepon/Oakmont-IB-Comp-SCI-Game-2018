@@ -34,5 +34,9 @@ public class Quincer extends Character {
     
     public Quincer() {
         this.name = "Quincer";
+        this.Jumps = 3;
+        this.jumpEnergy = 13;
+        this.g = -.4;
+        this.ObjA = 3;
     }
 }

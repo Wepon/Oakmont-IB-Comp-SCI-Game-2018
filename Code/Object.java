@@ -22,7 +22,7 @@ public class Object {
     double width;
 
     int jumpsLeft = 0;
-    int Jumps = 2;
+    public int Jumps = 2;
     //These values are change able for each character
     double MaxFall = -100;
     double MaxRun = 20;
@@ -52,7 +52,7 @@ public class Object {
         this.g = g;
         this.savedg = g;
         this.width = width;
-
+        
     }
 
     public void physicsUpdate() {
