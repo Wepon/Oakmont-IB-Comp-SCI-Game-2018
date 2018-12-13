@@ -47,8 +47,8 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
     TextureRegion[][] tmp;
     Animation animation;
     //
-    int Keyboard = 1;
-    public int numOfPlayers = 1;
+    int Keyboard = 2;
+    public int numOfPlayers = 0;
     //
     public int gamestate = 0;
     int[] characters = new int[19];
@@ -268,9 +268,10 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
             batch.draw(bgAnimation.getKeyFrame(stateTime, true), 0, 0, screenSize.width, screenSize.height);
 
             // draw all players
+            // draw the world
             for (int i = 0; i < World.Stage.Grounds.length; i++) {
-                for (int j = 0; j < World.Stage.Grounds[i].W / 67; j++) {
-                    batch.draw(floor, (int) World.Stage.Grounds[i].x + (j * 67), (int) World.Stage.Grounds[i].y - 67);
+                for (int j = 0; j < World.Stage.Grounds[i].W / 128; j++) {
+                    batch.draw(floor, (int) World.Stage.Grounds[i].x + (j * 128), (int) World.Stage.Grounds[i].y - 36);
                 }
             }
             //draw players

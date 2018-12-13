@@ -1,7 +1,5 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.controllers.Controllers;
-
 /*
  * @author colem_000
  */

@@ -6,15 +6,16 @@ package com.mygdx.game;
  */
 class GStage {
 
-    int numOfGrounds = 3;
+    int numOfGrounds = 4;
     Ground[] Grounds = new Ground[numOfGrounds];
     public Hitbox[] Ledges = new Hitbox[numOfGrounds * 2];
     public int[][] RespawnLoc = new int[4][2];
     
     public GStage() {
-        this.Grounds[2] = new Ground(402, 402, 1, 268, false);
-        this.Grounds[1] = new Ground(804, 402, 1, 268, false);
-        this.Grounds[0] = new Ground(335, 134, 1, 938, true);
+        this.Grounds[3] = new Ground(750, 700, 1, 256, false);
+        this.Grounds[2] = new Ground(600, 500, 1, 256, false);
+        this.Grounds[1] = new Ground(900, 500, 1, 256, false);
+        this.Grounds[0] = new Ground(300, 300, 1, 1024, true);
         //
         this.RespawnLoc[0][0] = 300;
         this.RespawnLoc[0][1] = 300;
