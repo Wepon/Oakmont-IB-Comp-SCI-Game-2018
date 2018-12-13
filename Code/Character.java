@@ -21,9 +21,9 @@ public class Character {
     double ObjA = 4;
     double weight = 3;
     double g = -1.4;
-    int jumpEnergy = 35;
-    double Height = 92;
-    double Width = 75;
+    int jumpEnergy = 25;
+    double Height = 120;
+    double Width = 126;
     public Hitbox[] HitBoxes = new Hitbox[2];
     int imgWidth = 40;
     int imgHeight = 42;
@@ -383,10 +383,10 @@ public class Character {
     public Hitbox ledgeHitbox(Player p) {
         if(p.canGrabLedge && (p.Grounded() == null || p.onLedge)){
             if (p.facingRight) {
-                return new Hitbox(p.x + p.character.Width, p.y + p.character.Height, 20, 0, 0, p);
+                return new Hitbox((p.x + (p.character.Width / 2)) + (p.character.Width / 5), p.y + p.character.Height, 20, 0, 0, p);
             }
             if (p.facingRight != true) {
-                return new Hitbox(p.x, p.y + p.character.Height, 20, 0, 0, p);
+                return new Hitbox((p.x + (p.character.Width / 2)) - (p.character.Width / 5), p.y + p.character.Height, 20, 0, 0, p);
             }
             return null;
         }

@@ -47,8 +47,8 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
     TextureRegion[][] tmp;
     Animation animation;
     //
-    int Keyboard = 2;
-    public int numOfPlayers = 0;
+    int Keyboard = 1;
+    public int numOfPlayers = 1;
     //
     public int gamestate = 0;
     int[] characters = new int[19];
@@ -63,13 +63,16 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
     public Animation<TextureRegion> bgAnimation;
     public float stateTime;
     public int NUMOFSTOCKS = 3;
+    public Music epicSelectionMusic;
 
     @Override
     public void create() {
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         Backroud = new Texture("FirstMap.png");
         epicMusic = Gdx.audio.newMusic(Gdx.files.internal("song.mp3"));
+        epicSelectionMusic = Gdx.audio.newMusic(Gdx.files.internal("titlescreen.mp3"));
         epicMusic.setLooping(true);
+        epicSelectionMusic.setLooping(true);
         batch = new SpriteBatch();
         floor = new Texture("brick.png");
         circle = new Texture("hitbox.png");
@@ -138,6 +141,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
             player4.addController(Controllers.getControllers().get(3));
         }
         if (this.gamestate == 0) {
+            epicSelectionMusic.play();
             batch.draw(selectionscreen, 0, 0, screenSize.width, screenSize.height);
             // System.out.println(numOfPlayersArr().length);
             int count = 0;
@@ -242,6 +246,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
                         pl.x = World.Stage.RespawnLoc[pl.playernum - 1][0];
                         pl.y = World.Stage.RespawnLoc[pl.playernum - 1][1];
                     }
+                    epicSelectionMusic.stop();
                 }
 
                 // draw hitboxes
@@ -250,7 +255,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
                         batch.draw(hitbox, (int) this.CharactersHitboxes[i].x - (int) this.CharactersHitboxes[i].r, (int) this.CharactersHitboxes[i].y - (int) this.CharactersHitboxes[i].r, (int) this.CharactersHitboxes[i].r * 2, (float) this.CharactersHitboxes[i].r * 2);
                     }
                 }
-
+                
             }
         }
 
@@ -356,6 +361,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         selectionscreen.dispose();
         font.dispose();
         CharacterSelect.img.dispose();
+        epicSelectionMusic.dispose();
         //
     }
 

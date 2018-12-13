@@ -93,6 +93,9 @@ public class World {
                 if (Player != null && Move != null) {
                     if (Player.hitboxCollision(Move) != null) {
                         Player.player.addForce(Move.force, Move.angle);
+                        Player.player.canGrabLedge = false;
+                        Player.player.onLedge = false;
+                        Player.player.ledgeCooldown = Player.player.ledgeCooldownLength;
                         break;
                     }
                 }
@@ -122,11 +125,11 @@ public class World {
                 
                 if (h.hitboxCollision(h2) != null) {
                     if (h.player.facingRight) {
-                        h.player.x = h2.x - h.player.character.Width;
+                        h.player.x = h2.x - (4*(h.player.character.Width/6));
                         h.player.y = h2.y - h.player.character.Height;
                     }
                     if (h.player.facingRight != true) {
-                        h.player.x = h2.x;
+                        h.player.x = h2.x - (2*(h.player.character.Width/6));
                         h.player.y = h2.y - h.player.character.Height;
                     }
                     h.player.vy = 0;
