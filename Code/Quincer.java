@@ -17,20 +17,6 @@ import static com.mygdx.game.Character.img;
  * @author User
  */
 public class Quincer extends Character {
-
-//    private TextureRegion[][] tmp;
-//    private Animation<TextureRegion> walkAnimation;
-//    private Animation<TextureRegion> jumpAnimation;
-//    private Animation<TextureRegion> idleAnimation;
-//    private Animation<TextureRegion> forwardAirAnimation;
-//    private Animation<TextureRegion> downAirAnimation;
-//    private Animation<TextureRegion> backAirAnimation;
-//    private Animation<TextureRegion> neutralAirAnimation;
-//    private Animation<TextureRegion> forwardSmashAnimation;
-//    private Animation<TextureRegion> backSmashAnimation;
-//    private Animation<TextureRegion> upSmashAnimation;
-//    private Animation<TextureRegion> downSmashAnimation;
-//    private Animation<TextureRegion> jabAnimation;
     
     public Quincer() {
         this.name = "Quincer";
@@ -38,5 +24,7 @@ public class Quincer extends Character {
         this.jumpEnergy = 13;
         this.g = -.4;
         this.ObjA = 3;
+        this.imgHeight = 38;
+        this.imgWidth = 26;
     }
 }

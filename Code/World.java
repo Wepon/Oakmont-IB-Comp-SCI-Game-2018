@@ -84,7 +84,7 @@ public class World {
                 PlayerHitBoxes[count++] = h[j];
             }
         }
-
+        
     }
 
     public void CheckPhysicsCollisions() {

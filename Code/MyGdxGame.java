@@ -210,7 +210,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
                                     break;
                                 }
                                 if (index == 13) {
-                                    p2.giveCharacter(new Nickzod());
+                                    p2.giveCharacter(new Nickzad());
                                     break;
                                 }
                                 if (index == 14) {
