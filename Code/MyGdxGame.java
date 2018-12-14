@@ -270,8 +270,8 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
             // draw all players
             // draw the world
             for (int i = 0; i < World.Stage.Grounds.length; i++) {
-                for (int j = 0; j < World.Stage.Grounds[i].W / 128; j++) {
-                    batch.draw(floor, (int) World.Stage.Grounds[i].x + (j * 128), (int) World.Stage.Grounds[i].y - 36);
+                for (int j = 0; j < World.Stage.Grounds[i].W / 256; j++) {
+                    batch.draw(floor, (int) World.Stage.Grounds[i].x + (j * 256), (int) World.Stage.Grounds[i].y - 64,256,64);
                 }
             }
             //draw players

@@ -1,5 +1,8 @@
 package com.mygdx.game;
 
+import static com.mygdx.game.MyGdxGame.screenSize;
+import java.awt.Toolkit;
+
 /**
  *
  * @author colem_000
@@ -12,19 +15,20 @@ class GStage {
     public int[][] RespawnLoc = new int[4][2];
     
     public GStage() {
-        this.Grounds[3] = new Ground(750, 700, 1, 256, false);
-        this.Grounds[2] = new Ground(600, 500, 1, 256, false);
-        this.Grounds[1] = new Ground(900, 500, 1, 256, false);
-        this.Grounds[0] = new Ground(300, 300, 1, 1024, true);
+        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.Grounds[3] = new Ground((screenSize.width/2 - (1024/2)+375), 650, 1, 256, false);
+        this.Grounds[2] = new Ground((screenSize.width/2 - (1024/2)+575), 475, 1, 256, false);
+        this.Grounds[1] = new Ground((screenSize.width/2 - (1024/2)+175), 475, 1, 256, false);
+        this.Grounds[0] = new Ground((screenSize.width/2 - (1024/2)), 300, 1, 1024, true);
         //
-        this.RespawnLoc[0][0] = 300;
+        this.RespawnLoc[0][0] = 600;
         this.RespawnLoc[0][1] = 300;
         this.RespawnLoc[1][0] = 500;
         this.RespawnLoc[1][1] = 300;
         this.RespawnLoc[2][0] = 800;
-        this.RespawnLoc[2][1] = 300;
+        this.RespawnLoc[2][1] = 475;
         this.RespawnLoc[3][0] = 1000;
-        this.RespawnLoc[3][1] = 300;
+        this.RespawnLoc[3][1] = 475;
         
         int ledgecount = 0;
         for (int i = 0; i < numOfGrounds; i++) {
