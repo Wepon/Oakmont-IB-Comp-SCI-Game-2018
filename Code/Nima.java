@@ -45,94 +45,94 @@ public class Nima extends Character {
         try {
             tmp = TextureRegion.split(img, this.imgWidth, this.imgHeight - 6); // all players are levitating 6 pixels above ground
 
-            TextureRegion[] walk = new TextureRegion[15];
+            TextureRegion[] walk = new TextureRegion[8];
             int index = 0;
             for (int i = 0; i < 1; i++) {
-                for (int j = 3; j < 18; j++) {
+                for (int j = 4; j < 12; j++) {
                     walk[index++] = tmp[i][j];
                 }
             }
             TextureRegion[] jump = new TextureRegion[8];
             index = 0;
             for (int i = 0; i < 1; i++) {
-                for (int j = 18; j < 26; j++) {
+                for (int j = 20; j < 28; j++) {
                     jump[index++] = tmp[i][j];
                 }
             }
-            TextureRegion[] idle = new TextureRegion[1];
+            TextureRegion[] idle = new TextureRegion[4];
             index = 0;
             for (int i = 0; i < 1; i++) {
-                for (int j = 0; j < 1; j++) {
+                for (int j = 0; j < 4; j++) {
                     idle[index++] = tmp[i][j];
                 }
             }
             TextureRegion[] forwardAir = new TextureRegion[1];
             index = 0;
             for (int i = 0; i < 1; i++) {
-                for (int j = 31; j < 32; j++) {
+                for (int j = 33; j < 34; j++) {
                     forwardAir[index++] = tmp[i][j];
                 }
             }
             TextureRegion[] downAir = new TextureRegion[1];
             index = 0;
             for (int i = 0; i < 1; i++) {
-                for (int j = 34; j < 35; j++) {
+                for (int j = 35; j < 36; j++) {
                     downAir[index++] = tmp[i][j];
                 }
             }
-            TextureRegion[] neutralAir = new TextureRegion[1];
+            TextureRegion[] neutralAir = new TextureRegion[10];
             index = 0;
             for (int i = 0; i < 1; i++) {
-                for (int j = 30; j < 31; j++) {
+                for (int j = 36; j < 46; j++) {
                     neutralAir[index++] = tmp[i][j];
                 }
             }
             TextureRegion[] upAir = new TextureRegion[1];
             index = 0;
             for (int i = 0; i < 1; i++) {
-                for (int j = 33; j < 34; j++) {
+                for (int j = 32; j < 33; j++) {
                     upAir[index++] = tmp[i][j];
                 }
             }
             TextureRegion[] backAir = new TextureRegion[1];
             index = 0;
             for (int i = 0; i < 1; i++) {
-                for (int j = 32; j < 33; j++) {
+                for (int j = 34; j < 35; j++) {
                     backAir[index++] = tmp[i][j];
                 }
             }
             TextureRegion[] forwardSmash = new TextureRegion[1];
             index = 0;
             for (int i = 0; i < 1; i++) {
-                for (int j = 26; j < 27; j++) {
+                for (int j = 29; j < 30; j++) {
                     forwardSmash[index++] = tmp[i][j];
                 }
             }
             TextureRegion[] backSmash = new TextureRegion[1];
             index = 0;
             for (int i = 0; i < 1; i++) {
-                for (int j = 27; j < 28; j++) {
+                for (int j = 34; j < 35; j++) {
                     backSmash[index++] = tmp[i][j];
                 }
             }
             TextureRegion[] upSmash = new TextureRegion[1];
             index = 0;
             for (int i = 0; i < 1; i++) {
-                for (int j = 28; j < 29; j++) {
+                for (int j = 31; j < 32; j++) {
                     upSmash[index++] = tmp[i][j];
                 }
             }
             TextureRegion[] downSmash = new TextureRegion[1];
             index = 0;
             for (int i = 0; i < 1; i++) {
-                for (int j = 29; j < 30; j++) {
+                for (int j = 30; j < 31; j++) {
                     downSmash[index++] = tmp[i][j];
                 }
             }
             TextureRegion[] jab = new TextureRegion[1]; // needs to be fixed
             index = 0;
             for (int i = 0; i < 1; i++) {
-                for (int j = 26; j < 27; j++) {
+                for (int j = 29; j < 30; j++) {
                     jab[index++] = tmp[i][j];
                 }
             }
