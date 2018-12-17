@@ -5,12 +5,6 @@
  */
 package com.mygdx.game;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import static com.mygdx.game.Character.img;
 
 /**
  *
@@ -24,7 +18,7 @@ public class Quincer extends Character {
         this.jumpEnergy = 13;
         this.g = -.4;
         this.ObjA = 3;
-        this.imgHeight = 38;
-        this.imgWidth = 26;
+        this.imgHeightBuffer = 9;
+        this.imgHeight = 40;
     }
 }

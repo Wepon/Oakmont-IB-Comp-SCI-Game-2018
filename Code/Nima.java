@@ -139,7 +139,7 @@ public class Nima extends Character {
             TextureRegion[] ledge = new TextureRegion[1]; // needs to be fixed
             index = 0;
             for (int i = 0; i < 1; i++) {
-                for (int j = 33; j < 34; j++) {
+                for (int j = 50; j < 51; j++) {
                     ledge[index++] = tmp[i][j];
                 }
             }

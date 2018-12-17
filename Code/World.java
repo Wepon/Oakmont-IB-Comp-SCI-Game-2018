@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.audio.Sound;
+
 /*
  * @author colem_000
  */
@@ -94,6 +96,7 @@ public class World {
                         Player.player.canGrabLedge = false;
                         Player.player.onLedge = false;
                         Player.player.ledgeCooldown = Player.player.ledgeCooldownLength;
+                        MyGdxGame.manager.get("Punch.mp3", Sound.class).play(1.0f);
                         break;
                     }
                 }

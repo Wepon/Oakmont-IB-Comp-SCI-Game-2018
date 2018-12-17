@@ -24,6 +24,7 @@ public class Character {
     public Hitbox[] HitBoxes = new Hitbox[2];
     int imgWidth = 40;
     int imgHeight = 42;
+    int imgHeightBuffer = 6;
     //
     public static Texture img;
     public static TextureRegion[][] tmp;
@@ -49,12 +50,12 @@ public class Character {
         img = new Texture(this.name + ".png");
         //
         try{
-        tmp = TextureRegion.split(img, this.imgWidth, this.imgHeight - 6); // all players are levitating 6 pixels above ground
+        tmp = TextureRegion.split(img, this.imgWidth, this.imgHeight - this.imgHeightBuffer); // all players are levitating 6 pixels above ground
         
-        TextureRegion[] walk = new TextureRegion[15];
+        TextureRegion[] walk = new TextureRegion[14];
 		int index = 0;
 		for (int i = 0; i < 1; i++) {
-			for (int j = 3; j < 18; j++) {
+			for (int j = 3; j < 17; j++) {
 				walk[index++] = tmp[i][j];
 			}
 		}

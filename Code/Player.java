@@ -2,8 +2,8 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.controllers.Controller;
-import com.mygdx.game.Hitbox;
 //import com.badlogic.gdx.controllers.Controllers;
 
 /**
@@ -31,7 +31,7 @@ public class Player extends Object {
     int currentAction;
     int idleFrame = 0;
     public int playernum;
-    
+
     enum moveSet {
 
     }
@@ -88,6 +88,7 @@ public class Player extends Object {
         if (this.input[1] > .1 && this.onLedge && this.canGrabLedge) {
             if (this.directionL == "N" && this.jumpsLeft > 0) {
                 jump(this.character.jumpEnergy);
+                MyGdxGame.manager.get("Jump.mp3", Sound.class).play(1.0f);
                 this.jumpsLeft--;
             }
             if (this.onLedge && this.canGrabLedge) {
@@ -104,6 +105,8 @@ public class Player extends Object {
         }
         if ((this.input[6] == 1 || this.input[7] == 1) && this.jumpsLeft > 0 && this.heldJump == 0) {
             jump(this.character.jumpEnergy);
+            MyGdxGame.manager.get("Jump.mp3", Sound.class).play(1.0f);
+
             if (this.onLedge && this.canGrabLedge) {
                 this.canGrabLedge = false;
                 this.onLedge = false;
@@ -121,6 +124,9 @@ public class Player extends Object {
                 // System.out.println("down air");
                 this.currentAction = 1;
                 this.actionFrame += 1;
+                if(actionFrame == 1){
+                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(.6f);
+                }
                 return character.getHitbox(this.facingRight, this.x, this.y, this.currentAction, this.actionFrame, this);
 
             }
@@ -128,12 +134,18 @@ public class Player extends Object {
                 // System.out.println("forward air");
                 this.currentAction = 2;
                 this.actionFrame += 1;
+                if(actionFrame == 1){
+                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(.6f);
+                }
                 return character.getHitbox(this.facingRight, this.x, this.y, this.currentAction, this.actionFrame, this);
             }
             if (((((this.directionL == "E" && this.facingRight != true && this.input[4] == 1) || (this.directionL == "W" && this.facingRight && this.input[4] == 1)) || ((this.directionR == "W" && this.facingRight) || (this.directionR == "E" && this.facingRight != true))) && this.jumpsLeft < this.Jumps && this.actionFrame == 0) || (this.currentAction == 3 && this.jumpsLeft < this.Jumps)) { // Back Air              
                 // System.out.println("back air");
                 this.currentAction = 3;
                 this.actionFrame += 1;
+                if(actionFrame == 1){
+                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(.6f);
+                }
                 return character.getHitbox(this.facingRight, this.x, this.y, this.currentAction, this.actionFrame, this);
 
             }
@@ -141,6 +153,9 @@ public class Player extends Object {
                 this.currentAction = 4;
                 // System.out.println("up air");
                 this.actionFrame += 1;
+                if(actionFrame == 1){
+                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(.6f);
+                }
                 return character.getHitbox(this.facingRight, this.x, this.y, this.currentAction, this.actionFrame, this);
 
             }
@@ -148,6 +163,9 @@ public class Player extends Object {
                 this.currentAction = 5;
                 // System.out.println("neutral air");
                 this.actionFrame += 1;
+                if(actionFrame == 1){
+                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(.6f);
+                }
                 return character.getHitbox(this.facingRight, this.x, this.y, this.currentAction, this.actionFrame, this);
 
             }
@@ -156,6 +174,9 @@ public class Player extends Object {
                 // System.out.println("down smash");
                 this.currentAction = 6;
                 this.actionFrame += 1;
+                if(actionFrame == 1){
+                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(.6f);
+                }
                 return character.getHitbox(this.facingRight, this.x, this.y, this.currentAction, this.actionFrame, this);
 
             }
@@ -163,6 +184,9 @@ public class Player extends Object {
                 // System.out.println("forward smash");
                 this.currentAction = 7;
                 this.actionFrame += 1;
+                if(actionFrame == 1){
+                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(.6f);
+                }
                 return character.getHitbox(this.facingRight, this.x, this.y, this.currentAction, this.actionFrame, this);
             }
 
@@ -170,6 +194,9 @@ public class Player extends Object {
                 // System.out.println("back smash");
                 this.currentAction = 8;
                 this.actionFrame += 1;
+                if(actionFrame == 1){
+                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(.6f);
+                }
                 return character.getHitbox(this.facingRight, this.x, this.y, this.currentAction, this.actionFrame, this);
 
             }
@@ -177,12 +204,18 @@ public class Player extends Object {
                 this.currentAction = 9;
                 // System.out.println("up smash");
                 this.actionFrame += 1;
+                if(actionFrame == 1){
+                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(.6f);
+                }
                 return character.getHitbox(this.facingRight, this.x, this.y, this.currentAction, this.actionFrame, this);
 
             }
             if (this.input[4] == 1 || this.currentAction == 10) {
                 this.currentAction = 10;
                 // System.out.println("jab");
+                if(actionFrame == 0){
+                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(.6f);
+                }
                 this.actionFrame += 1;
                 return character.getHitbox(this.facingRight, this.x, this.y, this.currentAction, this.actionFrame, this);
             }
@@ -259,48 +292,63 @@ public class Player extends Object {
                 // needs development
             }
         } else {
-            if (Gdx.input.isKeyPressed(Input.Keys.W)) this.input[1] = -1;
-            if (Gdx.input.isKeyPressed(Input.Keys.A)) this.input[0] = -1;
-            if (Gdx.input.isKeyPressed(Input.Keys.S)) this.input[1] = 1;
-            if (Gdx.input.isKeyPressed(Input.Keys.D)) this.input[0] = 1; 
-            if(Gdx.input.isKeyPressed(Input.Keys.S)!= true && Gdx.input.isKeyPressed(Input.Keys.W)!= true){
+            if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+                this.input[1] = -1;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+                this.input[0] = -1;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+                this.input[1] = 1;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+                this.input[0] = 1;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.S) != true && Gdx.input.isKeyPressed(Input.Keys.W) != true) {
                 this.input[1] = 0;
             }
-            if(Gdx.input.isKeyPressed(Input.Keys.A)!= true && Gdx.input.isKeyPressed(Input.Keys.D)!= true){
+            if (Gdx.input.isKeyPressed(Input.Keys.A) != true && Gdx.input.isKeyPressed(Input.Keys.D) != true) {
                 this.input[0] = 0;
-            } 
-            
-            if (Gdx.input.isKeyPressed(Input.Keys.UP)) this.input[3] = -1;
-            if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) this.input[2] = -1;
-            if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) this.input[3] = 1;
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) this.input[2] = 1;
-            
-            if(Gdx.input.isKeyPressed(Input.Keys.DOWN)!= true && Gdx.input.isKeyPressed(Input.Keys.UP)!= true){
+            }
+
+            if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+                this.input[3] = -1;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+                this.input[2] = -1;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+                this.input[3] = 1;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+                this.input[2] = 1;
+            }
+
+            if (Gdx.input.isKeyPressed(Input.Keys.DOWN) != true && Gdx.input.isKeyPressed(Input.Keys.UP) != true) {
                 this.input[3] = 0;
             }
-            if(Gdx.input.isKeyPressed(Input.Keys.LEFT)!= true && Gdx.input.isKeyPressed(Input.Keys.RIGHT)!= true){
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) != true && Gdx.input.isKeyPressed(Input.Keys.RIGHT) != true) {
                 this.input[2] = 0;
             }
             this.directionL = getDirection(this.input[0], this.input[1]);
             this.directionR = getDirection(this.input[2], this.input[3]);
-            if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+            if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
                 this.input[14] = 1;
             } else {
                 this.input[14] = 0;
             }
-            
-            
-            if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){
+
+            if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
                 this.input[13] = 1;
-            }else{
+            } else {
                 this.input[13] = 0;
             }
-            
-            if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+
+            if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
                 this.input[6] = 1;
                 this.input[7] = 1;
-            
-            }else{
+
+            } else {
                 this.input[6] = 0;
                 this.input[7] = 0;
             }
@@ -308,12 +356,13 @@ public class Player extends Object {
             Gdx.input.isKeyPressed(Input.Keys.DOWN);
             Gdx.input.isKeyPressed(Input.Keys.TAB);
             Gdx.input.isKeyPressed(Input.Keys.ESCAPE);
-            
+
             double mToPX = Gdx.input.getX() - x;
             double mToPY = Gdx.input.getY() - y;
         }
     }
-    public void giveCharacter(Character C){
+
+    public void giveCharacter(Character C) {
         this.MaxFall = C.MaxFall;
         this.MaxRun = C.MaxRun;
         this.ObjA = C.ObjA;
