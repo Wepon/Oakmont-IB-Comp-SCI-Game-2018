@@ -280,19 +280,14 @@ public class Character {
             }
         }
         if (action == 5) {
-            if (frame < 10) {
+            if (frame < 1) {
                 Hitbox[] Harr = new Hitbox[1];
-                Harr[0] = new Hitbox(x + (p.character.Width / 2), y + (p.character.Height / 2), 30, 90, 30, p);
-                return Harr;
-            }
-            if (frame < 10 && frame >= 10) {
-                Hitbox[] Harr = new Hitbox[1];
-                Harr[0] = new Hitbox(x + (p.character.Width / 2), y + (p.character.Height / 2), 200, 90, 30, p);
-                return Harr;
-            }
-            if (frame < 30 && frame >= 20) {
-                Hitbox[] Harr = new Hitbox[1];
-                Harr[0] = new Hitbox(x + (p.character.Width / 2), y + (p.character.Height / 2), 300, 90, 30, p);
+                if(facingRight == false){
+                    Harr[0] = new Hitbox(x + (p.character.Width / 2), y + (p.character.Height / 2), 30, 90, 30, p, -10.0);
+                }
+                if(facingRight){
+                    Harr[0] = new Hitbox(x + (p.character.Width / 2), y + (p.character.Height / 2), 30, 90, 30, p, 10.0);
+                }
                 return Harr;
             }
         }

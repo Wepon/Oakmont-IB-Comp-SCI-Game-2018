@@ -323,6 +323,13 @@ public class Player extends Object {
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
                 this.input[2] = 1;
             }
+            
+            if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT)) {
+                this.input[4] = 1;
+            }else{
+                this.input[4] = 0;
+            }
+            
 
             if (Gdx.input.isKeyPressed(Input.Keys.DOWN) != true && Gdx.input.isKeyPressed(Input.Keys.UP) != true) {
                 this.input[3] = 0;

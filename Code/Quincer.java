@@ -20,5 +20,6 @@ public class Quincer extends Character {
         this.ObjA = 3;
         this.imgHeightBuffer = 9;
         this.imgHeight = 40;
+        this.Width = 120;
     }
 }

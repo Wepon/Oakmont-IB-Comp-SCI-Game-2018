@@ -35,8 +35,16 @@ public class World {
         checkDeath();
         CheckPhysicsCollisions();
         checkLedgeGrab();
+
         for (int i = 0; i < MoveHitBoxes.length; i++) {
-            MoveHitBoxes[i] = null;
+            if (MoveHitBoxes[i] != null) {
+                if (MoveHitBoxes[i].velocity == 0) {
+                    MoveHitBoxes[i] = null;
+                }
+                if(Math.abs(MoveHitBoxes[i].velocity) > 0){
+                    MoveHitBoxes[i].x +=  MoveHitBoxes[i].velocity;
+                }
+            }
         }
 
         MoveSize = 0;
@@ -49,22 +57,22 @@ public class World {
         for (Player Player : this.Players) {
             Player.inputUpdate();
         }
-        for(Player pself: this.Players){
+        for (Player pself : this.Players) {
             this.othersum = 0;
-            for(Player pcheck2: this.Players){
-                if(pself.playernum != pcheck2.playernum && pcheck2.stock > -1){
+            for (Player pcheck2 : this.Players) {
+                if (pself.playernum != pcheck2.playernum && pcheck2.stock > -1) {
                     this.othersum += pcheck2.stock;
                 }
             }
-            if(pself.stock > 0 && this.othersum == 0 && this.game.gamestate == 1){
-                    this.game.gamestate = 2;
-                    break;
-                }
+            if (pself.stock > 0 && this.othersum == 0 && this.game.gamestate == 1) {
+                this.game.gamestate = 2;
+                break;
+            }
         }
-        
+
         for (Player Player : this.Players) {
             if (Player.input[14] == 1) {
-                
+
                 for (Player p : this.Players) {
                     p.stock = 3;
                     p.x = 0;
@@ -84,7 +92,7 @@ public class World {
                 PlayerHitBoxes[count++] = h[j];
             }
         }
-        
+
     }
 
     public void CheckPhysicsCollisions() {
@@ -120,17 +128,17 @@ public class World {
 
                 if (h == null || h2 == null || (h2.player != null && h2.player != h.player)) {
                     continue;
-                }else {
+                } else {
                     h2.addPlayer(null);
                 }
-                
+
                 if (h.hitboxCollision(h2) != null) {
                     if (h.player.facingRight) {
-                        h.player.x = h2.x - (4*(h.player.character.Width/6));
+                        h.player.x = h2.x - (4 * (h.player.character.Width / 6));
                         h.player.y = h2.y - h.player.character.Height;
                     }
                     if (h.player.facingRight != true) {
-                        h.player.x = h2.x - (2*(h.player.character.Width/6));
+                        h.player.x = h2.x - (2 * (h.player.character.Width / 6));
                         h.player.y = h2.y - h.player.character.Height;
                     }
                     h.player.vy = 0;
@@ -151,8 +159,8 @@ public class World {
             if (Player.x > 1800 || Player.x < -400 || Player.y < -400 || Player.y > 1200) {
                 Player.stock--;
                 // Takes the xy coords of the Stage's respawn 
-                Player.x = Stage.RespawnLoc[Player.playernum-1][0]; // difference of one between array starting index and playernumber 
-                Player.y = Stage.RespawnLoc[Player.playernum-1][1];
+                Player.x = Stage.RespawnLoc[Player.playernum - 1][0]; // difference of one between array starting index and playernumber 
+                Player.y = Stage.RespawnLoc[Player.playernum - 1][1];
                 Player.vx = 0;
                 Player.vy = 0;
                 Player.ax = 0;
