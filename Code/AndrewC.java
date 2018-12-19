@@ -12,7 +12,7 @@ package com.mygdx.game;
 public class AndrewC extends Character {
 
     public AndrewC() {
-        this.name = "MatthewC";
+        this.name = "Andrew";
     }
     
 }

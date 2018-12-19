@@ -40,7 +40,7 @@ public class Nima extends Character {
 
     @Override
     public Sprite getAnimation(boolean facingRight, int action, float stateTime, Player p) {
-        img = new Texture(this.name + ".png");
+        img = new Texture("sprites/" + this.name + ".png");
         //
         try {
             tmp = TextureRegion.split(img, this.imgWidth, this.imgHeight - 6); // all players are levitating 6 pixels above ground
