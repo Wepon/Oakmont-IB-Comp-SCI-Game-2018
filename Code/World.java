@@ -12,7 +12,7 @@ public class World {
     int count = 0;
     public int MoveSize = 0;
     public Hitbox[] PlayerHitBoxes = new Hitbox[26];
-    public Hitbox[] MoveHitBoxes = new Hitbox[26];
+    public Hitbox[] MoveHitBoxes = new Hitbox[100];
     public GStage Stage = null;
 
     public boolean runGame = true;
@@ -38,11 +38,13 @@ public class World {
 
         for (int i = 0; i < MoveHitBoxes.length; i++) {
             if (MoveHitBoxes[i] != null) {
-                if (MoveHitBoxes[i].velocity == 0) {
+                if (MoveHitBoxes[i].velocity != true) {
                     MoveHitBoxes[i] = null;
-                }
-                if(Math.abs(MoveHitBoxes[i].velocity) > 0){
-                    MoveHitBoxes[i].x +=  MoveHitBoxes[i].velocity;
+                } else {
+                    MoveHitBoxes[i].x += MoveHitBoxes[i].velocityNum;
+                    if (MoveHitBoxes[i].x > 1800 || MoveHitBoxes[i].x < -400 || MoveHitBoxes[i].y < -400 || MoveHitBoxes[i].y > 1200) {
+                        MoveHitBoxes[i].velocity = false;
+                    }
                 }
             }
         }
@@ -83,7 +85,6 @@ public class World {
         }
         for (int x = 0; x < this.Players.length; x++) {
             addMove(this.Players[x].playerAction());
-
         }
         for (int i = 0; i < this.Players.length; i++) {
             Hitbox[] h = this.Players[i].character.playerHitbox(this.Players[i]);
@@ -100,12 +101,18 @@ public class World {
             for (Hitbox Move : MoveHitBoxes) {
                 if (Player != null && Move != null) {
                     if (Player.hitboxCollision(Move) != null) {
+
                         Player.player.addForce(Move.force, Move.angle);
                         Player.player.canGrabLedge = false;
                         Player.player.onLedge = false;
                         Player.player.ledgeCooldown = Player.player.ledgeCooldownLength;
                         MyGdxGame.manager.get("Punch.mp3", Sound.class).play(1.0f);
+                        // logic for ranged attacks // they will be removed the next world loop by not having a velocity
+                        if (Move.velocity == true) {
+                            Move.velocity = false; // removes the velocity from the hitbox
+                        }
                         break;
+
                     }
                 }
             }
@@ -117,8 +124,14 @@ public class World {
             return;
         }
         for (int x = 0; x < h.length; x++) {
-            MoveHitBoxes[MoveSize] = h[x];
-            MoveSize += 1;
+            while (true) {
+                if (MoveHitBoxes[MoveSize] == null) {
+                    MoveHitBoxes[MoveSize] = h[x];
+                    break;
+                }
+                MoveSize += 1;
+            }
+
         }
     }
 

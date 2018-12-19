@@ -6,7 +6,8 @@ package com.mygdx.game;
  */
 public class Hitbox {
 
-    public double velocity;
+    boolean velocity;
+    int velocityNum;
 
     public Hitbox(double x, double y, double radius, int angle, int force, Player player) {
         this.x = x;
@@ -17,7 +18,7 @@ public class Hitbox {
         this.player = player;
     }
 
-    public Hitbox(double x, double y, double radius, int angle, int force, Player player, double velocity) {
+    public Hitbox(double x, double y, double radius, int angle, int force, Player player, boolean velocity, int velocityNum) {
         this.x = x;
         this.y = y;
         this.r = radius;
@@ -25,6 +26,7 @@ public class Hitbox {
         this.force = force;
         this.player = player;
         this.velocity = velocity;
+        this.velocityNum = velocityNum;
     }
     
     public Hitbox(double x, double y, double radius, int angle, int force) {

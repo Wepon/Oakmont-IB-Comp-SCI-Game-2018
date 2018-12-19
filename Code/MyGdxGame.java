@@ -69,6 +69,8 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
     public int NUMOFSTOCKS = 3;
     public Music epicSelectionMusic;
     public static AssetManager manager;
+    public Texture fireball;
+    private Sprite fireballsprite;
 
     @Override
     public void create() {
@@ -78,7 +80,6 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         epicSelectionMusic = Gdx.audio.newMusic(Gdx.files.internal("titlescreen.mp3"));
         epicMusic.setLooping(true);
         epicSelectionMusic.setLooping(true);
-
         manager = new AssetManager();
 
         manager.load("Punch.mp3", Sound.class);
@@ -95,6 +96,10 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         font.getData().setScale(5);
         // Background Animation Frame Start
         tmp = TextureRegion.split(Backroud, Backroud.getWidth() / 2, Backroud.getHeight() / 4);
+        
+        fireball = new Texture("sprites/fireball.png");
+        fireballsprite = new Sprite(fireball);
+
         TextureRegion[] bgFrames = new TextureRegion[8];
         int index = 0;
         for (int i = 0; i < 4; i++) {
@@ -119,7 +124,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
 
         }
         heads = new Texture("heads.png");
-        headsArr = TextureRegion.split(heads,12,12);
+        headsArr = TextureRegion.split(heads, 12, 12);
         // player settings
 
         // player1.addController(Controllers.getControllers().get(0));
@@ -134,6 +139,7 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         Gdx.gl.glClearColor(0, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
+        
         epicMusic.pause();
         if (this.numOfPlayers == 1) {
             player1.addController(Controllers.getControllers().get(0));
@@ -157,10 +163,11 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         }
         if (this.gamestate == 0) {
             epicSelectionMusic.play();
+            
             batch.draw(selectionscreen, 0, 0, screenSize.width, screenSize.height);
             int ind = 1;
-            for(int i = 1; i < this.CharactersHitboxes.length; i++){
-                batch.draw(headsArr[0][ind++],(float)this.CharactersHitboxes[i].x - 50, (float)this.CharactersHitboxes[i].y - 50, 100, 100);
+            for (int i = 1; i < this.CharactersHitboxes.length; i++) {
+                batch.draw(headsArr[0][ind++], (float) this.CharactersHitboxes[i].x - 50, (float) this.CharactersHitboxes[i].y - 50, 100, 100);
             }
             int count = 0;
             for (Player p : Pe) {
@@ -272,14 +279,13 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
 //                        batch.draw(hitbox, (int) this.CharactersHitboxes[i].x - (int) this.CharactersHitboxes[i].r, (int) this.CharactersHitboxes[i].y - (int) this.CharactersHitboxes[i].r, (int) this.CharactersHitboxes[i].r * 2, (float) this.CharactersHitboxes[i].r * 2);
 //                    }
 //                }
-
             }
         }
 
         // update current inputs for all players
         if (this.gamestate == 1) {
             epicMusic.play();
-            epicMusic.setVolume(50);
+            epicMusic.setVolume(25);
             World.WorldStep();
             stateTime += Gdx.graphics.getDeltaTime();
             batch.draw(bgAnimation.getKeyFrame(stateTime, true), 0, 0, screenSize.width, screenSize.height);
@@ -313,28 +319,46 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
                 font.setColor(255, 255, 255, 255);
                 font.draw(batch, "Lives: " + World.Players[i].stock, 100 + 300 * i, 675);
             }
-            // draw hitboxes debug
             for (int i = 0; i < World.MoveHitBoxes.length; i++) {
                 if (World.MoveHitBoxes[i] != null) {
-                    batch.draw(hitbox, (int) World.MoveHitBoxes[i].x - (int) World.MoveHitBoxes[i].r, (int) World.MoveHitBoxes[i].y - (int) World.MoveHitBoxes[i].r, (int) World.MoveHitBoxes[i].r * 2, (float) World.MoveHitBoxes[i].r * 2);
+                    if (World.MoveHitBoxes[i].velocity) {
+                        if (World.MoveHitBoxes[i].velocityNum < 0) {
+                            fireballsprite.flip(true, false);
+                        }
+                        batch.draw(fireballsprite, (int) World.MoveHitBoxes[i].x - (int) World.MoveHitBoxes[i].r, (int) World.MoveHitBoxes[i].y - (int) World.MoveHitBoxes[i].r, 128, 32);
+                        if (World.MoveHitBoxes[i].velocityNum < 0) {
+                            fireballsprite.flip(true, false);
+                        }
+                    }
                 }
             }
-            for (int i = 0; i < World.GrabHitBoxes.length; i++) {
-                if (World.GrabHitBoxes[i] != null) {
-                    batch.draw(hitbox, (int) World.GrabHitBoxes[i].x - (int) World.GrabHitBoxes[i].r, (int) World.GrabHitBoxes[i].y - (int) World.GrabHitBoxes[i].r, (int) World.GrabHitBoxes[i].r * 2, (float) World.GrabHitBoxes[i].r * 2);
-                }
-            }
-            for (int i = 0; i < World.Stage.Ledges.length; i++) {
-                if (World.Stage.Ledges[i] != null) {
-                    batch.draw(hitbox, (int) World.Stage.Ledges[i].x - (int) World.Stage.Ledges[i].r, (int) World.Stage.Ledges[i].y - (int) World.Stage.Ledges[i].r, (int) World.Stage.Ledges[i].r * 2, (float) World.Stage.Ledges[i].r * 2);
-                }
-            }
-            // draw player hitboxes
-            for (int i = 0; i < World.PlayerHitBoxes.length; i++) {
-                if (World.PlayerHitBoxes[i] != null) {
-                    batch.draw(hitbox, (int) World.PlayerHitBoxes[i].x - (int) World.PlayerHitBoxes[i].r, (int) World.PlayerHitBoxes[i].y - (int) World.PlayerHitBoxes[i].r, (int) World.PlayerHitBoxes[i].r * 2, (float) World.PlayerHitBoxes[i].r * 2);
-                }
-            }
+//            // draw hitboxes debug
+//            for (int i = 0; i < World.MoveHitBoxes.length; i++) {
+//                if (World.MoveHitBoxes[i] != null) {
+//                    batch.draw(hitbox, (int) World.MoveHitBoxes[i].x - (int) World.MoveHitBoxes[i].r, (int) World.MoveHitBoxes[i].y - (int) World.MoveHitBoxes[i].r, (int) World.MoveHitBoxes[i].r * 2, (float) World.MoveHitBoxes[i].r * 2);
+//                }
+//            }
+//            for (int i = 0; i < World.GrabHitBoxes.length; i++) {
+//                if (World.GrabHitBoxes[i] != null) {
+//                    batch.draw(hitbox, (int) World.GrabHitBoxes[i].x - (int) World.GrabHitBoxes[i].r, (int) World.GrabHitBoxes[i].y - (int) World.GrabHitBoxes[i].r, (int) World.GrabHitBoxes[i].r * 2, (float) World.GrabHitBoxes[i].r * 2);
+//                }
+//            }
+//            for (int i = 0; i < World.Stage.Ledges.length; i++) {
+//                if (World.Stage.Ledges[i] != null) {
+//                    batch.draw(hitbox, (int) World.Stage.Ledges[i].x - (int) World.Stage.Ledges[i].r, (int) World.Stage.Ledges[i].y - (int) World.Stage.Ledges[i].r, (int) World.Stage.Ledges[i].r * 2, (float) World.Stage.Ledges[i].r * 2);
+//                }
+//            }
+//            // draw player hitboxes
+//            for (int i = 0; i < World.PlayerHitBoxes.length; i++) {
+//                if (World.PlayerHitBoxes[i] != null) {
+//                    if (World.PlayerHitBoxes[i].velocity != true) {
+//                        batch.draw(hitbox, (int) World.PlayerHitBoxes[i].x - (int) World.PlayerHitBoxes[i].r, (int) World.PlayerHitBoxes[i].y - (int) World.PlayerHitBoxes[i].r, (int) World.PlayerHitBoxes[i].r * 2, (float) World.PlayerHitBoxes[i].r * 2);
+//                    }
+//                    if(World.PlayerHitBoxes[i].velocity){
+//                        batch.draw(hitbox, (int) World.PlayerHitBoxes[i].x - (int) World.PlayerHitBoxes[i].r, (int) World.PlayerHitBoxes[i].y - (int) World.PlayerHitBoxes[i].r, (int) World.PlayerHitBoxes[i].r * 2, (float) World.PlayerHitBoxes[i].r * 2);
+//                    }
+//                }
+//            }
         }
 //
         if (this.gamestate == 2) {
@@ -382,6 +406,9 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
         CharacterSelect.img.dispose();
         epicSelectionMusic.dispose();
         manager.dispose();
+        fireball.dispose();
+        heads.dispose();
+
         //
     }
 

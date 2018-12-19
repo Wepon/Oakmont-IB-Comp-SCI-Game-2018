@@ -88,7 +88,7 @@ public class Player extends Object {
         if (this.input[1] > .1 && this.onLedge && this.canGrabLedge) {
             if (this.directionL == "N" && this.jumpsLeft > 0) {
                 jump(this.character.jumpEnergy);
-                MyGdxGame.manager.get("Jump.mp3", Sound.class).play(1.0f);
+                MyGdxGame.manager.get("Jump.mp3", Sound.class).play(2f);
                 this.jumpsLeft--;
             }
             if (this.onLedge && this.canGrabLedge) {
@@ -105,7 +105,7 @@ public class Player extends Object {
         }
         if ((this.input[6] == 1 || this.input[7] == 1) && this.jumpsLeft > 0 && this.heldJump == 0) {
             jump(this.character.jumpEnergy);
-            MyGdxGame.manager.get("Jump.mp3", Sound.class).play(1.0f);
+            MyGdxGame.manager.get("Jump.mp3", Sound.class).play(2f);
 
             if (this.onLedge && this.canGrabLedge) {
                 this.canGrabLedge = false;
@@ -125,7 +125,7 @@ public class Player extends Object {
                 this.currentAction = 1;
                 this.actionFrame += 1;
                 if(actionFrame == 1){
-                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(.6f);
+                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(2f);
                 }
                 return character.getHitbox(this.facingRight, this.x, this.y, this.currentAction, this.actionFrame, this);
 
@@ -135,7 +135,7 @@ public class Player extends Object {
                 this.currentAction = 2;
                 this.actionFrame += 1;
                 if(actionFrame == 1){
-                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(.6f);
+                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(2f);
                 }
                 return character.getHitbox(this.facingRight, this.x, this.y, this.currentAction, this.actionFrame, this);
             }
@@ -144,7 +144,7 @@ public class Player extends Object {
                 this.currentAction = 3;
                 this.actionFrame += 1;
                 if(actionFrame == 1){
-                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(.6f);
+                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(2f);
                 }
                 return character.getHitbox(this.facingRight, this.x, this.y, this.currentAction, this.actionFrame, this);
 
@@ -154,7 +154,7 @@ public class Player extends Object {
                 // System.out.println("up air");
                 this.actionFrame += 1;
                 if(actionFrame == 1){
-                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(.6f);
+                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(2f);
                 }
                 return character.getHitbox(this.facingRight, this.x, this.y, this.currentAction, this.actionFrame, this);
 
@@ -164,7 +164,7 @@ public class Player extends Object {
                 // System.out.println("neutral air");
                 this.actionFrame += 1;
                 if(actionFrame == 1){
-                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(.6f);
+                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(2f);
                 }
                 return character.getHitbox(this.facingRight, this.x, this.y, this.currentAction, this.actionFrame, this);
 
@@ -175,7 +175,7 @@ public class Player extends Object {
                 this.currentAction = 6;
                 this.actionFrame += 1;
                 if(actionFrame == 1){
-                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(.6f);
+                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(2f);
                 }
                 return character.getHitbox(this.facingRight, this.x, this.y, this.currentAction, this.actionFrame, this);
 
@@ -185,7 +185,7 @@ public class Player extends Object {
                 this.currentAction = 7;
                 this.actionFrame += 1;
                 if(actionFrame == 1){
-                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(.6f);
+                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(2f);
                 }
                 return character.getHitbox(this.facingRight, this.x, this.y, this.currentAction, this.actionFrame, this);
             }
@@ -195,7 +195,7 @@ public class Player extends Object {
                 this.currentAction = 8;
                 this.actionFrame += 1;
                 if(actionFrame == 1){
-                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(.6f);
+                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(2f);
                 }
                 return character.getHitbox(this.facingRight, this.x, this.y, this.currentAction, this.actionFrame, this);
 
@@ -205,7 +205,8 @@ public class Player extends Object {
                 // System.out.println("up smash");
                 this.actionFrame += 1;
                 if(actionFrame == 1){
-                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(.6f);
+                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(2f);
+                    
                 }
                 return character.getHitbox(this.facingRight, this.x, this.y, this.currentAction, this.actionFrame, this);
 
@@ -214,7 +215,7 @@ public class Player extends Object {
                 this.currentAction = 10;
                 // System.out.println("jab");
                 if(actionFrame == 0){
-                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(.6f);
+                    MyGdxGame.manager.get("Jump_Punch.mp3", Sound.class).play(2f);
                 }
                 this.actionFrame += 1;
                 return character.getHitbox(this.facingRight, this.x, this.y, this.currentAction, this.actionFrame, this);

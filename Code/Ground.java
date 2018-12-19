@@ -20,8 +20,6 @@ public class Ground {
     }
 
     public boolean IsGrounded(double x, double y, double width) {
-        //return ((x <= this.x + this.W && x >= this.x && y >= this.y && y <= this.y + this.H) || (x + width <= this.x + this.W && x + width >= this.x && y >= this.y && y <= this.y + this.H));
-
         return (x + 63 <= this.x + this.W && x + 63 >= this.x && y >= this.y && y <= this.y + this.H);
     }
 }
