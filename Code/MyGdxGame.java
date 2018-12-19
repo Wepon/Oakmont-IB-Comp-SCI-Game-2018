@@ -51,8 +51,8 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
     TextureRegion[][] tmp;
     Animation animation;
     //
-    int Keyboard = 2;
-    public int numOfPlayers = 0;
+    static int Keyboard = 0;
+    public static int numOfPlayers = 0;
     //
     public int gamestate = 0;
     int[] characters = new int[19];
@@ -74,6 +74,10 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
 
     @Override
     public void create() {
+        
+        
+        
+        
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         Backroud = new Texture("FirstMap.png");
         epicMusic = Gdx.audio.newMusic(Gdx.files.internal("song.mp3"));
@@ -121,17 +125,14 @@ public class MyGdxGame extends ApplicationAdapter implements ControllerListener 
             for (int i = (j * 6); i < this.CharactersHitboxes.length - 1; i++) {
                 this.CharactersHitboxes[i + 1] = new Hitbox((2.75 * this.screenSize.width / 12) + ((i % 6) * (1.2 * this.screenSize.width / 12)), (3.5 * this.screenSize.height / 6) - (j * (.65 * this.screenSize.height / 6)), 55, 0, 0);
             }
-
         }
         heads = new Texture("heads.png");
         headsArr = TextureRegion.split(heads, 12, 12);
         // player settings
-
         // player1.addController(Controllers.getControllers().get(0));
         // player2.addController(Controllers.getControllers().get(1));
         // player3.addController(Controllers.getControllers().get(2));
         // player4.addController(Controllers.getControllers().get(3));
-        //
     }
 
     @Override
